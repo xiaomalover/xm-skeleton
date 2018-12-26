@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    config:
+      profile: dev
+      label: master
+      uri: http://localhost:8888/
+  application:
+    name: order-server
+  rabbitmq:
+    password: guest
+    port: 5672
+    host: localhost
+    username: guest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

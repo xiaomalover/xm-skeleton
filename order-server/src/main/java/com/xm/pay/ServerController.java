@@ -32,14 +32,14 @@ public class ServerController {
         return serverService.HelloServer1(testStr);
     }
 
-    //调用了server-2的  HelloServer2接口
+    //调用了pay-server的  HelloServer2接口
     @GetMapping("/HelloServer2")
     public String HelloServer2(){
         logger.info("===<call trace-1>===");
         return feignService.HelloServer2("hi");
     }
 
-    //调用了server-2的  HelloServer2接口
+    //调用了pay-server的  HelloServer2接口
     @GetMapping("/HelloServer3")
     @HystrixCommand(fallbackMethod = "Error")
     public String HelloServer3(){
