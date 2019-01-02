@@ -1,0 +1,14 @@
+package ${entity.daoPackage};
+
+import com.xm.admin.base.BaseDao;
+import com.xm.admin.modules.base.entity.${entity.className};
+
+import java.util.List;
+
+/**
+ * ${entity.description}数据处理层
+ * @author ${entity.author}
+ */
+public interface ${entity.className}Dao extends BaseDao<${entity.className},${entity.primaryKeyType}> {
+
+}
