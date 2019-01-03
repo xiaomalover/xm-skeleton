@@ -24,7 +24,6 @@ public class JobWithParam implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-
-        log.info(String.format("Hello %s! 测试任务执行了 时间:"+ DateUtil.now(), this.parameter));
+        log.info("有参测试任务执行了， 参数:{}  时间:{}", this.parameter, DateUtil.now());
     }
 }
