@@ -5,7 +5,7 @@ export const loginRouter = {
     path: '/login',
     name: 'login',
     meta: {
-        title: '登录 - Mozi前后端分离开发平台 '
+        title: '登录 - Skeleton前后端分离开发平台 '
     },
     component: () => import('@/views/login.vue')
 };

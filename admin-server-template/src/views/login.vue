@@ -43,7 +43,7 @@
     <Row class="foot">
 
       <Row type="flex" justify="center" class="code-row-bg copyright">
-        Copyright © 2018 <a href="#" target="_blank" style="margin:0 5px;">Mozi</a> 版权所有
+        Copyright © 2018 <a href="#" target="_blank" style="margin:0 5px;">xiaomalover</a> 版权所有
       </Row>
     </Row>
     </Col>

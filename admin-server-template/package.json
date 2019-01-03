@@ -2,7 +2,7 @@
   "name": "com-xm-admin-front",
   "version": "0.1.0",
   "description": "Skeleton管理后台前端",
-  "author": "Mozi Team",
+  "author": "xiaomalover",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
