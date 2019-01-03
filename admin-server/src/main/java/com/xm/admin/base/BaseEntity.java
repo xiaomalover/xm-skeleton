@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * 此实体额外加了字段(创建时间，更新时间，创建人，修改人)
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data

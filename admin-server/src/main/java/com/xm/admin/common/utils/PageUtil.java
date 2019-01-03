@@ -14,7 +14,7 @@ public class PageUtil {
 
     public static Pageable initPage(PageVo page){
 
-        Pageable pageable=null;
+        Pageable pageable;
         int pageNumber=page.getPageNumber();
         int pageSize=page.getPageSize();
         String sort=page.getSort();

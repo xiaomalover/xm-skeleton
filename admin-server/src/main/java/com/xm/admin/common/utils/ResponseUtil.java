@@ -37,23 +37,22 @@ public class ResponseUtil {
     }
 
     public static Map<String, Object> resultMap(boolean flag, Integer code, String msg){
-
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("success", flag);
-        resultMap.put("message", msg);
-        resultMap.put("code", code);
-        resultMap.put("timestamp", System.currentTimeMillis());
-        return resultMap;
+        return getBasicResultMap(flag, code, msg);
     }
 
     public static Map<String, Object> resultMap(boolean flag, Integer code, String msg, Object data){
+        Map<String, Object> resultMap = getBasicResultMap(flag, code, msg);
+        resultMap.put("result", data);
+        return resultMap;
+    }
 
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+    private static  Map<String, Object> getBasicResultMap(boolean flag, Integer code, String msg)
+    {
+        Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("success", flag);
         resultMap.put("message", msg);
         resultMap.put("code", code);
         resultMap.put("timestamp", System.currentTimeMillis());
-        resultMap.put("result", data);
         return resultMap;
     }
 }

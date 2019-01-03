@@ -83,54 +83,23 @@ public class CaptchaUtil {
      * 生成图片
      */
     private void createImage() {
-        // 字体的宽度
-        int fontWidth = width / codeCount;
-        // 字体的高度
-        int fontHeight = height - 5;
-        int codeY = height - 8;
-
-        // 图像buffer
-        buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics g = buffImg.getGraphics();
-        //Graphics2D g = buffImg.createGraphics();
-        // 设置背景色
-        g.setColor(getRandColor(200, 250));
-        g.fillRect(0, 0, width, height);
-
-        // 设置字体
-        //Font font1 = getFont(fontHeight);
-        Font font = new Font("Fixedsys", Font.BOLD, fontHeight);
-        g.setFont(font);
-
-        // 设置干扰线
-        setSomeLines(g);
-
-        // 添加噪点
-        float yawpRate = 0.01f;// 噪声率
-        int area = (int) (yawpRate * width * height);
-        for (int i = 0; i < area; i++) {
-            int x = random.nextInt(width);
-            int y = random.nextInt(height);
-
-            buffImg.setRGB(x, y, random.nextInt(255));
-        }
-
-        String str1 = randomStr(codeCount);// 得到随机字符
-        this.code = str1;
-        for (int i = 0; i < codeCount; i++) {
-            String strRand = str1.substring(i, i + 1);
-            g.setColor(getRandColor(1, 255));
-            // g.drawString(a,x,y);
-            // a为要画出来的东西，x和y表示要画的东西最左侧字符的基线位于此图形上下文坐标系的 (x, y) 位置处
-            g.drawString(strRand, i * fontWidth + 3, codeY);
-        }
-
+        String code = randomStr(codeCount); // 得到随机字符
+        doCreate(code);
     }
 
     /**
      * 生成指定字符图片
      */
     private void createImage(String code) {
+        doCreate(code);
+    }
+
+    /**
+     * 生成验证码图片
+     *
+     * @param code 验证码
+     */
+    private void doCreate(String code) {
         // 字体的宽度
         int fontWidth = width / codeCount;
         // 字体的高度
@@ -164,14 +133,13 @@ public class CaptchaUtil {
         }
 
         this.code = code;
-        for (int i = 0; i < code.length(); i++) {
+        for (int i = 0; i < codeCount; i++) {
             String strRand = code.substring(i, i + 1);
             g.setColor(getRandColor(1, 255));
             // g.drawString(a,x,y);
             // a为要画出来的东西，x和y表示要画的东西最左侧字符的基线位于此图形上下文坐标系的 (x, y) 位置处
             g.drawString(strRand, i * fontWidth + 3, codeY);
         }
-
     }
 
     private void setSomeLines(Graphics g) {
@@ -229,7 +197,7 @@ public class CaptchaUtil {
      */
     private Font getFont(int size) {
         Random random = new Random();
-        Font font[] = new Font[5];
+        Font[] font = new Font[5];
         font[0] = new Font("Ravie", Font.PLAIN, size);
         font[1] = new Font("Antique Olive Compact", Font.PLAIN, size);
         font[2] = new Font("Fixedsys", Font.PLAIN, size);

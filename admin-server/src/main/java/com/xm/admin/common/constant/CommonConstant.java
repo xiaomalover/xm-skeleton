@@ -28,26 +28,6 @@ public interface CommonConstant {
     Integer USER_TYPE_NORMAL = 0;
 
     /**
-     * 管理员
-     */
-    Integer USER_TYPE_ADMIN = 1;
-
-    /**
-     * 性别男
-     */
-    Integer SEX_MAN = 0;
-
-    /**
-     * 性别女
-     */
-    Integer SEX_WOMAN = 1;
-
-    /**
-     * 性别保密
-     */
-    Integer SEX_SECRET = 2;
-
-    /**
      * 正常状态
      */
     Integer STATUS_NORMAL = 0;
@@ -56,16 +36,6 @@ public interface CommonConstant {
      * 禁用状态
      */
     Integer STATUS_DISABLE = -1;
-
-    /**
-     * 删除标志
-     */
-    Integer DEL_FLAG = 1;
-
-    /**
-     * 限流标识
-     */
-    String LIMIT_ALL = "MOZI_LIMIT_ALL";
 
     /**
      * 页面类型权限
@@ -96,8 +66,4 @@ public interface CommonConstant {
      * 3级菜单
      */
     Integer LEVEL_THREE = 3;
-
-    Integer STATUS_COMMON_ENABLE = 1;
-
-    Integer STATUS_COMMON_DISABLE = 0;
 }

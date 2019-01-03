@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
-@SuppressWarnings("ConstantConditions")
+@SuppressWarnings({"ConstantConditions", "unused"})
 @Component
 public class RedisUtil {
 
