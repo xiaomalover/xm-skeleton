@@ -1,4 +1,4 @@
-# Mozi钱包后台管理系统模板应用
+# 管理系统模板应用
 
 UI采用iview, 请参考网站 https://www.iviewui.com
 
