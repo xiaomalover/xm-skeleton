@@ -15,8 +15,10 @@
         <module>eureka-server</module>
         <module>order-server</module>
         <module>pay-server</module>
+        <module>api-server</module>
         <module>zuul-server</module>
         <module>admin-server</module>
+        <module>common-lib</module>
     </modules>
 
     <properties>
@@ -60,6 +62,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.20</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

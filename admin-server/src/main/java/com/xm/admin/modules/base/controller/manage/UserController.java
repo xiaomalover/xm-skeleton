@@ -2,9 +2,9 @@ package com.xm.admin.modules.base.controller.manage;
 
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.utils.PageUtil;
-import com.xm.admin.common.utils.ResultUtil;
+import com.xm.common.utils.ResultUtil;
 import com.xm.admin.common.vo.PageVo;
-import com.xm.admin.common.vo.Result;
+import com.xm.common.vo.Result;
 import com.xm.admin.common.vo.SearchVo;
 import com.xm.admin.modules.base.entity.Department;
 import com.xm.admin.modules.base.entity.Role;

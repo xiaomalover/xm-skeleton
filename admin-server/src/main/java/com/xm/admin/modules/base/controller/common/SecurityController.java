@@ -1,7 +1,7 @@
 package com.xm.admin.modules.base.controller.common;
 
-import com.xm.admin.common.utils.ResultUtil;
-import com.xm.admin.common.vo.Result;
+import com.xm.common.utils.ResultUtil;
+import com.xm.common.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

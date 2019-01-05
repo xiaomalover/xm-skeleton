@@ -1,8 +1,8 @@
 package com.xm.admin.modules.base.controller.manage;
 
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.common.utils.ResultUtil;
-import com.xm.admin.common.vo.Result;
+import com.xm.common.utils.ResultUtil;
+import com.xm.common.vo.Result;
 import com.xm.admin.config.security.permission.MySecurityMetadataSource;
 import com.xm.admin.modules.base.entity.Permission;
 import com.xm.admin.modules.base.entity.RolePermission;

@@ -1,7 +1,7 @@
 package com.xm.admin.config.exception;
 
-import com.xm.admin.common.utils.ResultUtil;
-import com.xm.admin.common.vo.Result;
+import com.xm.common.utils.ResultUtil;
+import com.xm.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

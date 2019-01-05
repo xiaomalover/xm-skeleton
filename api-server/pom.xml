@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>zuul-server</artifactId>
+	<artifactId>api-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>zuul-server</name>
-	<description>路由网关(zuul)</description>
+	<name>api-server</name>
+	<description>接口服务 (eureka client)</description>
 
 	<parent>
 		<groupId>com.xm</groupId>
@@ -17,10 +17,9 @@
 	</parent>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>com.xm</groupId>
-			<artifactId>common-lib</artifactId>
+        <dependency>
+            <groupId>com.xm</groupId>
+            <artifactId>common-lib</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -31,12 +30,12 @@
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
 
 		<!-- Redis-->
@@ -53,13 +52,15 @@
 			<version>1.16.20</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.54</version>
-		</dependency>
-
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
