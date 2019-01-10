@@ -88,7 +88,7 @@ CREATE TABLE `qrtz_fired_triggers` (
 /*Data for the table `qrtz_fired_triggers` */
 
 insert  into `qrtz_fired_triggers`(`SCHED_NAME`,`ENTRY_ID`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`INSTANCE_NAME`,`FIRED_TIME`,`SCHED_TIME`,`PRIORITY`,`STATE`,`JOB_NAME`,`JOB_GROUP`,`IS_NONCONCURRENT`,`REQUESTS_RECOVERY`) values 
-('quartzScheduler','NON_CLUSTERED1546423679087','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','NON_CLUSTERED',1546426295138,1546426300000,5,'ACQUIRED',NULL,NULL,'0','0');
+('quartzScheduler','NON_CLUSTERED1547091441087','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','NON_CLUSTERED',1547091615128,1547091620000,5,'ACQUIRED',NULL,NULL,'0','0');
 
 /*Table structure for table `qrtz_job_details` */
 
@@ -111,8 +111,8 @@ CREATE TABLE `qrtz_job_details` (
 /*Data for the table `qrtz_job_details` */
 
 insert  into `qrtz_job_details`(`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`,`JOB_DATA`) values 
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0\0x\0'),
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Testx\0');
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parameterpx\0'),
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
 
 /*Table structure for table `qrtz_locks` */
 
@@ -162,8 +162,8 @@ CREATE TABLE `qrtz_quartz_job` (
 /*Data for the table `qrtz_quartz_job` */
 
 insert  into `qrtz_quartz_job`(`id`,`created_at`,`created_by`,`updated_at`,`updated_by`,`cron_expression`,`description`,`job_class_name`,`parameter`,`status`) values 
-('92832657997565952','2019-01-02 18:16:11','','2019-01-02 18:17:40','','*/5 * * * * ?','无参测试任务','com.xm.admin.quartz.jobs.JobWithoutParam','',0),
-('92833003532718080','2019-01-02 18:17:33','','2019-01-02 18:17:48','','*/5 * * * * ?','带参定时任务','com.xm.admin.quartz.jobs.JobWithParam','Test',0);
+('95631859723014144','2019-01-10 11:39:13',NULL,'2019-01-10 11:39:13',NULL,'*/5 * * * * ?','无参测试任务','com.xm.admin.quartz.jobs.JobWithoutParam',NULL,0),
+('95632048328282112','2019-01-10 11:39:58',NULL,'2019-01-10 11:39:58',NULL,'*/5 * * * * ?','有参测试任务','com.xm.admin.quartz.jobs.JobWithParam','Test Job',0);
 
 /*Table structure for table `qrtz_scheduler_state` */
 
@@ -250,14 +250,14 @@ CREATE TABLE `qrtz_triggers` (
 /*Data for the table `qrtz_triggers` */
 
 insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values 
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,1546426300000,1546426295000,5,'ACQUIRED','CRON',1546424260000,0,NULL,0,''),
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,1546426300000,1546426295000,5,'WAITING','CRON',1546424268000,0,NULL,0,'');
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,1547091620000,1547091615000,5,'ACQUIRED','CRON',1547091553000,0,NULL,0,''),
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,1547091620000,1547091615000,5,'WAITING','CRON',1547091598000,0,NULL,0,'');
 
-/*Table structure for table `st_admin` */
+/*Table structure for table `sys_admin` */
 
-DROP TABLE IF EXISTS `st_admin`;
+DROP TABLE IF EXISTS `sys_admin`;
 
-CREATE TABLE `st_admin` (
+CREATE TABLE `sys_admin` (
   `id` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `avatar` varchar(1000) DEFAULT NULL,
@@ -280,17 +280,17 @@ CREATE TABLE `st_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_admin` */
+/*Data for the table `sys_admin` */
 
-insert  into `st_admin`(`id`,`address`,`avatar`,`description`,`email`,`mobile`,`nick_name`,`password`,`sex`,`status`,`type`,`username`,`department_id`,`street`,`pass_strength`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_admin`(`id`,`address`,`avatar`,`description`,`email`,`mobile`,`nick_name`,`password`,`sex`,`status`,`type`,`username`,`department_id`,`street`,`pass_strength`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('47599079840026624','[\"440000\",\"440300\",\"440305\"]','','','admin@iwallet.com','13888888888','','$2a$10$SCsBTmdrdN0Wvmsvx8xPtuyQ6uh05RlZgE4NZuX4VedxhUYHtTHTK',1,0,1,'admin','87336440425353216',NULL,NULL,'2018-08-30 22:34:06','','2019-01-02 18:11:39',''),
 ('87338083204206592','[\"440000\",\"440300\",\"440305\"]','','','a@b.com','13888888888','','$2a$10$rO5zHxTKJZI4iWEp9f6cLOgwZDoteB29Ba03farLwioAfdFxNOUQa',1,0,1,'skeleton','87336063856545792',NULL,NULL,'2018-12-18 14:22:43','','2019-01-02 18:11:24','');
 
-/*Table structure for table `st_admin_log` */
+/*Table structure for table `sys_admin_log` */
 
-DROP TABLE IF EXISTS `st_admin_log`;
+DROP TABLE IF EXISTS `sys_admin_log`;
 
-CREATE TABLE `st_admin_log` (
+CREATE TABLE `sys_admin_log` (
   `id` varchar(255) NOT NULL,
   `cost_time` int(11) DEFAULT NULL,
   `ip` varchar(255) DEFAULT NULL,
@@ -307,9 +307,9 @@ CREATE TABLE `st_admin_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_admin_log` */
+/*Data for the table `sys_admin_log` */
 
-insert  into `st_admin_log`(`id`,`cost_time`,`ip`,`ip_info`,`name`,`request_param`,`request_type`,`request_url`,`username`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_admin_log`(`id`,`cost_time`,`ip`,`ip_info`,`name`,`request_param`,`request_type`,`request_url`,`username`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('91268275308072960',1,'14.20.90.63',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"cww7\",\"saveLogin\":\"true\",\"captchaId\":\"60b05a1900eb4381a991cdf17774b310\",\"username\":\"mozi\"}','POST','/mozi/login','mozi','2018-12-29 10:39:54',NULL,'2018-12-29 10:39:54',NULL),
 ('91269185807585280',4,'14.20.90.63',NULL,'修改手机号','{\"address\":\"110000,110100,110105\",\"_index\":\"0\",\"level\":\"4\",\"mobile\":\"13503689667\",\"areaStatus\":\"1\",\"selectLevel\":\"2\",\"_rowKey\":\"12\",\"recommendNickname\":\"笪思颖\",\"recommendMobile\":\"18532518655\",\"areaNames\":\"北京/北京市/朝阳区\",\"nickname\":\"金湛泓\",\"name\":\"金湛泓\",\"selectAreaFlag\":\"true\",\"ctime\":\"1544554998\",\"id\":\"12011\",\"addressArray\":\"110000,110100,110105\",\"email\":\"\"}','POST','/mozi/agent/changeMobile','mozi','2018-12-29 10:43:31',NULL,'2018-12-29 10:43:31',NULL),
 ('91249984782995456',1,'116.30.221.148',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"wqkg\",\"saveLogin\":\"true\",\"captchaId\":\"715c3e6c73a74d2c912c231cb85e146c\",\"username\":\"admin\"}','POST','/mozi/login','admin','2018-12-29 09:27:13',NULL,'2018-12-29 09:27:13',NULL),
@@ -427,13 +427,17 @@ insert  into `st_admin_log`(`id`,`cost_time`,`ip`,`ip_info`,`name`,`request_para
 ('92832658324721664',77,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithoutParam\",\"parameter\":\"Test\",\"description\":\"带参测试任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-02 18:16:11',NULL,'2019-01-02 18:16:11',NULL),
 ('92832893042167808',5,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.WithoutParam\",\"description\":\"无参定时任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-02 18:17:07',NULL,'2019-01-02 18:17:07',NULL),
 ('92832972473896960',4,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithoutParam\",\"description\":\"无参定时任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-02 18:17:26',NULL,'2019-01-02 18:17:26',NULL),
-('92833003562078208',6,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithParam\",\"description\":\"无参定时任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-02 18:17:33',NULL,'2019-01-02 18:17:33',NULL);
+('92833003562078208',6,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithParam\",\"description\":\"无参定时任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-02 18:17:33',NULL,'2019-01-02 18:17:33',NULL),
+('95631494415912960',141,'127.0.0.1',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"sadf\",\"saveLogin\":\"true\",\"captchaId\":\"ad383dfcc02940c49d1aaa76eb97fc36\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-01-10 11:37:46',NULL,'2019-01-10 11:37:46',NULL),
+('95631553274580992',1,'127.0.0.1',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"vsbd\",\"saveLogin\":\"true\",\"captchaId\":\"fbad1be95f0e4bc5a9edb410929e0afc\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-01-10 11:38:00',NULL,'2019-01-10 11:38:00',NULL),
+('95631859861426176',30,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithoutParam\",\"description\":\"无参测试任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-10 11:39:13',NULL,'2019-01-10 11:39:13',NULL),
+('95632048361836544',8,'127.0.0.1',NULL,'添加定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"paramter\":\"\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithParam\",\"parameter\":\"Test Job\",\"description\":\"有参测试任务\"}','POST','/skeleton/quartzJob/add','admin','2019-01-10 11:39:58',NULL,'2019-01-10 11:39:58',NULL);
 
-/*Table structure for table `st_admin_role` */
+/*Table structure for table `sys_admin_role` */
 
-DROP TABLE IF EXISTS `st_admin_role`;
+DROP TABLE IF EXISTS `sys_admin_role`;
 
-CREATE TABLE `st_admin_role` (
+CREATE TABLE `sys_admin_role` (
   `id` varchar(255) NOT NULL,
   `role_id` varchar(255) DEFAULT NULL,
   `user_id` varchar(255) DEFAULT NULL,
@@ -444,18 +448,18 @@ CREATE TABLE `st_admin_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_admin_role` */
+/*Data for the table `sys_admin_role` */
 
-insert  into `st_admin_role`(`id`,`role_id`,`user_id`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_admin_role`(`id`,`role_id`,`user_id`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('51919463095734273','496138616573953','51919414177566720','2018-09-11 20:41:46',NULL,'2018-09-11 20:41:46',NULL),
 ('87336531408195585','496138616573952','47599079840026624','2018-12-18 14:16:33',NULL,'2018-12-18 14:16:33',NULL),
 ('92831454303621121','496138616573953','87338083204206592','2019-01-02 18:11:24',NULL,'2019-01-02 18:11:24',NULL);
 
-/*Table structure for table `st_department` */
+/*Table structure for table `sys_department` */
 
-DROP TABLE IF EXISTS `st_department`;
+DROP TABLE IF EXISTS `sys_department`;
 
-CREATE TABLE `st_department` (
+CREATE TABLE `sys_department` (
   `id` varchar(255) NOT NULL,
   `is_parent` bit(1) DEFAULT NULL,
   `parent_id` varchar(255) DEFAULT NULL,
@@ -469,9 +473,9 @@ CREATE TABLE `st_department` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_department` */
+/*Data for the table `sys_department` */
 
-insert  into `st_department`(`id`,`is_parent`,`parent_id`,`sort_order`,`status`,`title`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_department`(`id`,`is_parent`,`parent_id`,`sort_order`,`status`,`title`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('87336063856545792','\0','87335940934078464',1.00,0,'数据维护','2018-12-18 14:14:41','','2018-12-18 14:15:02',''),
 ('87335940934078464','','0',1.00,0,'运营中心','2018-12-18 14:14:12',NULL,'2018-12-18 14:14:41',NULL),
 ('40681289119961088','\0','40652270295060480',2.00,0,'VIP','2018-08-11 20:25:16','','2018-08-11 22:47:48',''),
@@ -479,11 +483,11 @@ insert  into `st_department`(`id`,`is_parent`,`parent_id`,`sort_order`,`status`,
 ('87336440425353216','\0','87336376579657728',1.00,0,'研发一部','2018-12-18 14:16:11',NULL,'2018-12-18 14:16:11',NULL),
 ('40652338142121984','\0','40652270295060480',1.00,0,'游客','2018-08-11 18:30:13',NULL,'2018-08-11 18:30:13',NULL);
 
-/*Table structure for table `st_permission` */
+/*Table structure for table `sys_permission` */
 
-DROP TABLE IF EXISTS `st_permission`;
+DROP TABLE IF EXISTS `sys_permission`;
 
-CREATE TABLE `st_permission` (
+CREATE TABLE `sys_permission` (
   `id` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -505,9 +509,9 @@ CREATE TABLE `st_permission` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_permission` */
+/*Data for the table `sys_permission` */
 
-insert  into `st_permission`(`id`,`description`,`name`,`parent_id`,`type`,`sort_order`,`component`,`path`,`title`,`icon`,`level`,`button_type`,`status`,`url`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_permission`(`id`,`description`,`name`,`parent_id`,`type`,`sort_order`,`component`,`path`,`title`,`icon`,`level`,`button_type`,`status`,`url`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('5129710648430592','','sys','',0,3.00,'Main','/form','系统管理','ios-settings',1,'',0,'','2018-06-04 19:02:29','','2018-09-04 22:50:52',''),
 ('5129710648430593','','user-manage','5129710648430592',0,1.10,'sys/user-manage/userManage','user-manage','管理员管理','md-person',2,'',0,'','2018-06-04 19:02:32','','2018-09-03 16:06:57',''),
 ('5129710648430594','','role-manage','5129710648430592',0,1.50,'sys/role-manage/roleManage','role-manage','角色管理','md-contacts',2,'',0,'','2018-06-04 19:02:35','','2018-08-23 17:31:27',''),
@@ -544,11 +548,11 @@ insert  into `st_permission`(`id`,`description`,`name`,`parent_id`,`type`,`sort_
 ('84908678297161728',NULL,'','84907582589767680',1,2.14,'','/mozi/quartzJob/resume*','恢复定时任务','',3,'enable',0,NULL,'2018-12-11 21:29:07',NULL,'2018-12-11 21:29:07',NULL),
 ('84908899202764800',NULL,'','84907582589767680',1,2.15,'','/mozi/quartzJob/delByIds/*','删除定时任务','',3,'delete',0,NULL,'2018-12-11 21:30:00',NULL,'2018-12-11 21:30:00',NULL);
 
-/*Table structure for table `st_role` */
+/*Table structure for table `sys_role` */
 
-DROP TABLE IF EXISTS `st_role`;
+DROP TABLE IF EXISTS `sys_role`;
 
-CREATE TABLE `st_role` (
+CREATE TABLE `sys_role` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `default_role` bit(1) DEFAULT NULL,
@@ -561,17 +565,17 @@ CREATE TABLE `st_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_role` */
+/*Data for the table `sys_role` */
 
-insert  into `st_role`(`id`,`name`,`default_role`,`description`,`data_type`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_role`(`id`,`name`,`default_role`,`description`,`data_type`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('496138616573952','ROLE_ADMIN',NULL,'超级管理员 拥有所有权限',NULL,'2018-04-22 23:03:49','','2018-08-12 16:14:31',''),
 ('496138616573953','ROLE_USER','','分润查询',NULL,'2018-05-02 21:40:03','','2018-12-14 17:21:59','');
 
-/*Table structure for table `st_role_permission` */
+/*Table structure for table `sys_role_permission` */
 
-DROP TABLE IF EXISTS `st_role_permission`;
+DROP TABLE IF EXISTS `sys_role_permission`;
 
-CREATE TABLE `st_role_permission` (
+CREATE TABLE `sys_role_permission` (
   `id` varchar(255) NOT NULL,
   `permission_id` varchar(255) DEFAULT NULL,
   `role_id` varchar(255) DEFAULT NULL,
@@ -582,9 +586,9 @@ CREATE TABLE `st_role_permission` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `st_role_permission` */
+/*Data for the table `sys_role_permission` */
 
-insert  into `st_role_permission`(`id`,`permission_id`,`role_id`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
+insert  into `sys_role_permission`(`id`,`permission_id`,`role_id`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
 ('92831080616300544','16678126574637056','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL),
 ('92831080603717632','15701400130424832','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL),
 ('92831080586940416','5129710648430593','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL),
@@ -619,6 +623,25 @@ insert  into `st_role_permission`(`id`,`permission_id`,`role_id`,`created_at`,`c
 ('92831080838598657','41364927394353152','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL),
 ('92831080846987264','39916171171991552','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL),
 ('92831080851181568','39918482854252544','496138616573952','2019-01-02 18:09:55',NULL,'2019-01-02 18:09:55',NULL);
+
+/*Table structure for table `user_info` */
+
+DROP TABLE IF EXISTS `user_info`;
+
+CREATE TABLE `user_info` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+  `username` varchar(32) NOT NULL DEFAULT '' COMMENT '用户名',
+  `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '手机号',
+  `password` varchar(64) DEFAULT '' COMMENT '密码',
+  `email` varchar(32) DEFAULT '' COMMENT '邮箱',
+  `status` tinyint(4) DEFAULT '1' COMMENT '状态',
+  `created_at` int(11) DEFAULT '0' COMMENT '注册时间',
+  `updated_at` int(11) DEFAULT '0' COMMENT '修改时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQUE` (`username`,`mobile`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+/*Data for the table `user_info` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -16,8 +16,8 @@ import javax.persistence.Transient;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_admin_role")
-@TableName("st_admin_role")
+@Table(name = "sys_admin_role")
+@TableName("sys_admin_role")
 public class UserRole extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;

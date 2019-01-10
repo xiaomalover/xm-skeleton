@@ -16,8 +16,8 @@ import java.util.Map;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_admin_log")
-@TableName("st_admin_log")
+@Table(name = "sys_admin_log")
+@TableName("sys_admin_log")
 public class Log extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;

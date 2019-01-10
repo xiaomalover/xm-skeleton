@@ -4,8 +4,8 @@
 
     <select id="findByUserId" resultType="com.xm.admin.modules.base.entity.Role">
       SELECT r.id id, name
-      FROM st_admin_role ur
-      LEFT JOIN st_role r
+      FROM sys_admin_role ur
+      LEFT JOIN sys_role r
       ON ur.role_id = r.id
       WHERE user_Id = #{userId}
     </select>

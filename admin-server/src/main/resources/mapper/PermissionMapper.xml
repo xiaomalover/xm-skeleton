@@ -4,18 +4,18 @@
 
     <select id="findByUserId" resultType="com.xm.admin.modules.base.entity.Permission">
       SELECT DISTINCT p.id, p.name, p.title, p.path, p.icon, p.type, p.component, p.level, p.button_type, p.parent_id, p.sort_order, p.description, p.status, p.url
-      FROM st_admin u
-      LEFT JOIN st_admin_role ur ON u.id = ur.user_id
-      LEFT JOIN st_role_permission rp ON ur.role_id = rp.role_id
-      LEFT JOIN st_permission p ON p.id = rp.permission_id
+      FROM sys_admin u
+      LEFT JOIN sys_admin_role ur ON u.id = ur.user_id
+      LEFT JOIN sys_role_permission rp ON ur.role_id = rp.role_id
+      LEFT JOIN sys_permission p ON p.id = rp.permission_id
       WHERE u.id = #{userId} AND p.status = 0
       ORDER BY p.sort_order ASC
     </select>
 
     <select id="findByRoleId" resultType="com.xm.admin.modules.base.entity.Permission">
       SELECT p.id, p.name, p.title, p.path, p.icon, p.type, p.component, p.level, p.button_type, p.parent_id, p.sort_order, p.description, p.status, p.url
-      FROM st_role_permission rp
-      LEFT JOIN st_permission p ON p.id = rp.permission_id
+      FROM sys_role_permission rp
+      LEFT JOIN sys_permission p ON p.id = rp.permission_id
       WHERE rp.role_id = #{roleId} AND p.status = 0
       ORDER BY p.sort_order ASC
     </select>

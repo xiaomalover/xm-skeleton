@@ -19,8 +19,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_admin")
-@TableName("st_admin")
+@Table(name = "sys_admin")
+@TableName("sys_admin")
 public class User extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;

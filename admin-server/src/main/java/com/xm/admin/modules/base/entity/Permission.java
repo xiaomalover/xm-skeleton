@@ -21,8 +21,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_permission")
-@TableName("st_permission")
+@Table(name = "sys_permission")
+@TableName("sys_permission")
 public class Permission extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;

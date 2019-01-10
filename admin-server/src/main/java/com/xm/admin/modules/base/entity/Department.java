@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_department")
-@TableName("st_department")
+@Table(name = "sys_department")
+@TableName("sys_department")
 public class Department extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;

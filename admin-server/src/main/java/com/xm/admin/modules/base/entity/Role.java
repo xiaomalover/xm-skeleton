@@ -17,8 +17,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "st_role")
-@TableName("st_role")
+@Table(name = "sys_role")
+@TableName("sys_role")
 public class Role extends BaseExtEntity {
 
     private static final long serialVersionUID = 1L;
