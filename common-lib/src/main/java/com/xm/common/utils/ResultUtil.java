@@ -1,6 +1,7 @@
 package com.xm.common.utils;
 
 import com.xm.common.vo.Result;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
@@ -55,6 +56,13 @@ public class ResultUtil<T> {
         this.result.setSuccess(false);
         this.result.setMessage(msg);
         this.result.setCode(code);
+        return this.result;
+    }
+
+    public Result<T> setErrorMsg(HttpStatus status) {
+        this.result.setSuccess(false);
+        this.result.setMessage(status.getReasonPhrase());
+        this.result.setCode(status.value());
         return this.result;
     }
 }

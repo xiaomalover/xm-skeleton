@@ -1,4 +1,4 @@
-package com.xm.api.service;
+package com.xm.api.module.base.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

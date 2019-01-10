@@ -1,4 +1,4 @@
-package com.xm.api.service;
+package com.xm.api.module.base.service;
 
 import org.springframework.stereotype.Component;
 
