@@ -1,5 +1,6 @@
 package com.xm.api.dto;
 
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -8,7 +9,10 @@ import java.io.Serializable;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
+@Data
 public class UserRegisterRequest implements Serializable {
+
+    private static final long serialVersionUID = -1962701668965744844L;
 
     @NotEmpty(message = "用户名不能为空")
     @Length(min = 4, message = "用户名长度不能少于4位")
@@ -23,36 +27,4 @@ public class UserRegisterRequest implements Serializable {
     private String mobile;
 
     private String email;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
