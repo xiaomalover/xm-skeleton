@@ -89,5 +89,6 @@ public class AuthFilter extends ZuulFilter {
         String result = JSONObject.
                 toJSONString(new ResultUtil<>().setErrorMsg(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase()));
         requestContext.setResponseBody(result);
+        requestContext.getResponse().setContentType("application/json;charset=UTF-8");
     }
 }
