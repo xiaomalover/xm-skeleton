@@ -12,10 +12,8 @@ import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.Set;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
@@ -44,12 +42,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Result<Object> register(UserRegisterRequest userRegisterRequest) {
-
-        //根据模型中的规则，验证数据的合法性
-        String errorMsg = this.getValidateErrorMsg(userRegisterRequest);
-        if (errorMsg.length() > 0) {
-            return new ResultUtil<>().setErrorMsg(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
-        }
 
         //根据业务，验证数据合法性
         User exist;
@@ -85,11 +77,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result<Object> login(UserLoginRequest userLoginRequest) {
-        //根据模型中的规则，验证数据的合法性
-        String errorMsg = this.getValidateErrorMsg(userLoginRequest);
-        if (errorMsg.length() > 0) {
-            return new ResultUtil<>().setErrorMsg(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
-        }
 
         //查询用户存不存在
         User user = userMapper.selectByUsernameOrMobile(userLoginRequest.getAccount());
@@ -134,7 +121,6 @@ public class UserServiceImpl implements UserService {
         return userModel;
     }
 
-
     /**
      * 加密登录密码
      * @param password 登录密码名文
@@ -142,22 +128,5 @@ public class UserServiceImpl implements UserService {
      */
     private String encodePassword(String password) {
         return SecureUtil.md5(SecureUtil.md5(password));
-    }
-
-    /**
-     * 获取验证错误信息
-     * @param obj 待验证对象
-     * @return String
-     */
-    private String getValidateErrorMsg(Object obj) {
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(obj);
-        StringBuffer errorMsg = new StringBuffer();
-        constraintViolations.forEach((v) -> {
-            if (errorMsg.length() > 0) {
-                errorMsg.append(";");
-            }
-            errorMsg.append(v.getMessage());
-        });
-        return errorMsg.toString();
     }
 }
