@@ -119,6 +119,13 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
             <!-- beetl 模板引擎 -->
             <dependency>
                 <groupId>com.ibeetl</groupId>
