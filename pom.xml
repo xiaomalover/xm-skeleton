@@ -26,6 +26,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <mybatis-plus.version>3.0.7.1</mybatis-plus.version>
+        <beetl.version>2.9.8</beetl.version>
+        <mysql-connect.version>5.1.44</mysql-connect.version>
+        <druid.version>1.1.10</druid.version>
+        <spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
+        <fastjson.version>1.2.54</fastjson.version>
+        <hutool.version>4.4.0</hutool.version>
+        <lombok.version>1.16.20</lombok.version>
     </properties>
 
     <parent>
@@ -67,48 +75,55 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.20</version>
+                <version>${lombok.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
-                <version>4.4.0</version>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.54</version>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <!-- Redis-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-redis</artifactId>
-                <version>1.4.7.RELEASE</version>
+                <version>${spring-boot-starter-redis.version}</version>
             </dependency>
 
             <!-- 数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.10</version>
+                <version>${druid.version}</version>
             </dependency>
 
             <!-- Mysql Connector -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.44</version>
+                <version>${mysql-connect.version}</version>
             </dependency>
 
             <!-- MybatisPlus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>2.3.3</version>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- beetl 模板引擎 -->
+            <dependency>
+                <groupId>com.ibeetl</groupId>
+                <artifactId>beetl</artifactId>
+                <version>${beetl.version}</version>
             </dependency>
 
         </dependencies>
@@ -130,8 +145,8 @@
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
             </plugins>

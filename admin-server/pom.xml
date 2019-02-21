@@ -15,7 +15,6 @@
 
     <dependencies>
 
-        <!-- Lombok -->
         <dependency>
             <groupId>com.xm</groupId>
             <artifactId>common-lib</artifactId>

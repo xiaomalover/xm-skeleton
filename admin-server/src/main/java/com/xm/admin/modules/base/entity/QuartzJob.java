@@ -1,6 +1,6 @@
 package com.xm.admin.modules.base.entity;
 
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.base.BaseExtEntity;
 import com.xm.admin.common.constant.CommonConstant;
 import io.swagger.annotations.ApiModelProperty;

@@ -76,7 +76,7 @@ public class Generator {
     public static void main(String[] args) throws IOException {
 
         //模板路径
-        String root = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/generator/template";
+        String root = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/generator/template";
         FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
         Configuration cfg = Configuration.defaultConfiguration();
         GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
@@ -121,7 +121,7 @@ public class Generator {
         String entityResult = entityTemplate.render();
         log.info(entityResult);
         //创建文件
-        String entityFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/entity/"+className+".java";
+        String entityFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/entity/"+className+".java";
         File entityFile = new File(entityFileUrl);
         if(!entityFile.exists()){
             //实体类若存在则不重新生成
@@ -135,7 +135,7 @@ public class Generator {
         String daoResult = daoTemplate.render();
         log.info(daoResult);
         //创建文件
-        String daoFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/dao/"+className+"Dao.java";
+        String daoFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/dao/"+className+"Dao.java";
         File daoFile = new File(daoFileUrl);
         daoFile.createNewFile();
         out = new FileOutputStream(daoFile);
@@ -146,7 +146,7 @@ public class Generator {
         String serviceResult = serviceTemplate.render();
         log.info(serviceResult);
         //创建文件
-        String serviceFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/service/"+className+"Service.java";
+        String serviceFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/service/"+className+"Service.java";
         File serviceFile = new File(serviceFileUrl);
         serviceFile.createNewFile();
         out = new FileOutputStream(serviceFile);
@@ -157,7 +157,7 @@ public class Generator {
         String serviceImplResult = serviceImplTemplate.render();
         log.info(serviceImplResult);
         //创建文件
-        String serviceImplFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/serviceimpl/"+className+"ServiceImpl.java";
+        String serviceImplFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/serviceimpl/"+className+"ServiceImpl.java";
         File serviceImplFile = new File(serviceImplFileUrl);
         serviceImplFile.createNewFile();
         out = new FileOutputStream(serviceImplFile);
@@ -168,7 +168,7 @@ public class Generator {
         String controllerResult = controllerTemplate.render();
         log.info(controllerResult);
         //创建文件
-        String controllerFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/controller/"+className+"Controller.java";
+        String controllerFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/controller/"+className+"Controller.java";
         File controllerFile = new File(controllerFileUrl);
         controllerFile.createNewFile();
         out = new FileOutputStream(controllerFile);
@@ -185,30 +185,30 @@ public class Generator {
      */
     private static void deleteCode(String className) throws IOException{
 
-        String entityFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/entity/"+className+".java";
+        String entityFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/entity/"+className+".java";
         File entityFile = new File(entityFileUrl);
         if(entityFile.exists()){
             entityFile.delete();
         }
-        String daoFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/dao/"+className+"Dao.java";
+        String daoFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/dao/"+className+"Dao.java";
         File daoFile = new File(daoFileUrl);
         if(daoFile.exists()){
             daoFile.delete();
         }
 
-        String serviceFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/service/"+className+"Service.java";
+        String serviceFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/service/"+className+"Service.java";
         File serviceFile = new File(serviceFileUrl);
         if(serviceFile.exists()){
             serviceFile.delete();
         }
 
-        String serviceImplFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/serviceimpl/"+className+"ServiceImpl.java";
+        String serviceImplFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/serviceimpl/"+className+"ServiceImpl.java";
         File serviceImplFile = new File(serviceImplFileUrl);
         if(serviceImplFile.exists()){
             serviceImplFile.delete();
         }
 
-        String controllerFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/skeleton/admin/controller/"+className+"Controller.java";
+        String controllerFileUrl = System.getProperty("user.dir")+"/admin-server/src/main/java/com/xm/admin/modules/base/controller/"+className+"Controller.java";
         File controllerFile = new File(controllerFileUrl);
         if(controllerFile.exists()){
             controllerFile.delete();

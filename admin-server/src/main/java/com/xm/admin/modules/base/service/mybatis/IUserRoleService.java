@@ -1,8 +1,8 @@
 package com.xm.admin.modules.base.service.mybatis;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.xm.admin.modules.base.entity.Role;
 import com.xm.admin.modules.base.entity.UserRole;
-import com.baomidou.mybatisplus.service.IService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
