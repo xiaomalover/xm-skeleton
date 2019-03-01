@@ -18,9 +18,8 @@ public class ServerController {
 
     @GetMapping("/HelloServer2")
     public String HelloServer2(@RequestParam(value = "name") String name, HttpServletRequest request){
-        logger.info("=HelloServer2==<call trace-2, TraceId={}, SpanId={}>===",
-                request.getHeader("X-B3-TraceId"), request.getHeader("X-B3-SpanId"));
-
+        logger.info("=HelloServer2==<call trace-2, TraceId={}, SpanId={}, token={}>===",
+                request.getHeader("X-B3-TraceId"), request.getHeader("X-B3-SpanId"), request.getHeader("token"));
         return serverService.HelloServer2(name);
     }
 }
