@@ -1,7 +1,9 @@
 package com.xm.admin.common.utils;
 
-import com.xm.admin.common.vo.PageVo;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xm.admin.common.vo.PageVo;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,7 +12,7 @@ import org.springframework.data.domain.Sort;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
-public class PageUtil {
+public class PageUtil<T> {
 
     public static Pageable initPage(PageVo page){
 
@@ -39,5 +41,22 @@ public class PageUtil {
             pageable = PageRequest.of(pageNumber-1, pageSize);
         }
         return pageable;
+    }
+
+    public IPage<T> initIPage(PageVo page) {
+
+        IPage<T> iPage = new Page<>();
+        int pageNumber = page.getPageNumber();
+        int pageSize = page.getPageSize();
+
+        if (pageNumber < 1) {
+            pageNumber = 1;
+        }
+        if (pageSize < 1) {
+            pageSize = 10;
+        }
+        iPage.setCurrent(pageNumber);
+        iPage.setSize(pageSize);
+        return iPage;
     }
 }

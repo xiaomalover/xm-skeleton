@@ -89,16 +89,6 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ibeetl</groupId>
-            <artifactId>beetl</artifactId>
-        </dependency>
-
         <!-- Redis-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

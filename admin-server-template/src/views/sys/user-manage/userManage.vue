@@ -215,6 +215,9 @@
                     sex: 1,
                     type: 0,
                     roles: [],
+                    username: "",
+                    email: "",
+                    mobile: "",
                     departmentId: "",
                     departmentTitle: ""
                 },
@@ -619,8 +622,8 @@
                 getUserListData(this.searchForm).then(res => {
                     this.loading = false;
                     if (res.success === true) {
-                        this.data = res.result.content;
-                        this.total = res.result.totalElements;
+                        this.data = res.result.records;
+                        this.total = res.result.total;
                     }
                 });
             },
@@ -739,11 +742,6 @@
                 let str = JSON.stringify(v);
                 let userInfo = JSON.parse(str);
                 this.userForm = userInfo;
-                let selectRolesId = [];
-                this.userForm.roles.forEach(function (e) {
-                    selectRolesId.push(e.id);
-                });
-                this.userForm.roles = selectRolesId;
                 this.userModalVisible = true;
             },
             enable(v) {

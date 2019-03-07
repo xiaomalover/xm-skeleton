@@ -19,6 +19,7 @@
         <module>zuul-server</module>
         <module>admin-server</module>
         <module>common-lib</module>
+        <module>generator</module>
     </modules>
 
     <properties>

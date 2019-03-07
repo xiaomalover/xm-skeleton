@@ -1,11 +1,11 @@
 package com.xm.admin.common.aop;
 
+import com.xm.admin.module.base.entity.AdminLog;
+import com.xm.admin.module.base.service.IAdminLogService;
 import org.springframework.util.ObjectUtils;
 import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.common.utils.IpInfoUtil;
 import com.xm.admin.common.utils.ThreadPoolUtil;
-import com.xm.admin.modules.base.entity.Log;
-import com.xm.admin.modules.base.service.LogService;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -38,11 +38,8 @@ public class SystemLogAspect {
      */
     private static final ThreadLocal<Date> beginTimeThreadLocal = new NamedThreadLocal<>("ThreadLocal beginTime");
 
-    @Value("${skeleton.logRecord.es}")
-    private Boolean esRecord;
-
     @Autowired
-    private LogService logService;
+    private IAdminLogService logService;
 
     @Autowired(required = false)
     private HttpServletRequest request;
@@ -55,9 +52,7 @@ public class SystemLogAspect {
      */
     //@Pointcut("execution(* *..controller..*Controller*.*(..))")
     @Pointcut("@annotation(com.xm.admin.common.annotation.SystemLog)")
-    public void controllerAspect() {
-
-    }
+    public void controllerAspect() {}
 
     /**
      * 前置通知 (在方法执行之前返回)用于拦截Controller层记录用户的操作的开始时间
@@ -82,7 +77,7 @@ public class SystemLogAspect {
 
             if (StrUtil.isNotBlank(username)) {
 
-                Log log = new Log();
+                AdminLog log = new AdminLog();
 
                 //日志标题
                 log.setName(getControllerMethodDescription(joinPoint));
@@ -117,17 +112,17 @@ public class SystemLogAspect {
      */
     private static class SaveSystemLogThread implements Runnable {
 
-        private Log log;
-        private LogService logService;
+        private AdminLog log;
 
-        SaveSystemLogThread(Log esLog, LogService logService) {
-            this.log = esLog;
+        private IAdminLogService logService;
+
+        SaveSystemLogThread(AdminLog log, IAdminLogService logService) {
+            this.log = log;
             this.logService = logService;
         }
 
         @Override
         public void run() {
-
             logService.save(log);
         }
     }

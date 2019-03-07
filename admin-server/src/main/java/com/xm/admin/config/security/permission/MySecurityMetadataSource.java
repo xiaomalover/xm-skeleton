@@ -1,8 +1,8 @@
 package com.xm.admin.config.security.permission;
 
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.modules.base.entity.Permission;
-import com.xm.admin.modules.base.service.PermissionService;
+import com.xm.admin.module.base.entity.co.Permission;
+import com.xm.admin.module.base.service.PermissionService;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

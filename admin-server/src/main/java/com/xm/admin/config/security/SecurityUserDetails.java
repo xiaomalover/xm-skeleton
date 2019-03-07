@@ -1,15 +1,16 @@
 package com.xm.admin.config.security;
 
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.modules.base.entity.Permission;
-import com.xm.admin.modules.base.entity.Role;
-import com.xm.admin.modules.base.entity.User;
+import com.xm.admin.module.base.entity.Admin;
+import com.xm.admin.module.base.entity.Role;
+import com.xm.admin.module.base.entity.co.Permission;
 import cn.hutool.core.util.StrUtil;
+import com.xm.admin.module.base.service.IRoleService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,11 +19,14 @@ import java.util.List;
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
-public class SecurityUserDetails extends User implements UserDetails {
+public class SecurityUserDetails extends Admin implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    public SecurityUserDetails(User user) {
+    @Autowired
+    IRoleService roleService;
+
+    public SecurityUserDetails(Admin user) {
 
         if(user!=null) {
             this.setUsername(user.getUsername());
@@ -30,6 +34,7 @@ public class SecurityUserDetails extends User implements UserDetails {
             this.setStatus(user.getStatus());
             this.setRoles(user.getRoles());
             this.setPermissions(user.getPermissions());
+            this.setDepartmentTitle(user.getDepartmentTitle());
         }
     }
 
@@ -54,10 +59,11 @@ public class SecurityUserDetails extends User implements UserDetails {
             }
         }
         // 添加角色
-        List<Role> roles = this.getRoles();
+        List<String> roles = this.getRoles();
         if(roles!=null&&roles.size()>0){
+           Collection<Role> rolesList = roleService.listByIds(roles);
             // lambda表达式
-            roles.forEach(item -> {
+            rolesList.forEach(item -> {
                 if(StrUtil.isNotBlank(item.getName())){
                     authorityList.add(new SimpleGrantedAuthority(item.getName()));
                 }

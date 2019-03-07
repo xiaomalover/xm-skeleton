@@ -81,7 +81,8 @@
                 permModalVisible: false,
                 modalTitle: "",
                 roleForm: {
-                    description: ""
+                    description: "",
+                    name: "",
                 },
                 roleFormValidate: {
                     name: [{required: true, message: "角色名称不能为空", trigger: "blur"}]
@@ -118,7 +119,7 @@
                     },
                     {
                         title: "更新时间",
-                        key: "updateTime",
+                        key: "updatedAt",
                         sortable: true
                     },
                     {
@@ -277,8 +278,8 @@
                 getRoleList(params).then(res => {
                     this.loading = false;
                     if (res.success === true) {
-                        this.data = res.result.content;
-                        this.total = res.result.totalElements;
+                        this.data = res.result.records;
+                        this.total = res.result.total;
                     }
                 });
             },
