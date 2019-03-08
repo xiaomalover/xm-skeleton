@@ -5,7 +5,7 @@ spring:
         git:
           password:
           searchPaths: xm-skeleton
-          uri: https://github.com/weison-tech/spring-cloud-config-server.git
+          uri: https://github.com/xiaomalover/spring-cloud-config-server.git
           username:
       label: master
   application:

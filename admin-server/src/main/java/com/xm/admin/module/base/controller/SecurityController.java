@@ -1,4 +1,4 @@
-package com.xm.admin.module.base.controller.co;
+package com.xm.admin.module.base.controller;
 
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
