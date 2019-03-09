@@ -14,13 +14,11 @@ import com.xm.admin.module.base.service.IRolePermissionService;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -50,7 +48,6 @@ public class RoleController {
     private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "/getAllList",method = RequestMethod.GET)
-    @ApiOperation(value = "获取全部角色")
     public Result<Object> roleGetAll(){
 
         List<Role> list = roleService.list();
@@ -58,7 +55,6 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/getAllByPage",method = RequestMethod.GET)
-    @ApiOperation(value = "分页获取角色")
     public Result<IPage<Role>> getRoleByPage(@ModelAttribute PageVo pageVo){
 
         IPage<Role> page = new CommonPageUtil<Role>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
@@ -73,7 +69,6 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/setDefault",method = RequestMethod.POST)
-    @ApiOperation(value = "设置或取消默认角色")
     public Result<Object> setDefault(@RequestParam String id,
                                      @RequestParam Boolean isDefault){
 
@@ -87,7 +82,6 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/editRolePerm/{roleId}",method = RequestMethod.POST)
-    @ApiOperation(value = "编辑角色分配权限")
     public Result<Object> editRolePerm(@PathVariable String roleId,
                                        @RequestParam(required = false) String[] permIds){
 
@@ -101,7 +95,7 @@ public class RoleController {
             rolePermissionService.save(rolePermission);
         }
         //手动批量删除缓存
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
+        Set<String> keysUser = redisTemplate.keys("admin:" + "*");
         redisTemplate.delete(keysUser);
         Set<String> keysUserRole = redisTemplate.keys("adminRole:" + "*");
         redisTemplate.delete(keysUserRole);
@@ -109,22 +103,20 @@ public class RoleController {
         redisTemplate.delete(keysUserPerm);
         Set<String> keysUserMenu = redisTemplate.keys("permission::adminMenuList:*");
         redisTemplate.delete(keysUserMenu);
-        return new ResultUtil<Object>().setData(null);
+        return new ResultUtil<>().setData(null);
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    @ApiOperation(value = "保存数据")
     public Result<Role> save(@ModelAttribute Role role){
         roleService.save(role);
         return new ResultUtil<Role>().setData(role);
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    @ApiOperation(value = "更新数据")
     public Result<Role> edit(@ModelAttribute Role entity){
         roleService.updateById(entity);
         //手动批量删除缓存
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
+        Set<String> keysUser = redisTemplate.keys("admin:" + "*");
         redisTemplate.delete(keysUser);
         Set<String> keysUserRole = redisTemplate.keys("adminRole:" + "*");
         redisTemplate.delete(keysUserRole);
@@ -132,7 +124,6 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/delAllByIds/{ids}",method = RequestMethod.DELETE)
-    @ApiOperation(value = "批量通过ids删除")
     public Result<Object> delByIds(@PathVariable String[] ids){
 
         for(String id:ids){

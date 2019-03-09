@@ -11,8 +11,6 @@ import com.xm.admin.module.base.service.IAdminLogService;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-03-06
  */
 @RestController
-@Api(description = "日志管理接口")
 @RequestMapping("/skeleton/log")
 @Transactional
 public class AdminLogController {
@@ -35,7 +32,6 @@ public class AdminLogController {
     private IAdminLogService adminLogService;
 
     @RequestMapping(value = "/getAllByPage",method = RequestMethod.GET)
-    @ApiOperation(value = "分页获取全部")
     public Result<Object> getAllByPage(@ModelAttribute PageVo pageVo){
 
         IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
@@ -46,7 +42,6 @@ public class AdminLogController {
     }
 
     @RequestMapping(value = "/search",method = RequestMethod.GET)
-    @ApiOperation(value = "分页搜索")
     public Result<Object> search(@RequestParam String key,
              @ModelAttribute SearchVo searchVo,
              @ModelAttribute PageVo pageVo){
@@ -77,7 +72,6 @@ public class AdminLogController {
     }
 
     @RequestMapping(value = "/delByIds/{ids}",method = RequestMethod.DELETE)
-    @ApiOperation(value = "批量删除")
     public Result<Object> delByIds(@PathVariable String[] ids){
 
         for(String id : ids){
@@ -87,7 +81,6 @@ public class AdminLogController {
     }
 
     @RequestMapping(value = "/delAll",method = RequestMethod.DELETE)
-    @ApiOperation(value = "全部删除")
     public Result<Object> delAll(){
         QueryWrapper<AdminLog> queryWrapper = new QueryWrapper<>();
         queryWrapper.gt("id", 0);

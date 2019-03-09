@@ -1,7 +1,6 @@
 package com.xm.admin.common.vo;
 
 import lombok.Data;
-
 import java.io.Serializable;
 
 /**

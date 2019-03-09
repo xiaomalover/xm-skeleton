@@ -3,15 +3,12 @@ package com.xm.admin.module.base.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.common.utils.ObjectUtil;
 import com.xm.admin.module.base.entity.Admin;
 import com.xm.admin.module.base.entity.Department;
 import com.xm.admin.module.base.service.IAdminService;
 import com.xm.admin.module.base.service.IDepartmentService;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -31,7 +28,6 @@ import java.util.Set;
  * @since 2019-03-06
  */
 @RestController
-@Api(description = "部门管理接口")
 @RequestMapping("/skeleton/department")
 @CacheConfig(cacheNames = "department")
 @Transactional
@@ -47,7 +43,6 @@ public class DepartmentController {
     private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "/getByParentId/{parentId}",method = RequestMethod.GET)
-    @ApiOperation(value = "通过id获取")
     @Cacheable(key = "#parentId")
     public Result<List<Department>> getByParentId(@PathVariable String parentId){
 
@@ -67,7 +62,6 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    @ApiOperation(value = "添加")
     @CacheEvict(key = "#department.parentId")
     public Result<Department> add(@ModelAttribute Department department){
 
@@ -87,7 +81,6 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    @ApiOperation(value = "编辑")
     public Result<Department> edit(@ModelAttribute Department department){
 
         departmentService.updateById(department);
@@ -95,13 +88,12 @@ public class DepartmentController {
         Set<String> keys = redisTemplate.keys("department:" + "*");
         redisTemplate.delete(keys);
         // 删除所有用户缓存
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
+        Set<String> keysUser = redisTemplate.keys("admin:" + "*");
         redisTemplate.delete(keysUser);
         return new ResultUtil<Department>().setData(department);
     }
 
     @RequestMapping(value = "/delByIds/{ids}",method = RequestMethod.DELETE)
-    @ApiOperation(value = "批量通过id删除")
     public Result<Object> delByIds(@PathVariable String[] ids){
 
         for(String id:ids){

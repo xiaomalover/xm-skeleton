@@ -2,7 +2,6 @@ package com.xm.admin.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Encoder;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

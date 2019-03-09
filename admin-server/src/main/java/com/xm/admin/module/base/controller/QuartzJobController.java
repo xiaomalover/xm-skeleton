@@ -12,8 +12,6 @@ import com.xm.admin.module.base.service.IQuartzJobService;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
-@Api(description = "定时任务管理接口")
 @RequestMapping("/skeleton/quartzJob")
 @Transactional
 public class QuartzJobController {
@@ -37,7 +34,6 @@ public class QuartzJobController {
     private Scheduler scheduler;
 
     @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
-    @ApiOperation(value = "获取所有定时任务")
     public Result<IPage<QuartzJob>> getAll(@ModelAttribute PageVo pageVo) {
 
         IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
@@ -46,7 +42,6 @@ public class QuartzJobController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ApiOperation(value = "添加定时任务")
     @SystemLog(description = "添加定时任务")
     public Result<Object> addJob(@ModelAttribute QuartzJob job) {
 
@@ -60,7 +55,6 @@ public class QuartzJobController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    @ApiOperation(value = "更新定时任务")
     public Result<Object> editJob(@ModelAttribute QuartzJob job) {
 
         delete(job.getJobClassName());
@@ -71,7 +65,6 @@ public class QuartzJobController {
     }
 
     @RequestMapping(value = "/pause", method = RequestMethod.POST)
-    @ApiOperation(value = "暂停定时任务")
     @SystemLog(description = "暂停定时任务")
     public Result<Object> pauseJob(@ModelAttribute QuartzJob job) {
 
@@ -86,7 +79,6 @@ public class QuartzJobController {
     }
 
     @RequestMapping(value = "/resume", method = RequestMethod.POST)
-    @ApiOperation(value = "恢复定时任务")
     @SystemLog(description = "恢复定时任务")
     public Result<Object> resumeJob(@ModelAttribute QuartzJob job) {
 
@@ -101,7 +93,6 @@ public class QuartzJobController {
     }
 
     @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "删除定时任务")
     @SystemLog(description = "删除定时任务")
     public Result<Object> deleteJob(@PathVariable String[] ids) {
         for (String id : ids) {

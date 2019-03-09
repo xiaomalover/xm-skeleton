@@ -6,11 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import java.util.List;
 
 /**
@@ -71,16 +70,13 @@ public class Admin extends BaseEntity{
 
     @Transient
     @TableField(exist=false)
-    @ApiModelProperty(value = "所属部门名称")
     private String departmentTitle;
 
     @Transient
     @TableField(exist=false)
-    @ApiModelProperty(value = "用户拥有角色")
     private List<Role> roles;
 
     @Transient
     @TableField(exist=false)
-    @ApiModelProperty(value = "用户拥有的权限")
     private List<Permission> permissions;
 }

@@ -8,8 +8,7 @@ import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
 
 /**
  * <p>
@@ -22,7 +21,6 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@Table(name = "sys_role_permission")
 @TableName("sys_role_permission")
 public class RolePermission extends BaseEntity{
 

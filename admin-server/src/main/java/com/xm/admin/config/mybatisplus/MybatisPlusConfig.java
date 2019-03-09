@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Configuration
-@MapperScan("com.xm.admin.modules.base.dao.mapper")
+@MapperScan("com.xm.admin.module.*.mapper")
 public class MybatisPlusConfig {
 
     /**

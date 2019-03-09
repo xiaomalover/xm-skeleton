@@ -8,8 +8,8 @@ import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 /**
  * <p>

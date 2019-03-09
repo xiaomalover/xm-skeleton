@@ -6,11 +6,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 /**
  * <p>
@@ -49,6 +48,5 @@ public class Role extends BaseEntity{
     private String updatedBy;
     @Transient
     @TableField(exist=false)
-    @ApiModelProperty(value = "拥有权限")
     private List<Permission> permissions;
 }

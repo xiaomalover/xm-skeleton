@@ -4,8 +4,6 @@ import com.xm.admin.common.utils.CaptchaUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.admin.common.vo.Captcha;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +17,6 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
-@Api(description = "验证码接口")
 @RequestMapping("/skeleton/common/captcha")
 @RestController
 @Transactional
@@ -29,7 +26,6 @@ public class CaptchaController {
     private StringRedisTemplate redisTemplate;
 
     @RequestMapping(value = "/init",method = RequestMethod.GET)
-    @ApiOperation(value = "初始化验证码")
     public Result<Object> initCaptcha() {
 
         String captchaId = UUID.randomUUID().toString().replace("-","");
@@ -42,7 +38,6 @@ public class CaptchaController {
     }
 
     @RequestMapping(value = "/draw/{captchaId}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据验证码ID获取图片")
     public JSONObject drawCaptcha(@PathVariable("captchaId") String captchaId, HttpServletResponse response) throws IOException {
 
         //得到验证码 生成指定验证码

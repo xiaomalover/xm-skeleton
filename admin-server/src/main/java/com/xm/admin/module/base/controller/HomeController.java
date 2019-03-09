@@ -3,13 +3,11 @@ package com.xm.admin.module.base.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
-import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(description = "首面")
 @RequestMapping("/skeleton/home")
 public class HomeController {
 

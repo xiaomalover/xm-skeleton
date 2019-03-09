@@ -9,8 +9,6 @@ import com.xm.common.vo.Result;
 import com.xm.admin.config.security.permission.MySecurityMetadataSource;
 import com.xm.admin.module.base.entity.Permission;
 import com.xm.admin.module.base.service.IPermissionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -22,14 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
 @RestController
-@Api(description = "菜单/权限管理接口")
 @RequestMapping("/skeleton/permission")
 @CacheConfig(cacheNames = "permission")
 @Transactional
@@ -48,7 +44,6 @@ public class PermissionController {
     private MySecurityMetadataSource mySecurityMetadataSource;
 
     @RequestMapping(value = "/getMenuList/{userId}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取用户页面菜单数据")
     @Cacheable(key = "'adminMenuList:'+#userId")
     public Result<List<Permission>> getAllMenuList(@PathVariable String userId){
 
@@ -102,7 +97,6 @@ public class PermissionController {
     }
 
     @RequestMapping(value = "/getAllList",method = RequestMethod.GET)
-    @ApiOperation(value = "获取权限菜单树")
     @Cacheable(key = "'allList'")
     public Result<List<Permission>> getAllList(){
 
@@ -122,7 +116,6 @@ public class PermissionController {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    @ApiOperation(value = "添加")
     @CacheEvict(key = "'menuList'")
     public Result<Permission> add(@ModelAttribute Permission permission){
 
@@ -142,7 +135,6 @@ public class PermissionController {
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    @ApiOperation(value = "编辑")
     public Result<Permission> edit(@ModelAttribute Permission permission){
 
         // 判断拦截请求的操作权限按钮名是否已存在
@@ -162,7 +154,7 @@ public class PermissionController {
         //手动批量删除缓存
         Set<String> keys = redisTemplate.keys("adminPermission:" + "*");
         redisTemplate.delete(keys);
-        Set<String> keysUser = redisTemplate.keys("user:" + "*");
+        Set<String> keysUser = redisTemplate.keys("admin:" + "*");
         redisTemplate.delete(keysUser);
         Set<String> keysUserMenu = redisTemplate.keys("permission::adminMenuList:*");
         redisTemplate.delete(keysUserMenu);
@@ -171,7 +163,6 @@ public class PermissionController {
     }
 
     @RequestMapping(value = "/delByIds/{ids}",method = RequestMethod.DELETE)
-    @ApiOperation(value = "批量通过id删除")
     @CacheEvict(key = "'menuList'")
     public Result<Object> delByIds(@PathVariable String[] ids){
 

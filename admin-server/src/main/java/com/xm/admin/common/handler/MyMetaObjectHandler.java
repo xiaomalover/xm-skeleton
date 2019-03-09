@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import java.text.SimpleDateFormat;
 
 /**
- * 填充器
- *
- * @author xiaomalover
+ * 填充器, 新增和修改时自动填充时间
+ * 配合实体中的 @TableField(fill= FieldFill.INSERT) 和 @TableField(fill= FieldFill.INSERT_UPDATE) 使用
+ * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
