@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/img/**",
                         "/css/**",
                         "/js/**",
+                        "/fonts/**",
                         "/*.*"
                 ).permitAll();
 

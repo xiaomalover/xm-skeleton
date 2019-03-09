@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.module.base.entity.Admin;
 import com.xm.admin.module.base.entity.Department;
-import com.xm.admin.module.base.entity.co.Permission;
+import com.xm.admin.module.base.entity.Permission;
 import com.xm.admin.module.base.entity.Role;
 import com.xm.admin.module.base.mapper.AdminMapper;
 import com.xm.admin.module.base.mapper.PermissionMapper;
@@ -17,7 +17,6 @@ import com.xm.admin.module.base.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +64,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             // 关联角色
             List<Role> roleList = userRoleMapper.findByUserId(admin.getId());
             if (!ObjectUtils.isEmpty(roleList)) {
-                admin.setRoles(roleList.stream().map(Role::getId).collect(Collectors.toList()));
+                admin.setRoles(roleList);
             }
             // 关联权限菜单
             List<Permission> permissionList = permissionMapper.findByUserId(admin.getId());

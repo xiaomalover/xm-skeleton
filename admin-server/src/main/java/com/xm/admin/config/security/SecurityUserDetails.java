@@ -1,13 +1,11 @@
 package com.xm.admin.config.security;
 
-import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.module.base.entity.Admin;
-import com.xm.admin.module.base.entity.Role;
-import com.xm.admin.module.base.entity.co.Permission;
 import cn.hutool.core.util.StrUtil;
-import com.xm.admin.module.base.service.IRoleService;
+import com.xm.admin.common.constant.CommonConstant;
+import com.xm.admin.module.base.entity.Permission;
+import com.xm.admin.module.base.entity.Role;
+import com.xm.admin.module.base.entity.Admin;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +21,6 @@ public class SecurityUserDetails extends Admin implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    @Autowired
-    IRoleService roleService;
-
     public SecurityUserDetails(Admin user) {
 
         if(user!=null) {
@@ -34,7 +29,6 @@ public class SecurityUserDetails extends Admin implements UserDetails {
             this.setStatus(user.getStatus());
             this.setRoles(user.getRoles());
             this.setPermissions(user.getPermissions());
-            this.setDepartmentTitle(user.getDepartmentTitle());
         }
     }
 
@@ -59,11 +53,10 @@ public class SecurityUserDetails extends Admin implements UserDetails {
             }
         }
         // 添加角色
-        List<String> roles = this.getRoles();
+        List<Role> roles = this.getRoles();
         if(roles!=null&&roles.size()>0){
-           Collection<Role> rolesList = roleService.listByIds(roles);
             // lambda表达式
-            rolesList.forEach(item -> {
+            roles.forEach(item -> {
                 if(StrUtil.isNotBlank(item.getName())){
                     authorityList.add(new SimpleGrantedAuthority(item.getName()));
                 }
@@ -108,7 +101,6 @@ public class SecurityUserDetails extends Admin implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-
-        return CommonConstant.USER_STATUS_NORMAL.equals(this.getStatus()) ? true : false;
+        return CommonConstant.USER_STATUS_NORMAL.equals(this.getStatus());
     }
 }

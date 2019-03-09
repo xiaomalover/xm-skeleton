@@ -1,6 +1,6 @@
 package com.xm.admin.module.base.mapper;
 
-import com.xm.admin.module.base.entity.co.Permission;
+import com.xm.admin.module.base.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 

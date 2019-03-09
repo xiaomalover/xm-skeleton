@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.utils.SnowFlakeUtil;
-import com.xm.admin.module.base.entity.co.Permission;
 import com.xm.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -78,11 +77,10 @@ public class Admin extends BaseEntity{
     @Transient
     @TableField(exist=false)
     @ApiModelProperty(value = "用户拥有角色")
-    private List<String> roles;
+    private List<Role> roles;
 
     @Transient
     @TableField(exist=false)
     @ApiModelProperty(value = "用户拥有的权限")
     private List<Permission> permissions;
-
 }

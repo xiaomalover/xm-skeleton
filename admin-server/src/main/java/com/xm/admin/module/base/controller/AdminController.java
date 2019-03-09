@@ -3,16 +3,14 @@ package com.xm.admin.module.base.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.xm.admin.common.constant.CommonConstant;
+import com.xm.admin.common.handler.PermissionEditor;
+import com.xm.admin.common.handler.RolesEditor;
 import com.xm.admin.common.vo.PageVo;
 import com.xm.admin.common.vo.SearchVo;
-import com.xm.admin.module.base.entity.Admin;
-import com.xm.admin.module.base.entity.Department;
-import com.xm.admin.module.base.entity.Role;
-import com.xm.admin.module.base.entity.co.UserRole;
+import com.xm.admin.module.base.entity.*;
 import com.xm.admin.module.base.service.*;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
@@ -29,14 +27,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -67,7 +64,7 @@ public class AdminController {
     private IUserRoleService iUserRoleService;
 
     @Autowired
-    private UserRoleService userRoleService;
+    private IUserRoleService userRoleService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -114,7 +111,7 @@ public class AdminController {
         List<Role> roleList = roleService.list(new QueryWrapper<Role>().eq("default_role", true));
         if (!ObjectUtils.isEmpty(roleList)) {
             for (Role role : roleList) {
-                UserRole ur = new UserRole();
+                AdminRole ur = new AdminRole();
                 ur.setUserId(u.getId());
                 ur.setRoleId(role.getId());
                 iUserRoleService.save(ur);
@@ -193,11 +190,12 @@ public class AdminController {
             return new ResultUtil<>().setErrorMsg("修改失败");
         }
         //删除该用户角色
-        userRoleService.deleteByUserId(u.getId());
+
+        userRoleService.remove(new QueryWrapper<AdminRole>().eq("user_id", u.getId()));
         if (roles != null && roles.length > 0) {
             //新角色
             for (String roleId : roles) {
-                UserRole ur = new UserRole();
+                AdminRole ur = new AdminRole();
                 ur.setRoleId(roleId);
                 ur.setUserId(u.getId());
                 userRoleService.save(ur);
@@ -310,7 +308,7 @@ public class AdminController {
             }
             // 关联角色
             List<Role> list = iUserRoleService.findByUserId(u.getId());
-            u.setRoles(list.stream().map(Role::getId).collect(Collectors.toList()));
+            u.setRoles(list);
             // 清除持久上下文环境 避免后面语句导致持久化
             entityManager.clear();
             u.setPassword(null);
@@ -344,7 +342,7 @@ public class AdminController {
         if (!ObjectUtils.isEmpty(roles)) {
             //添加角色
             for (String roleId : roles) {
-                UserRole ur = new UserRole();
+                AdminRole ur = new AdminRole();
                 ur.setUserId(u.getId());
                 ur.setRoleId(roleId);
                 userRoleService.save(ur);
@@ -391,8 +389,20 @@ public class AdminController {
         for (String id : ids) {
             adminService.removeById(id);
             //删除关联角色
-            userRoleService.deleteByUserId(id);
+            userRoleService.remove((new QueryWrapper<AdminRole>().eq("user_id", id)));
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
+    }
+
+    /**
+     * 初始化绑定<br/>
+     * @param request http请求实例
+     * @param binder 绑定实例
+     * @throws Exception
+     * */
+    @InitBinder
+    public void initBinder(HttpServletRequest request,ServletRequestDataBinder binder) throws Exception {
+        binder.registerCustomEditor(Permission.class, new PermissionEditor());
+        binder.registerCustomEditor(Role.class, new RolesEditor());
     }
 }

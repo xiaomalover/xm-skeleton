@@ -1,6 +1,5 @@
 package com.xm.admin.module.base.entity;
 
-import java.sql.Date;
 import java.util.Map;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

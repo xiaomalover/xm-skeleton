@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.utils.SnowFlakeUtil;
-import com.xm.admin.module.base.entity.co.Permission;
 import com.xm.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

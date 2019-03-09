@@ -742,6 +742,11 @@
                 let str = JSON.stringify(v);
                 let userInfo = JSON.parse(str);
                 this.userForm = userInfo;
+                let selectRolesId = [];
+                this.userForm.roles.forEach(function (e) {
+                    selectRolesId.push(e.id);
+                });
+                this.userForm.roles = selectRolesId;
                 this.userModalVisible = true;
             },
             enable(v) {

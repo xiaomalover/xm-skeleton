@@ -4,13 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xm.admin.common.vo.PageVo;
 import com.xm.admin.module.base.entity.Role;
-import com.xm.admin.module.base.entity.co.Permission;
-import com.xm.admin.module.base.entity.co.RolePermission;
-import com.xm.admin.module.base.entity.co.UserRole;
+import com.xm.admin.module.base.entity.Permission;
+import com.xm.admin.module.base.entity.RolePermission;
+import com.xm.admin.module.base.entity.AdminRole;
 import com.xm.admin.module.base.service.IPermissionService;
 import com.xm.admin.module.base.service.IRoleService;
-import com.xm.admin.module.base.service.RolePermissionService;
-import com.xm.admin.module.base.service.UserRoleService;
+import com.xm.admin.module.base.service.IUserRoleService;
+import com.xm.admin.module.base.service.IRolePermissionService;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -37,10 +38,10 @@ public class RoleController {
     private IRoleService roleService;
 
     @Autowired
-    private UserRoleService userRoleService;
+    private IUserRoleService userRoleService;
 
     @Autowired
-    private RolePermissionService rolePermissionService;
+    private IRolePermissionService rolePermissionService;
 
     @Autowired
     private IPermissionService iPermissionService;
@@ -91,7 +92,7 @@ public class RoleController {
                                        @RequestParam(required = false) String[] permIds){
 
         //删除其关联权限
-        rolePermissionService.deleteByRoleId(roleId);
+        rolePermissionService.remove(new QueryWrapper<RolePermission>().eq("role_id", roleId));
         //分配新权限
         for(String permId : permIds){
             RolePermission rolePermission = new RolePermission();
@@ -135,7 +136,7 @@ public class RoleController {
     public Result<Object> delByIds(@PathVariable String[] ids){
 
         for(String id:ids){
-            List<UserRole> list = userRoleService.findByRoleId(id);
+            List<AdminRole> list = userRoleService.list(new QueryWrapper<AdminRole>().eq("role_id", id));
             if(list!=null&&list.size()>0){
                 return new ResultUtil<>().setErrorMsg("删除失败，包含正被用户使用关联的角色");
             }
@@ -143,7 +144,7 @@ public class RoleController {
         for(String id:ids){
             roleService.removeById(id);
             //删除关联权限
-            rolePermissionService.deleteByRoleId(id);
+            rolePermissionService.remove(new QueryWrapper<RolePermission>().eq("role_id", id));
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
     }

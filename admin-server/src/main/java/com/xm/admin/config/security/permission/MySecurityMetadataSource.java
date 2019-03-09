@@ -1,9 +1,10 @@
 package com.xm.admin.config.security.permission;
 
-import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.module.base.entity.co.Permission;
-import com.xm.admin.module.base.service.PermissionService;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xm.admin.common.constant.CommonConstant;
+import com.xm.admin.module.base.entity.Permission;
+import com.xm.admin.module.base.service.IPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -13,7 +14,6 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-
 import java.util.*;
 
 /**
@@ -26,7 +26,7 @@ import java.util.*;
 public class MySecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     @Autowired
-    private PermissionService permissionService;
+    private IPermissionService permissionService;
 
     private Map<String, Collection<ConfigAttribute>> map = null;
 
@@ -39,7 +39,11 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         Collection<ConfigAttribute> configAttributes;
         ConfigAttribute cfg;
         // 获取启用的权限操作请求
-        List<Permission> permissions = permissionService.findByTypeAndStatusOrderBySortOrder(CommonConstant.PERMISSION_OPERATION, CommonConstant.STATUS_NORMAL);
+        QueryWrapper<Permission> permissionQueryWrapper = new QueryWrapper<>();
+        permissionQueryWrapper.eq("type", CommonConstant.PERMISSION_OPERATION);
+        permissionQueryWrapper.eq("status", CommonConstant.STATUS_NORMAL);
+        permissionQueryWrapper.orderByAsc("sort_order");
+        List<Permission> permissions = permissionService.list(permissionQueryWrapper);
         for(Permission permission : permissions) {
             if(StrUtil.isNotBlank(permission.getTitle())&&StrUtil.isNotBlank(permission.getPath())){
                 configAttributes = new ArrayList<>();

@@ -1,13 +1,9 @@
 package com.xm.admin.config.security;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.hutool.core.util.StrUtil;
+import com.xm.admin.config.exception.LoginFailLimitException;
 import com.xm.admin.module.base.entity.Admin;
 import com.xm.admin.module.base.service.IAdminService;
-import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import com.xm.admin.config.exception.LoginFailLimitException;
-import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -15,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private StringRedisTemplate redisTemplate;
 
     @Autowired
-    private IAdminService adminService;
+    private IAdminService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,7 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             //超过限制次数
             throw new LoginFailLimitException("登录错误次数超过限制，请" + timeRest + "分钟后再试");
         }
-        Admin user = adminService.getOne(new QueryWrapper<Admin>().eq("username", username));
+        Admin user = userService.findUserDetailInfo(username);
         return new SecurityUserDetails(user);
     }
 
