@@ -2,7 +2,7 @@ package com.xm.admin.module.base.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.xm.admin.common.vo.PageVo;
+import com.xm.admin.common.vo.ExtraVo;
 import com.xm.admin.module.base.entity.Role;
 import com.xm.admin.module.base.entity.Permission;
 import com.xm.admin.module.base.entity.RolePermission;
@@ -55,9 +55,9 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/getAllByPage",method = RequestMethod.GET)
-    public Result<IPage<Role>> getRoleByPage(@ModelAttribute PageVo pageVo){
+    public Result<IPage<Role>> getRoleByPage(@ModelAttribute ExtraVo extraVo){
 
-        IPage<Role> page = new CommonPageUtil<Role>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
+        IPage<Role> page = new CommonPageUtil<Role>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
         QueryWrapper<Role> roleQueryWrapper = new QueryWrapper<>();
         roleQueryWrapper.orderByDesc( "created_at");
         IPage<Role> roles = roleService.page(page, roleQueryWrapper);

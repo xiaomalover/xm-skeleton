@@ -8,8 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.handler.PermissionEditor;
 import com.xm.admin.common.handler.RolesEditor;
-import com.xm.admin.common.vo.PageVo;
-import com.xm.admin.common.vo.SearchVo;
+import com.xm.admin.common.vo.ExtraVo;
 import com.xm.admin.module.base.entity.*;
 import com.xm.admin.module.base.service.*;
 import com.xm.common.utils.CommonPageUtil;
@@ -222,11 +221,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/getByCondition", method = RequestMethod.GET)
-    public Result<IPage<Admin>> getByCondition(@ModelAttribute Admin user,
-                                               @ModelAttribute SearchVo searchVo,
-                                               @ModelAttribute PageVo pageVo) {
+    public Result<IPage<Admin>> getByCondition(@ModelAttribute Admin user, @ModelAttribute ExtraVo extraVo) {
 
-        IPage<Admin> page = new CommonPageUtil<Admin>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
+        IPage<Admin> page = new CommonPageUtil<Admin>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
 
         QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();
 
@@ -259,16 +256,16 @@ public class AdminController {
             adminQueryWrapper.eq("status", user.getStatus());
         }
 
-        if (!StringUtils.isEmpty(searchVo.getStartDate())) {
-            adminQueryWrapper.gt("created_at", searchVo.getStartDate());
+        if (!StringUtils.isEmpty(extraVo.getStartDate())) {
+            adminQueryWrapper.gt("created_at", extraVo.getStartDate());
         }
-        if (!StringUtils.isEmpty(searchVo.getEndDate())) {
-            adminQueryWrapper.lt("created_at", searchVo.getEndDate());
+        if (!StringUtils.isEmpty(extraVo.getEndDate())) {
+            adminQueryWrapper.lt("created_at", extraVo.getEndDate());
         }
 
-        boolean isAsc = "asc".equals(pageVo.getOrder());
-        if (!StringUtils.isEmpty(pageVo.getSort())) {
-            adminQueryWrapper.orderBy(true, isAsc, StringUtils.camelToUnderline(pageVo.getSort()));
+        boolean isAsc = "asc".equals(extraVo.getOrder());
+        if (!StringUtils.isEmpty(extraVo.getSort())) {
+            adminQueryWrapper.orderBy(true, isAsc, StringUtils.camelToUnderline(extraVo.getSort()));
         } else {
             adminQueryWrapper.orderByDesc("created_at");
         }

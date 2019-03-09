@@ -1,13 +1,15 @@
 package com.xm.admin.common.vo;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 /**
+ * 分布排序前端收集VO
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data
-public class PageVo implements Serializable{
+public class ExtraVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -18,4 +20,8 @@ public class PageVo implements Serializable{
     private String sort;
 
     private String order;
+
+    private String startDate;
+
+    private String endDate;
 }

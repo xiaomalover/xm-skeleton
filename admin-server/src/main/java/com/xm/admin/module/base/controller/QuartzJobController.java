@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.common.vo.PageVo;
+import com.xm.admin.common.vo.ExtraVo;
 import com.xm.admin.config.exception.SkeletonException;
 import com.xm.admin.module.base.entity.QuartzJob;
 import com.xm.admin.module.base.service.IQuartzJobService;
@@ -34,9 +34,9 @@ public class QuartzJobController {
     private Scheduler scheduler;
 
     @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
-    public Result<IPage<QuartzJob>> getAll(@ModelAttribute PageVo pageVo) {
+    public Result<IPage<QuartzJob>> getAll(@ModelAttribute ExtraVo extraVo) {
 
-        IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(pageVo.getPageNumber(), pageVo.getPageSize());
+        IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
         IPage<QuartzJob> data = quartzJobService.page(page);
         return new ResultUtil<IPage<QuartzJob>>().setData(data);
     }
