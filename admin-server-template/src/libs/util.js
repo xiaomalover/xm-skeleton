@@ -241,7 +241,7 @@ util.initRouter = function (vm) {
         meta: {
             title: '404-页面不存在'
         },
-        component: 'error-page/404'
+        component: 'module/sys/error-page/404'
     }];
 
     // 判断用户是否登录

@@ -1,6 +1,5 @@
 package com.xm.admin.module.base.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.common.entity.BaseEntity;
@@ -33,16 +32,6 @@ public class Department extends BaseEntity {
     private Integer status;
 
     private String title;
-
-    @TableField(fill = FieldFill.INSERT)
-    private String createdAt;
-
-    private String createdBy;
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String updatedAt;
-
-    private String updatedBy;
 
     @TableField(exist = false)
     private String parentTitle;

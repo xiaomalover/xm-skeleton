@@ -1,6 +1,5 @@
 package com.xm.admin.module.base.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.constant.CommonConstant;
@@ -52,16 +51,6 @@ public class Admin extends BaseEntity {
     private String street;
 
     private String passStrength;
-
-    @TableField(fill = FieldFill.INSERT)
-    private String createdAt;
-
-    private String createdBy;
-
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String updatedAt;
-
-    private String updatedBy;
 
     @TableField(exist = false)
     private String departmentTitle;

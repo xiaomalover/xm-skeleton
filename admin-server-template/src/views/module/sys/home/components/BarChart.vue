@@ -3,10 +3,12 @@
 </template>
 
 <script>
-    import echarts from 'echarts'
+    import BarCharts from 'echarts'
 
     require('echarts/theme/macarons'); // echarts theme
-    import {debounce} from './utils'
+    import {debounce} from './utils/index'
+
+    const animationDuration = 6000;
 
     export default {
         props: {
@@ -21,11 +23,23 @@
             height: {
                 type: String,
                 default: '300px'
+            },
+            barChartData:{
+                type:Object,
+                require: true,
             }
         },
         data() {
             return {
                 chart: null
+            }
+        },
+        watch: {
+            barChartData: {
+                deep: true,
+                handler(val) {
+                    this.setOptions(val)
+                }
             }
         },
         mounted() {
@@ -46,12 +60,10 @@
             this.chart = null
         },
         methods: {
-            initChart() {
-                this.chart = echarts.init(this.$el, 'macarons');
-
+            setOptions({dates, counts} = {}) {
                 this.chart.setOption({
                     /*title: {
-                        text: '资产相关统计',
+                        text: '用户相关统计',
                         left:'right',
                         textStyle:{
                             //文字颜色
@@ -67,35 +79,45 @@
                         },
                     },*/
                     tooltip: {
-                        trigger: 'item',
-                        formatter: '{a} <br/>{b} : {c} ({d}%)'
-                    },
-                    legend: {
-                        left: 'center',
-                        bottom: '10',
-                        data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
-                    },
-                    calculable: true,
-                    series: [
-                        {
-                            name: 'WEEKLY WRITE ARTICLES',
-                            type: 'pie',
-                            roseType: 'radius',
-                            radius: [15, 95],
-                            center: ['50%', '38%'],
-                            data: [
-                                {value: 320, name: 'Industries'},
-                                {value: 240, name: 'Technology'},
-                                {value: 149, name: 'Forex'},
-                                {value: 100, name: 'Gold'},
-                                {value: 59, name: 'Forecasts'}
-                            ],
-                            animationEasing: 'cubicInOut',
-                            animationDuration: 2600
+                        trigger: 'axis',
+                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
                         }
-                    ]
+                    },
+                    grid: {
+                        top: 10,
+                        left: '2%',
+                        right: '2%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        data: dates,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }],
+                    yAxis: [{
+                        type: 'value',
+                        axisTick: {
+                            show: false
+                        }
+                    }],
+                    series: [{
+                        name: '注册用户总数',
+                        type: 'bar',
+                        stack: 'vistors',
+                        barWidth: '60%',
+                        data: counts,
+                        animationDuration
+                    }]
                 })
-            }
+            },
+            initChart() {
+                this.chart = BarCharts.init(this.$el, 'macarons');
+                this.setOptions(this.barChartData);
+            },
         }
     }
 </script>

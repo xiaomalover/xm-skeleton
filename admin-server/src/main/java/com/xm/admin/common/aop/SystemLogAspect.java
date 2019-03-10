@@ -1,5 +1,6 @@
 package com.xm.admin.common.aop;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.common.utils.IpInfoUtil;
@@ -78,8 +79,14 @@ public class SystemLogAspect {
     @After("controllerAspect()")
     public void after(JoinPoint joinPoint) {
         try {
-            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username = user.getUsername();
+
+            String username = "admin";
+            if (ObjectUtils.isEmpty(SecurityContextHolder.getContext())) {
+                UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (ObjectUtil.isNotNull(user)) {
+                    username = user.getUsername();
+                }
+            }
 
             if (StrUtil.isNotBlank(username)) {
 

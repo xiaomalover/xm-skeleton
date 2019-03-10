@@ -16,7 +16,7 @@ export const page403 = {
         title: '403-权限不足'
     },
     name: 'error-403',
-    component: () => import('@/views/error-page/403.vue')
+    component: () => import('@/views/module/sys/error-page/403.vue')
 };
 
 export const page500 = {
@@ -25,7 +25,7 @@ export const page500 = {
         title: '500-服务端错误'
     },
     name: 'error-500',
-    component: () => import('@/views/error-page/500.vue')
+    component: () => import('@/views/module/sys/error-page/500.vue')
 };
 
 export const locking = {
@@ -41,9 +41,9 @@ export const otherRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: () => import('@/views/home/home.vue') },
-        { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/views/own-space/own-space.vue') },
-        { path: 'change-pass', title: '修改密码', name: 'change_pass', component: () => import('@/views/change-pass/change-pass.vue') },
+        { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: () => import('@/views/module/sys/home/home.vue') },
+        { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/views/module/sys/own-space/own-space.vue') },
+        { path: 'change-pass', title: '修改密码', name: 'change_pass', component: () => import('@/views/module/sys/change-pass/change-pass.vue') },
     ]
 };
 

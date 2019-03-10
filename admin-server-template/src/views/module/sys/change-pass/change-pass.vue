@@ -1,5 +1,5 @@
 <style lang="less">
-@import "./change-pass.less";
+@import "change-pass.less";
 </style>
 
 <template>

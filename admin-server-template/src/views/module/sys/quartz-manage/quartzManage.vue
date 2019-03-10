@@ -63,7 +63,7 @@ import {
   resumeQuartz,
   deleteQuartz
 } from "@/api/index";
-import circleLoading from "../../my-components/circle-loading.vue";
+import circleLoading from "../../../my-components/circle-loading.vue";
 export default {
   name: "quartz-manage",
   components: {

@@ -1,5 +1,5 @@
 <style lang="less">
-    @import "./own-space.less";
+    @import "own-space.less";
 </style>
 
 <template>
@@ -16,7 +16,7 @@
                         <FormItem label="用户头像：">
                             <span class="ivu-avatar ivu-avatar-circle ivu-avatar-large ivu-avatar-image"
                                   style="background: rgb(97, 159, 231); margin-left: 10px;"><img
-                                    src="../../assets/avatar.png"></span>
+                                    src="../../../../assets/avatar.png"></span>
                         </FormItem>
                         <FormItem label="用户账号：">
                             <span>{{userForm.username}}</span>

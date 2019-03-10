@@ -4,7 +4,7 @@ module.exports = {
         port: 7777,
         proxy: {
             '/skeleton': {
-                target: 'http://127.0.0.1:2003',
+                target: 'http://127.0.0.1:20003',
                 ws: true
             },
             '/foo': {
