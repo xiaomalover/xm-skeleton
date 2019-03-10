@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ import java.util.List;
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
-public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
+public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -44,7 +45,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String header = request.getHeader(SecurityConstant.HEADER);
-        if(StrUtil.isBlank(header)){
+        if (StrUtil.isBlank(header)) {
             header = request.getParameter(SecurityConstant.HEADER);
         }
         if (StrUtil.isBlank(header) || !header.startsWith(SecurityConstant.TOKEN_SPLIT)) {
@@ -54,7 +55,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
         try {
             UsernamePasswordAuthenticationToken authentication = getAuthentication(request, response);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.toString();
         }
 
@@ -80,20 +81,21 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter   {
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 String authority = claims.get(SecurityConstant.AUTHORITIES).toString();
 
-                if(StrUtil.isNotBlank(authority)){
-                    List<String> list = new Gson().fromJson(authority, new TypeToken<List<String>>(){}.getType());
-                    for(String ga : list){
+                if (StrUtil.isNotBlank(authority)) {
+                    List<String> list = new Gson().fromJson(authority, new TypeToken<List<String>>() {
+                    }.getType());
+                    for (String ga : list) {
                         authorities.add(new SimpleGrantedAuthority(ga));
                     }
                 }
-                if(StrUtil.isNotBlank(username)) {
+                if (StrUtil.isNotBlank(username)) {
                     User principal = new User(username, "", authorities);
                     return new UsernamePasswordAuthenticationToken(principal, null, authorities);
                 }
             } catch (ExpiredJwtException e) {
                 throw new SkeletonException("登录已失效，请重新登录");
-            } catch (Exception e){
-                ResponseUtil.out(response, ResponseUtil.resultMap(false,500,"解析token错误"));
+            } catch (Exception e) {
+                ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "解析token错误"));
             }
         }
         return null;

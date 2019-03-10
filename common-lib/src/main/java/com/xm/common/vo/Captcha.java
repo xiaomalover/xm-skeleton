@@ -1,4 +1,4 @@
-package com.xm.admin.common.vo;
+package com.xm.common.vo;
 
 import lombok.Data;
 import java.io.Serializable;

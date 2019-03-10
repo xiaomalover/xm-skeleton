@@ -21,11 +21,12 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 /**
  * Security 核心配置类
  * 开启控制权限至Controller
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -65,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll();
 
         //除配置文件忽略路径其它所有请求都需经过认证和授权
-        for(String url:ignoredUrlsProperties.getUrls()){
+        for (String url : ignoredUrlsProperties.getUrls()) {
             registry.antMatchers(url).permitAll();
         }
 

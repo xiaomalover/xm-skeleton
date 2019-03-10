@@ -19,9 +19,9 @@ public class RestCtrlExceptionHandler {
     @ResponseStatus(value = HttpStatus.OK)
     public Result<Object> handleXCloudException(SkeletonException e) {
 
-        String errorMsg="Skeleton exception";
-        if (e!=null){
-            errorMsg=e.getMsg();
+        String errorMsg = "Skeleton exception";
+        if (e != null) {
+            errorMsg = e.getMsg();
             log.error(e.toString());
         }
         return new ResultUtil<>().setErrorMsg(500, errorMsg);
@@ -31,9 +31,9 @@ public class RestCtrlExceptionHandler {
     @ResponseStatus(value = HttpStatus.OK)
     public Result<Object> handleException(Exception e) {
 
-        String errorMsg="Exception";
-        if (e!=null){
-            errorMsg=e.getMessage();
+        String errorMsg = "Exception";
+        if (e != null) {
+            errorMsg = e.getMessage();
             log.error(e.toString());
         }
         return new ResultUtil<>().setErrorMsg(500, errorMsg);

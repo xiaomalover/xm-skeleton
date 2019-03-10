@@ -1,11 +1,11 @@
-package com.xm.admin.common.vo;
+package com.xm.common.vo;
 
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
- * 分布排序前端收集VO
+ * 分页排序日期搜索前端收集VO
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data

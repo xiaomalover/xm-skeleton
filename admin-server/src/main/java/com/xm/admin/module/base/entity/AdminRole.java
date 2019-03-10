@@ -3,11 +3,9 @@ package com.xm.admin.module.base.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 
 /**
@@ -20,23 +18,20 @@ public class AdminRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    private String id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
-
     private String userId;
 
     private String roleId;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String roleName;
 
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private String createdAt;
 
     private String createdBy;
 
-    @TableField(fill= FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updatedAt;
 
     private String updatedBy;

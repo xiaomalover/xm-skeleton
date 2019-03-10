@@ -1,11 +1,11 @@
 package com.xm.admin.module.base.mapper;
 
-import com.xm.admin.module.base.entity.Admin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xm.admin.module.base.entity.Admin;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author xiaomalover

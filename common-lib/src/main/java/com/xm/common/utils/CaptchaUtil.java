@@ -1,4 +1,4 @@
-package com.xm.admin.common.utils;
+package com.xm.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Encoder;

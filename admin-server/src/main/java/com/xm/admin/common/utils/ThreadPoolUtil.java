@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 线程池工具类
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class ThreadPoolUtil {
@@ -40,12 +41,12 @@ public class ThreadPoolUtil {
      * 拒绝策略 DiscardOldestPolicy() : 丢弃任务队列中最旧任务。
      */
     private static ThreadPoolExecutor pool = new ThreadPoolExecutor(
-        SIZE_CORE_POOL,
-        SIZE_MAX_POOL,
-        ALIVE_TIME,
-        TimeUnit.MILLISECONDS,
-        bqueue,
-        new ThreadPoolExecutor.CallerRunsPolicy()
+            SIZE_CORE_POOL,
+            SIZE_MAX_POOL,
+            ALIVE_TIME,
+            TimeUnit.MILLISECONDS,
+            bqueue,
+            new ThreadPoolExecutor.CallerRunsPolicy()
     );
 
     //静态代码块，启动时主动执行，只执行一次
@@ -57,6 +58,7 @@ public class ThreadPoolUtil {
 
     /**
      * 获取线程池
+     *
      * @return 线程池
      */
     public static ThreadPoolExecutor getPool() {
@@ -65,6 +67,7 @@ public class ThreadPoolUtil {
 
     /**
      * 测试
+     *
      * @param args 参数
      */
     public static void main(String[] args) {

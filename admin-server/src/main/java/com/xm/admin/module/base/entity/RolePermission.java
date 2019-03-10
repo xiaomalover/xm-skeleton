@@ -3,16 +3,14 @@ package com.xm.admin.module.base.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.data.annotation.Id;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author xiaomalover
@@ -22,23 +20,20 @@ import org.springframework.data.annotation.Id;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("sys_role_permission")
-public class RolePermission extends BaseEntity{
+public class RolePermission extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    private String id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
 
     private String permissionId;
 
     private String roleId;
 
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private String createdAt;
 
     private String createdBy;
 
-    @TableField(fill= FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updatedAt;
 
     private String updatedBy;

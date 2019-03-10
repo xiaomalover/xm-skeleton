@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     @GetMapping("statistics")
-    public Result getStatistics()
-    {
+    public Result getStatistics() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("preProfitCount", 10);
         jsonObject.put("completeProfitCount", 100);

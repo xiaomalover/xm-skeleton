@@ -2,6 +2,7 @@ package com.xm.admin.common.utils;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.ServletResponse;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -14,11 +15,12 @@ import java.util.Map;
 public class ResponseUtil {
 
     /**
-     *  使用response输出JSON
-     * @param response 响应
+     * 使用response输出JSON
+     *
+     * @param response  响应
      * @param resultMap 结果
      */
-    public static void out(ServletResponse response, Map<String, Object> resultMap){
+    public static void out(ServletResponse response, Map<String, Object> resultMap) {
 
         PrintWriter out = null;
         try {
@@ -28,26 +30,25 @@ public class ResponseUtil {
             out.println(new Gson().toJson(resultMap));
         } catch (Exception e) {
             log.error(e + "输出JSON出错");
-        }finally{
-            if(out!=null){
+        } finally {
+            if (out != null) {
                 out.flush();
                 out.close();
             }
         }
     }
 
-    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg){
+    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg) {
         return getBasicResultMap(flag, code, msg);
     }
 
-    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg, Object data){
+    public static Map<String, Object> resultMap(boolean flag, Integer code, String msg, Object data) {
         Map<String, Object> resultMap = getBasicResultMap(flag, code, msg);
         resultMap.put("result", data);
         return resultMap;
     }
 
-    private static  Map<String, Object> getBasicResultMap(boolean flag, Integer code, String msg)
-    {
+    private static Map<String, Object> getBasicResultMap(boolean flag, Integer code, String msg) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("success", flag);
         resultMap.put("message", msg);

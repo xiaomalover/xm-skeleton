@@ -14,14 +14,15 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Set;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author xiaomalover
@@ -42,35 +43,35 @@ public class DepartmentController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/getByParentId/{parentId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/getByParentId/{parentId}", method = RequestMethod.GET)
     @Cacheable(key = "#parentId")
-    public Result<List<Department>> getByParentId(@PathVariable String parentId){
+    public Result<List<Department>> getByParentId(@PathVariable String parentId) {
 
         QueryWrapper<Department> departmentQueryWrapper = new QueryWrapper<>();
         departmentQueryWrapper.eq("parent_id", parentId).orderByAsc("sort_order");
         List<Department> list = departmentService.list(departmentQueryWrapper);
         // lambda表达式
         list.forEach(item -> {
-            if(!CommonConstant.PARENT_ID.equals(item.getParentId())){
+            if (!CommonConstant.PARENT_ID.equals(item.getParentId())) {
                 Department parent = departmentService.getById(item.getParentId());
                 item.setParentTitle(parent.getTitle());
-            }else{
+            } else {
                 item.setParentTitle("一级部门");
             }
         });
         return new ResultUtil<List<Department>>().setData(list);
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @CacheEvict(key = "#department.parentId")
-    public Result<Department> add(@ModelAttribute Department department){
+    public Result<Department> add(@ModelAttribute Department department) {
 
         departmentService.save(department);
 
         // 如果不是添加的一级 判断设置上级为父节点标识
-        if(!CommonConstant.PARENT_ID.equals(department.getParentId())){
+        if (!CommonConstant.PARENT_ID.equals(department.getParentId())) {
             Department parent = departmentService.getById(department.getParentId());
-            if(parent.getIsParent()==null||!parent.getIsParent()){
+            if (parent.getIsParent() == null || !parent.getIsParent()) {
                 parent.setIsParent(true);
                 departmentService.updateById(parent);
                 // 更新上级节点的缓存
@@ -80,8 +81,8 @@ public class DepartmentController {
         return new ResultUtil<Department>().setData(department);
     }
 
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
-    public Result<Department> edit(@ModelAttribute Department department){
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public Result<Department> edit(@ModelAttribute Department department) {
 
         departmentService.updateById(department);
         // 手动删除所有部门缓存
@@ -93,16 +94,16 @@ public class DepartmentController {
         return new ResultUtil<Department>().setData(department);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}",method = RequestMethod.DELETE)
-    public Result<Object> delByIds(@PathVariable String[] ids){
+    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    public Result<Object> delByIds(@PathVariable String[] ids) {
 
-        for(String id:ids){
+        for (String id : ids) {
             Admin admin = adminService.getOne(new QueryWrapper<Admin>().eq("department_id", id));
-            if(!ObjectUtils.isEmpty(admin)){
+            if (!ObjectUtils.isEmpty(admin)) {
                 return new ResultUtil<>().setErrorMsg("删除失败，包含正被用户使用关联的部门");
             }
         }
-        for(String id:ids){
+        for (String id : ids) {
             departmentService.removeById(id);
         }
         // 手动删除所有部门缓存

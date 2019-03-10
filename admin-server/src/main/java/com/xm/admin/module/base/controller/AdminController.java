@@ -8,11 +8,14 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.handler.PermissionEditor;
 import com.xm.admin.common.handler.RolesEditor;
-import com.xm.admin.common.vo.ExtraVo;
 import com.xm.admin.module.base.entity.*;
-import com.xm.admin.module.base.service.*;
+import com.xm.admin.module.base.service.IAdminService;
+import com.xm.admin.module.base.service.IDepartmentService;
+import com.xm.admin.module.base.service.IRoleService;
+import com.xm.admin.module.base.service.IUserRoleService;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
+import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -292,7 +296,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
     public Result<Object> add(@ModelAttribute Admin u,
-                                 @RequestParam(required = false) String[] roles) {
+                              @RequestParam(required = false) String[] roles) {
 
         if (StrUtil.isBlank(u.getUsername()) || StrUtil.isBlank(u.getPassword())) {
             return new ResultUtil<>().setErrorMsg("缺少必需表单字段");
@@ -364,12 +368,13 @@ public class AdminController {
 
     /**
      * 初始化绑定<br/>
+     *
      * @param request http请求实例
-     * @param binder 绑定实例
+     * @param binder  绑定实例
      * @throws Exception
-     * */
+     */
     @InitBinder
-    public void initBinder(HttpServletRequest request,ServletRequestDataBinder binder) throws Exception {
+    public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
         binder.registerCustomEditor(Permission.class, new PermissionEditor());
         binder.registerCustomEditor(Role.class, new RolesEditor());
     }

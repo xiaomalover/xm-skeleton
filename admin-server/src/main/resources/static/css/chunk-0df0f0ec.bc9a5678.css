@@ -1,1 +1,5 @@
-.spin-icon-load{margin-left:5px;-webkit-animation:ani-demo-spin 1s linear infinite;animation:ani-demo-spin 1s linear infinite}
+.spin-icon-load {
+    margin-left: 5px;
+    -webkit-animation: ani-demo-spin 1s linear infinite;
+    animation: ani-demo-spin 1s linear infinite
+}

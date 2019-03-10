@@ -10,7 +10,7 @@ public class SkeletonException extends RuntimeException {
 
     private String msg;
 
-    public SkeletonException(String msg){
+    public SkeletonException(String msg) {
         super(msg);
         this.msg = msg;
     }

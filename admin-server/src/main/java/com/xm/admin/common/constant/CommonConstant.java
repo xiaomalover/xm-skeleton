@@ -3,6 +3,7 @@ package com.xm.admin.common.constant;
 
 /**
  * 常量
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public interface CommonConstant {

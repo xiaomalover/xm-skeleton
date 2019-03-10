@@ -1,4 +1,4 @@
-package com.xm.admin.common.utils;
+package com.xm.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 

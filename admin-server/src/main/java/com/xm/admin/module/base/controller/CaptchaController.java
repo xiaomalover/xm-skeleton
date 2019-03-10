@@ -1,18 +1,22 @@
 package com.xm.admin.module.base.controller;
 
-import com.xm.admin.common.utils.CaptchaUtil;
+import com.alibaba.fastjson.JSONObject;
+import com.xm.common.utils.CaptchaUtil;
 import com.xm.common.utils.ResultUtil;
-import com.xm.admin.common.vo.Captcha;
+import com.xm.common.vo.Captcha;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
@@ -25,15 +29,15 @@ public class CaptchaController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/init",method = RequestMethod.GET)
+    @RequestMapping(value = "/init", method = RequestMethod.GET)
     public Result<Object> initCaptcha() {
 
-        String captchaId = UUID.randomUUID().toString().replace("-","");
+        String captchaId = UUID.randomUUID().toString().replace("-", "");
         String code = new CaptchaUtil().randomStr(4);
         Captcha captcha = new Captcha();
         captcha.setCaptchaId(captchaId);
         //缓存验证码
-        redisTemplate.opsForValue().set(captchaId,code,3L, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(captchaId, code, 3L, TimeUnit.MINUTES);
         return new ResultUtil<Object>().setData(captcha);
     }
 
@@ -41,8 +45,8 @@ public class CaptchaController {
     public JSONObject drawCaptcha(@PathVariable("captchaId") String captchaId, HttpServletResponse response) throws IOException {
 
         //得到验证码 生成指定验证码
-        String code=redisTemplate.opsForValue().get(captchaId);
-        CaptchaUtil vCode = new CaptchaUtil(108,36,4,10,code);
+        String code = redisTemplate.opsForValue().get(captchaId);
+        CaptchaUtil vCode = new CaptchaUtil(108, 36, 4, 10, code);
         return vCode.getBase64Captcha();
     }
 }

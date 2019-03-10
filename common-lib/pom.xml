@@ -17,16 +17,24 @@
 	</parent>
 
 	<dependencies>
+		<!-- 全局引入lombok 解放实体get和set方法，简化实体-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
 
-		<!-- MybatisPlus -->
+		<!-- 引入mybatis-plus 是为了抽离分页工具类到通用模块 -->
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 		</dependency>
+
+		<!-- 引入阿里的fast json作为通用的json处理工具 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>

@@ -2,6 +2,7 @@ package com.xm.admin.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -15,6 +16,7 @@ public class IpInfoUtil {
 
     /**
      * 获取客户端IP地址
+     *
      * @param request 请求
      * @return ip地址
      */
@@ -38,7 +40,7 @@ public class IpInfoUtil {
                     e.printStackTrace();
                 }
                 if (inet != null)
-                ip = inet.getHostAddress();
+                    ip = inet.getHostAddress();
             }
         }
         // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
@@ -47,8 +49,8 @@ public class IpInfoUtil {
                 ip = ip.substring(0, ip.indexOf(","));
             }
         }
-        if("0:0:0:0:0:0:0:1".equals(ip)){
-            ip="127.0.0.1";
+        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+            ip = "127.0.0.1";
         }
         return ip;
     }

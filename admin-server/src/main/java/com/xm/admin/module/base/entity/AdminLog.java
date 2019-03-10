@@ -1,19 +1,18 @@
 package com.xm.admin.module.base.entity;
 
-import java.util.Map;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.utils.ObjectUtil;
-import com.xm.admin.common.utils.SnowFlakeUtil;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
+
+import java.util.Map;
 
 /**
  * <p>
- *  管理员日志
+ * 管理员日志
  * </p>
  *
  * @author xiaomalover
@@ -22,12 +21,9 @@ import org.springframework.data.annotation.Id;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_admin_log")
-public class AdminLog extends BaseEntity{
+public class AdminLog extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @Id
-    private String id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
 
     private Integer costTime;
 
@@ -45,18 +41,19 @@ public class AdminLog extends BaseEntity{
 
     private String username;
 
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private String createdAt;
 
     private String createdBy;
 
-    @TableField(fill= FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updatedAt;
 
     private String updatedBy;
 
     /**
      * 转换请求参数为Json
+     *
      * @param paramMap 参数
      */
     public void setMapToParams(Map<String, String[]> paramMap) {

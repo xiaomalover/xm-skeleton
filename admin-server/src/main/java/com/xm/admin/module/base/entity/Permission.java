@@ -1,29 +1,26 @@
 package com.xm.admin.module.base.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.xm.common.entity.BaseEntity;
-import com.xm.admin.common.constant.CommonConstant;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xm.admin.common.utils.SnowFlakeUtil;
+import com.xm.admin.common.constant.CommonConstant;
+import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * 菜单/权限
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("sys_permission")
 public class Permission extends BaseEntity {
-
-    @Id
-    private String id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
 
     private static final long serialVersionUID = 1L;
 
@@ -54,31 +51,31 @@ public class Permission extends BaseEntity {
     private String url;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private List<Permission> children;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private List<String> permTypes;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private Boolean expand = true;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private Boolean checked = false;
 
     @Transient
-    @TableField(exist=false)
+    @TableField(exist = false)
     private Boolean selected = false;
 
-    @TableField(fill= FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private String createdAt;
 
     private String createdBy;
 
-    @TableField(fill= FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updatedAt;
 
     private String updatedBy;

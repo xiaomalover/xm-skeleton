@@ -1,10 +1,11 @@
-package com.xm.admin.common.utils;
+package com.xm.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xm.admin.common.vo.ExtraVo;
+import com.xm.common.vo.ExtraVo;
 
 /**
+ * 从请求参数中初始化分页
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class PageUtil<T> {

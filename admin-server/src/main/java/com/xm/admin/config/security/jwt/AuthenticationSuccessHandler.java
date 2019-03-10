@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import java.util.List;
 
 /**
  * 登录成功处理类
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
@@ -42,18 +44,18 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
     private IpInfoUtil ipInfoUtil;
 
     @Override
-    @SystemLog(description="登录系统")
+    @SystemLog(description = "登录系统")
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         //用户选择保存登录状态几天
         String saveTime = request.getParameter(SecurityConstant.SAVE_LOGIN);
-        if(StrUtil.isNotBlank(saveTime)&&Boolean.valueOf(saveTime)){
+        if (StrUtil.isNotBlank(saveTime) && Boolean.valueOf(saveTime)) {
             tokenExpireTime = saveLoginTime * 60 * 24;
         }
-        String username = ((UserDetails)authentication.getPrincipal()).getUsername();
-        List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails)authentication.getPrincipal()).getAuthorities();
+        String username = ((UserDetails) authentication.getPrincipal()).getUsername();
+        List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails) authentication.getPrincipal()).getAuthorities();
         List<String> authorities = new ArrayList<>();
-        for(GrantedAuthority g : list){
+        for (GrantedAuthority g : list) {
             authorities.add(g.getAuthority());
         }
 
@@ -70,6 +72,6 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
                 .compact();
         token = SecurityConstant.TOKEN_SPLIT + token;
 
-        ResponseUtil.out(response, ResponseUtil.resultMap(true,200,"登录成功", token));
+        ResponseUtil.out(response, ResponseUtil.resultMap(true, 200, "登录成功", token));
     }
 }

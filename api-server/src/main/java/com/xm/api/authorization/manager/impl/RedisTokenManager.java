@@ -35,10 +35,10 @@ public class RedisTokenManager implements TokenManager {
 
         //存TOKEN
         String token = SecureUtil.md5(UUID.randomUUID().toString());
-        Token tokenModel = new Token(userId, token, TokenConstant.TOKKEN_EXPIRED);
+        Token tokenModel = new Token(userId, token, TokenConstant.TOKEN_EXPIRED);
         String tokenKey = this.getTokenKey(token);
         redisTemplate.opsForValue().set(tokenKey, JSONObject.toJSONString(tokenModel));
-        redisTemplate.expire(tokenKey,  TokenConstant.TOKKEN_EXPIRED, TimeUnit.SECONDS);
+        redisTemplate.expire(tokenKey,  TokenConstant.TOKEN_EXPIRED, TimeUnit.SECONDS);
 
         //存TOKEN记录
         this.handHash(userId, token);
@@ -56,9 +56,9 @@ public class RedisTokenManager implements TokenManager {
         String redisToken = redisTemplate.opsForValue().get(tokenKey);
         if (!ObjectUtils.isEmpty(redisToken)) {
             Token tokenModel = JSONObject.parseObject(redisToken, Token.class);
-            tokenModel.setTtl(TokenConstant.TOKKEN_EXPIRED);
+            tokenModel.setTtl(TokenConstant.TOKEN_EXPIRED);
             redisTemplate.opsForValue().set(tokenKey, JSONObject.toJSONString(tokenModel));
-            redisTemplate.expire(tokenKey,  TokenConstant.TOKKEN_EXPIRED, TimeUnit.SECONDS);
+            redisTemplate.expire(tokenKey,  TokenConstant.TOKEN_EXPIRED, TimeUnit.SECONDS);
         }
     }
 

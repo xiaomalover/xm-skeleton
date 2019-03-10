@@ -3,6 +3,7 @@ package com.xm.admin.common.utils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -110,8 +111,8 @@ public class RedisUtil {
     /**
      * 递增
      *
-     * @param key 键
-     * @param step  要增加几(大于0)
+     * @param key  键
+     * @param step 要增加几(大于0)
      * @return 结果 递增后的结果
      */
     public long incr(String key, long step) {
@@ -124,8 +125,8 @@ public class RedisUtil {
     /**
      * 递减
      *
-     * @param key 键
-     * @param step  要减少几(小于0)
+     * @param key  键
+     * @param step 要减少几(小于0)
      * @return 结果
      */
     public long decr(String key, long step) {

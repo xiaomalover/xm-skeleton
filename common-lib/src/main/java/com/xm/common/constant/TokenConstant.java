@@ -8,7 +8,7 @@ public class TokenConstant {
     /**
      * 过期时间常量
      */
-    public final static int TOKKEN_EXPIRED = 15 * 3600;
+    public final static int TOKEN_EXPIRED = 15 * 3600;
 
     /**
      * Token前缀常量

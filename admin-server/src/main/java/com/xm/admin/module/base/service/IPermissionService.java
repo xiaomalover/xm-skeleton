@@ -16,6 +16,7 @@ public interface IPermissionService extends IService<Permission> {
 
     /**
      * 通过用户id获取
+     *
      * @param userId
      * @return
      */
@@ -24,6 +25,7 @@ public interface IPermissionService extends IService<Permission> {
 
     /**
      * 通过roleId获取
+     *
      * @param roleId
      * @return
      */

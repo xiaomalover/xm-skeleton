@@ -3,6 +3,7 @@ package com.xm.admin.module.base.service.impl;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.module.base.entity.Admin;
 import com.xm.admin.module.base.entity.Department;
@@ -12,13 +13,11 @@ import com.xm.admin.module.base.mapper.AdminMapper;
 import com.xm.admin.module.base.mapper.PermissionMapper;
 import com.xm.admin.module.base.mapper.UserRoleMapper;
 import com.xm.admin.module.base.service.IAdminService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xm.admin.module.base.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -42,8 +41,9 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     /**
      * 获取用户详情令牌
-     *
+     * <p>
      * 包括 用户令牌， 权限，部门
+     *
      * @param username 用户名
      * @return 用户详细信息
      */

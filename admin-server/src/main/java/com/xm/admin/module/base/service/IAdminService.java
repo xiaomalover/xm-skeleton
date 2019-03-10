@@ -1,13 +1,13 @@
 package com.xm.admin.module.base.service;
 
-import com.xm.admin.module.base.entity.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xm.admin.module.base.entity.Admin;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author xiaomalover
@@ -18,8 +18,9 @@ public interface IAdminService extends IService<Admin> {
 
     /**
      * 获取用户详情令牌
-     *
+     * <p>
      * 包括 用户令牌， 权限，部门
+     *
      * @param username 用户名
      * @return 用户详细信息
      */

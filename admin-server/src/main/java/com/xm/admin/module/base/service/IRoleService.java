@@ -1,11 +1,11 @@
 package com.xm.admin.module.base.service;
 
-import com.xm.admin.module.base.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xm.admin.module.base.entity.Role;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author xiaomalover

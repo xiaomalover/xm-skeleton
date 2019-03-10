@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Transactional
 public class SecurityController {
 
-    @RequestMapping(value = "/needLogin",method = RequestMethod.GET)
-    public Result<Object> needLogin(){
+    @RequestMapping(value = "/needLogin", method = RequestMethod.GET)
+    public Result<Object> needLogin() {
         return new ResultUtil<>().setErrorMsg(401, "您还未登录");
     }
 }
