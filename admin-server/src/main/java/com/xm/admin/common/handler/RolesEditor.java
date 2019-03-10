@@ -5,7 +5,7 @@ import java.beans.PropertyEditorSupport;
 
 /**
  * 自定义方法参数绑定
- * 由于 Role的一些属性是List<Object>,前端传过来的是List<String> 会报类型不匹配，所以指控，单独用户参数接收 @ModelAttribute
+ * 由于 Role的一些属性是List<Object>,前端传过来的是List<String> 会报类型不匹配，所以置空，单独用户参数接收 @ModelAttribute
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class RolesEditor extends PropertyEditorSupport {
