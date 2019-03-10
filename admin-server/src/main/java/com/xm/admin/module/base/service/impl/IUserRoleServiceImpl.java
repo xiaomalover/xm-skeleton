@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service
 public class IUserRoleServiceImpl extends ServiceImpl<UserRoleMapper, AdminRole> implements IUserRoleService {
 

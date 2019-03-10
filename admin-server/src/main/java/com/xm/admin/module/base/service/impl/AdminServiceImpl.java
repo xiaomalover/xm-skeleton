@@ -27,6 +27,7 @@ import java.util.List;
  * @author xiaomalover
  * @since 2019-03-06
  */
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminService {
 

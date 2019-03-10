@@ -7,7 +7,6 @@ import com.xm.admin.common.constant.CommonConstant;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Transient;
 
 import java.util.List;
 
@@ -64,15 +63,12 @@ public class Admin extends BaseEntity {
 
     private String updatedBy;
 
-    @Transient
     @TableField(exist = false)
     private String departmentTitle;
 
-    @Transient
     @TableField(exist = false)
     private List<Role> roles;
 
-    @Transient
     @TableField(exist = false)
     private List<Permission> permissions;
 }

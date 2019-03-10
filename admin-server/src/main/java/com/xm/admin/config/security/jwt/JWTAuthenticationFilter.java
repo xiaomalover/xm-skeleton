@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * JWT过滤器
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j

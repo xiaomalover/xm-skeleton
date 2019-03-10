@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "SpringJavaAutowiredFieldsWarningInspection"})
 @Service("permissionService")
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements IPermissionService {
 

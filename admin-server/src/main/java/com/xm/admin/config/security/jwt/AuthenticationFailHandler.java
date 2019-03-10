@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 登录失败处理类
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j

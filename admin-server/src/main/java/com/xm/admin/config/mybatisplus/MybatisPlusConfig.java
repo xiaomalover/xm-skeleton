@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Mybatis-plus 配置类
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Configuration

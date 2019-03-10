@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync
 //启用自带定时任务
 @EnableScheduling
+
 public class AdminApplication {
 
     public static void main(String[] args) {

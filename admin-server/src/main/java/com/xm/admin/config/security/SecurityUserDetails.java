@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
+ * 安全用户详情类
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j

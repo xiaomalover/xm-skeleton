@@ -7,7 +7,6 @@ import com.xm.admin.common.constant.CommonConstant;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Transient;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -50,23 +49,18 @@ public class Permission extends BaseEntity {
 
     private String url;
 
-    @Transient
     @TableField(exist = false)
     private List<Permission> children;
 
-    @Transient
     @TableField(exist = false)
     private List<String> permTypes;
 
-    @Transient
     @TableField(exist = false)
     private Boolean expand = true;
 
-    @Transient
     @TableField(exist = false)
     private Boolean checked = false;
 
-    @Transient
     @TableField(exist = false)
     private Boolean selected = false;
 

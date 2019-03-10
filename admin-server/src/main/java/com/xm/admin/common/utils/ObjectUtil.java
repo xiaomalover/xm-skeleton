@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 对象工具类
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class ObjectUtil {

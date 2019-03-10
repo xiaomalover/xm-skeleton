@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Transient;
 
 import java.math.BigDecimal;
 
@@ -45,7 +44,6 @@ public class Department extends BaseEntity {
 
     private String updatedBy;
 
-    @Transient
     @TableField(exist = false)
     private String parentTitle;
 
