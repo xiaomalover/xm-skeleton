@@ -1,19 +1,18 @@
 package com.xm.api.module.base.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.xm.common.entity.BaseEntity;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  * 用户数据库模型
  */
 @Data
-public class User implements Serializable{
+@TableName("user_info")
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1859492908833095035L;
-
-    private Integer id;
 
     private String username;
 
@@ -25,7 +24,4 @@ public class User implements Serializable{
 
     private Integer status;
 
-    private Integer createdAt;
-
-    private Integer updatedAt;
 }

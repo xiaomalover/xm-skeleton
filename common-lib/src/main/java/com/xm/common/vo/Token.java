@@ -12,7 +12,7 @@ public class Token {
     /**
      * 用户id
      */
-    private int userId;
+    private String userId;
 
     /**
      * 随机生成的uuid
@@ -24,7 +24,7 @@ public class Token {
      */
     private int ttl;
 
-    public Token(int userId, String token, int ttl) {
+    public Token(String userId, String token, int ttl) {
         this.userId = userId;
         this.token = token;
         this.ttl = ttl;

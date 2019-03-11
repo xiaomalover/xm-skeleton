@@ -1,5 +1,6 @@
 package com.xm.api.module.base.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.xm.api.dto.UserLoginRequest;
 import com.xm.api.module.base.entity.User;
 import com.xm.api.dto.UserRegisterRequest;
@@ -9,7 +10,7 @@ import com.xm.common.vo.Result;
  * @author xiaomalover <xiaomalover@gmail.com>
  * 用户接口类
  */
-public interface UserService {
+public interface IUserService extends IService<User> {
 
     /**
      * 用户注册
@@ -30,5 +31,5 @@ public interface UserService {
      * @param userId 用户ID
      * @return User
      */
-    User getUser(int userId);
+    User getUser(String userId);
 }

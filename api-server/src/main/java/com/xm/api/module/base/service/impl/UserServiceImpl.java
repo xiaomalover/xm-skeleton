@@ -1,38 +1,29 @@
-package com.xm.api.module.base.serviceimpl;
+package com.xm.api.module.base.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xm.api.dto.UserLoginRequest;
 import com.xm.api.dto.UserRegisterRequest;
 import com.xm.api.module.base.entity.User;
 import com.xm.api.module.base.mapper.UserMapper;
-import com.xm.api.module.base.service.UserService;
+import com.xm.api.module.base.service.IUserService;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
-@Service(value = "userService")
-public class UserServiceImpl implements UserService {
+@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "SpringJavaAutowiredFieldsWarningInspection"})
+@Service
 
-    private final UserMapper userMapper;
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    /**
-     * 验证器
-     */
-    private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    private UserMapper userMapper;
 
     /**
      * 用户注册
@@ -61,14 +52,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userRegisterRequest.getUsername());
         //密码加密
         user.setPassword(this.encodePassword(userRegisterRequest.getPassword()));
-        //写入创建时间 TODO 自动处理
-        String timestamp = String.valueOf(System.currentTimeMillis());
-        int length = timestamp.length();
-        int now = Integer.valueOf(timestamp.substring(0,length-3));
-        user.setCreatedAt(now);
-
-
-        if (userMapper.insert(user) > 0) {
+        if (save(user)) {
             return new ResultUtil<>().setData(null);
         } else {
             return new ResultUtil<>().setErrorMsg("注册失败");
@@ -108,8 +92,8 @@ public class UserServiceImpl implements UserService {
      * @return 用户数据
      */
     @Override
-    public User getUser(int userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+    public User getUser(String userId) {
+        User user = getById(userId);
         User userModel = new User();
         userModel.setId(user.getId());
         userModel.setMobile(user.getMobile());

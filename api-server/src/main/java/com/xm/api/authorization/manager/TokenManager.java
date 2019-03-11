@@ -13,7 +13,7 @@ public interface TokenManager {
      * @param userId 指定用户的id
      * @return 生成的token
      */
-    Token createToken(int userId);
+    Token createToken(String userId);
 
     /**
      * 刷新token
@@ -26,5 +26,5 @@ public interface TokenManager {
      * @param token token
      * @return 用户id
      */
-    Integer getUserIdByToken(String token);
+    String getUserIdByToken(String token);
 }

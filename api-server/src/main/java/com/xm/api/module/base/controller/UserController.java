@@ -5,7 +5,7 @@ import com.xm.api.authorization.manager.TokenManager;
 import com.xm.api.dto.UserLoginRequest;
 import com.xm.api.dto.UserRegisterRequest;
 import com.xm.api.module.base.entity.User;
-import com.xm.api.module.base.service.UserService;
+import com.xm.api.module.base.service.IUserService;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
     private TokenManager tokenManager;
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/info", produces = {"application/json;charset=UTF-8"})
-    public Object userInfo(@CurrentUser Integer userId) {
+    public Object userInfo(@CurrentUser String userId) {
         User userModel = userService.getUser(userId);
         return new ResultUtil<>().setData(userModel);
     }

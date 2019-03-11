@@ -31,7 +31,7 @@ public class RedisTokenManager implements TokenManager {
      * @return TokenModel
      */
     @Override
-    public Token createToken(int userId) {
+    public Token createToken(String userId) {
 
         //存TOKEN
         String token = SecureUtil.md5(UUID.randomUUID().toString());
@@ -68,7 +68,7 @@ public class RedisTokenManager implements TokenManager {
      * @return 用户id
      */
     @Override
-    public Integer getUserIdByToken(String token) {
+    public String getUserIdByToken(String token) {
         String tokenKey = this.getTokenKey(token);
         String redisToken = redisTemplate.opsForValue().get(tokenKey);
         if (!ObjectUtils.isEmpty(redisToken)) {
@@ -92,7 +92,7 @@ public class RedisTokenManager implements TokenManager {
      * @param userId 用户id
      * @param token Token
      */
-    private void handHash(Integer userId, String token) {
+    private void handHash(String userId, String token) {
         String userIdString = userId.toString();
         String hashKey = TokenConstant.TOKEN_HASH_KEY_PREFIX + SecureUtil.md5(userIdString).substring(0, 2);
 

@@ -6,10 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Mybatis-plus 配置类
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Configuration
-@MapperScan("com.xm.api.module.base.mapper")
+@MapperScan("com.xm.api.module.*.mapper")
 public class MybatisPlusConfig {
 
     /**

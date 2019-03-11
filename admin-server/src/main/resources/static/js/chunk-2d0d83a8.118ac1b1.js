@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0d83a8"],{"79d4":function(n,c,l){"use strict";l.r(c);var t,u,d="http://192.168.1.243:81",p={hdfsUrl:d},s=p,a=l("17cc"),e=Object(a["a"])(s,t,u,!1,null,null,null);c["default"]=e.exports}}]);

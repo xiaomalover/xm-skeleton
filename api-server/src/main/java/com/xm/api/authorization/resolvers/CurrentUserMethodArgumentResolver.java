@@ -29,7 +29,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         //如果参数类型是User并且有CurrentUser注解则支持
-        return parameter.getParameterType().isAssignableFrom(Integer.class) &&
+        return parameter.getParameterType().isAssignableFrom(String.class) &&
                 parameter.hasParameterAnnotation(CurrentUser.class);
     }
 
@@ -44,7 +44,7 @@ public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentR
         if (!ObjectUtils.isEmpty(token)) {
             //续期token
             tokenManager.refreshToken(token);
-            Integer userId = tokenManager.getUserIdByToken(token);
+            String userId = tokenManager.getUserIdByToken(token);
             if (userId != null) {
                 return userId;
             }

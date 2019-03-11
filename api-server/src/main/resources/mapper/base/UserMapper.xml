@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--suppress SqlNoDataSourceInspection, SqlDialectInspection -->
 <mapper namespace="com.xm.api.module.base.mapper.UserMapper">
-
-    <insert id="insert" parameterType="com.xm.api.module.base.entity.User">
-        insert into
-            user_info (username, password, mobile, created_at)
-        values(
-            #{username,jdbcType=VARCHAR},
-            #{password,jdbcType=VARCHAR},
-            #{mobile,jdbcType=VARCHAR},
-            #{createdAt, jdbcType=INTEGER}
-        )
-    </insert>
-
-    <select id="selectByPrimaryKey" resultType="com.xm.api.module.base.entity.User" parameterType="int">
-        SELECT  * from user_info where id = #{id}
-    </select>
-
     <select id="selectByUsername" resultType="com.xm.api.module.base.entity.User" parameterType="String">
         SELECT  * from user_info where username = #{username}
     </select>
@@ -29,5 +12,4 @@
     <select id="selectByUsernameOrMobile" resultType="com.xm.api.module.base.entity.User" parameterType="String">
         SELECT  * from user_info where username = #{acount} OR mobile = #{account}
     </select>
-
 </mapper>
