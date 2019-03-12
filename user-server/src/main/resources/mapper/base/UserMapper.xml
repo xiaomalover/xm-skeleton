@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.user.module.base.mapper.UserMapper">
+    <select id="selectByUsername" resultType="com.xm.user.module.base.entity.User" parameterType="String">
+        SELECT  * from user_info where username = #{username}
+    </select>
+
+    <select id="selectByMobile" resultType="com.xm.user.module.base.entity.User" parameterType="String">
+        SELECT  * from user_info where mobile = #{mobile}
+    </select>
+
+    <select id="selectByUsernameOrMobile" resultType="com.xm.user.module.base.entity.User" parameterType="String">
+        SELECT  * from user_info where username = #{acount} OR mobile = #{account}
+    </select>
+</mapper>

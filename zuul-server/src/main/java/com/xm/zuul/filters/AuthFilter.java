@@ -26,8 +26,8 @@ public class AuthFilter extends ZuulFilter {
 
     //排除过滤的 uri 地址
     private static final String[] ignoreUrls = {
-        "/api-server/user/login",
-        "/api-server/user/register",
+        "/user-server/user/login",
+        "/user-server/user/register",
     };
 
     @Override
