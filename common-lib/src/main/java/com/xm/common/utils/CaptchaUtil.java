@@ -1,7 +1,7 @@
 package com.xm.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -266,8 +266,7 @@ public class CaptchaUtil {
             ImageIO.write(buffImg, "png", baos);//写入流中
             baos.close();
             byte[] bytes = baos.toByteArray();//转换成字节
-            BASE64Encoder encoder = new BASE64Encoder();
-            String png_base64 = encoder.encodeBuffer(bytes).trim();//转换成base64串
+            String png_base64 = new String(Base64.getEncoder().encode(bytes));//转换成base64串
             png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");
 
             //返回成功数据
