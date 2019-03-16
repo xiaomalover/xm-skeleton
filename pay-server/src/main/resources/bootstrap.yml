@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    config:
-      profile: dev
-      label: master
-      uri: http://localhost:8888/
-  application:
-    name: pay-server

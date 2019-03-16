@@ -13,8 +13,7 @@
     <modules>
         <module>config-server</module>
         <module>eureka-server</module>
-        <module>order-server</module>
-        <module>pay-server</module>
+        <module>api-server</module>
         <module>user-server</module>
         <module>zuul-server</module>
         <module>admin-server</module>

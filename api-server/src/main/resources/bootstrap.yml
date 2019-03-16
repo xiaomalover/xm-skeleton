@@ -5,7 +5,7 @@ spring:
       label: master
       uri: http://localhost:8888/
   application:
-    name: order-server
+    name: api-server
   rabbitmq:
     password: guest
     port: 5672
