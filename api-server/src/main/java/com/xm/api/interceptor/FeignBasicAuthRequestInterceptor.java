@@ -8,10 +8,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Feign请求拦截器
+ * Feign请求拦截器, 将当前请求的token放入到feign请求的头部，为了服务间调用，不用每次传token
+ *
  * @author xiaomalover
- **/
-
+ */
 public class FeignBasicAuthRequestInterceptor implements RequestInterceptor {
 
     private static final String TOKEN_KEY = "token";

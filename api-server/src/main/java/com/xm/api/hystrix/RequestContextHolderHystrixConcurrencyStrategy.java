@@ -14,12 +14,16 @@ import com.netflix.hystrix.strategy.properties.HystrixProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 必须加此配置才能在feign线程的上下文中获取当前请求的上下文
+ *
+ * @author xiaomalover <xiaomalover@gmail.com>
+ */
 @Component
 public class RequestContextHolderHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
     private HystrixConcurrencyStrategy delegate;

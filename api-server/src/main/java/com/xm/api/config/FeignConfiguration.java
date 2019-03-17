@@ -5,6 +5,11 @@ import feign.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Feign加拦截器的配置（为了设置设置当前请求头到Feign的请求头）
+ *
+ * @author xiaomalover <xiaomalover@gmail.com>
+ */
 @Configuration
 public class FeignConfiguration {
     /**
@@ -21,7 +26,7 @@ public class FeignConfiguration {
      * @return FeignBasicAuthRequestInterceptor
      */
     @Bean
-    public FeignBasicAuthRequestInterceptor BasicAuthRequestInterceptor() {
+    public FeignBasicAuthRequestInterceptor basicAuthRequestInterceptor() {
         return new FeignBasicAuthRequestInterceptor();
     }
 
