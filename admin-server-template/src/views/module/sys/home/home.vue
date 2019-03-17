@@ -14,12 +14,12 @@
             <Col :xs="24" :sm="12" :md="6" :style="{marginBottom: '10px'}">
                 <infor-card id-name="visit_count" :end-val="countData.completeProfitCount" iconType="md-add-circle"
                             color="#64d572"
-                            :iconSize="50" intro-text="完成分润的订单数"></infor-card>
+                            :iconSize="50" intro-text="测试数据1"></infor-card>
             </Col>
             <Col :xs="24" :sm="12" :md="6" :style="{marginBottom: '10px'}">
                 <infor-card id-name="collection_count" :end-val="countData.preProfitCount" iconType="md-basket"
                             color="#ffd572"
-                            intro-text="预分润订单数"></infor-card>
+                            intro-text="测试数据2"></infor-card>
             </Col>
             <Col :xs="24" :sm="12" :md="6" :style="{marginBottom: '10px'}">
                 <infor-card id-name="transfer_count" :end-val="countData.canceledProfitCount"

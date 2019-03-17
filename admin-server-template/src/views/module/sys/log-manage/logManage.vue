@@ -22,8 +22,8 @@
                         </Form-item>
                     </Form>
                     <Row class="operation">
-                        <Button @click="clearAll" type="error" icon="md-trash">清空全部</Button>
-                        <Button @click="delAll" icon="md-trash">批量删除</Button>
+                        <Button @click="clearAll" type="error" icon="md-trash" v-has="'undefined'">清空全部</Button>
+                        <Button @click="delAll" icon="md-trash" v-has="'delete'">批量删除</Button>
                         <Button @click="getLogList" icon="md-refresh">刷新</Button>
                     </Row>
                     <Row>
@@ -66,6 +66,7 @@
                 searchKey: "",
                 sortColumn: "createdAt",
                 sortType: "desc",
+                permTypes: [],
                 columns: [
                     {
                         type: "selection",
@@ -199,23 +200,25 @@
                         align: "center",
                         fixed: "right",
                         render: (h, params) => {
-                            return h("div", [
-                                h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            type: "error",
-                                            size: "small"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.remove(params.row);
+                            if (this.permTypes.includes("delete")) {
+                                return h("div", [
+                                    h(
+                                        "Button",
+                                        {
+                                            props: {
+                                                type: "error",
+                                                size: "small"
+                                            },
+                                            on: {
+                                                click: () => {
+                                                    this.remove(params.row);
+                                                }
                                             }
-                                        }
-                                    },
-                                    "删除"
-                                )
-                            ]);
+                                        },
+                                        "删除"
+                                    )
+                                ]);
+                            }
                         }
                     }
                 ],
@@ -230,6 +233,7 @@
         methods: {
             init() {
                 this.getLogList();
+                this.initMeta();
             },
             changePage(v) {
                 this.pageNumber = v;
@@ -364,7 +368,13 @@
                         });
                     }
                 });
-            }
+            },
+            initMeta() {
+                let permTypes = this.$route.meta.permTypes;
+                if (permTypes !== null && permTypes !== undefined) {
+                    this.permTypes = permTypes;
+                }
+            },
         },
         mounted() {
             this.init();

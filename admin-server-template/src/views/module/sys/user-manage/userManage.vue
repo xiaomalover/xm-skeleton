@@ -60,8 +60,8 @@
                         </Form>
                     </Row>
                     <Row class="operation">
-                        <Button @click="add" type="primary" icon="md-add">添加用户</Button>
-                        <Button @click="delAll" icon="md-trash">批量删除</Button>
+                        <Button @click="add" type="primary" v-has="'add'" icon="md-add">添加用户</Button>
+                        <Button @click="delAll" v-has="'delete'" icon="md-trash">批量删除</Button>
                         <Dropdown @on-click="handleDropdown">
                             <Button>
                                 更多操作
@@ -192,6 +192,7 @@
                 department: [],
                 selectDep: [],
                 dataDep: [],
+                permTypes: [],
                 searchForm: {
                     username: "",
                     departmentId: "",
@@ -373,112 +374,99 @@
                         align: "center",
                         fixed: "right",
                         render: (h, params) => {
+                            let editBtn; let disableBtn; let enableBtn; let deleteBtn;
+                            if (this.permTypes.includes("edit")) {
+                                editBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            type: "primary",
+                                            size: "small"
+                                        },
+                                        style: {
+                                            marginRight: "5px"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.edit(params.row);
+                                            }
+                                        }
+                                    },
+                                    "编辑"
+                                );
+                            }
+
+                            if (this.permTypes.includes("enable")) {
+                                enableBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            type: "success",
+                                            size: "small"
+                                        },
+                                        style: {
+                                            marginRight: "5px"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.enable(params.row);
+                                            }
+                                        }
+                                    },
+                                    "启用"
+                                );
+                            }
+
+                            if (this.permTypes.includes("disable")) {
+                                disableBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            size: "small"
+                                        },
+                                        style: {
+                                            marginRight: "5px"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.disable(params.row);
+                                            }
+                                        }
+                                    },
+                                    "禁用"
+                                );
+                            }
+
+                            if (this.permTypes.includes("delete")) {
+                                deleteBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            type: "error",
+                                            size: "small"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.remove(params.row);
+                                            }
+                                        }
+                                    },
+                                    "删除"
+                                );
+                            }
+
+
                             if (params.row.status === 0) {
                                 return h("div", [
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "primary",
-                                                size: "small"
-                                            },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.edit(params.row);
-                                                }
-                                            }
-                                        },
-                                        "编辑"
-                                    ),
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                size: "small"
-                                            },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.disable(params.row);
-                                                }
-                                            }
-                                        },
-                                        "禁用"
-                                    ),
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "error",
-                                                size: "small"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.remove(params.row);
-                                                }
-                                            }
-                                        },
-                                        "删除"
-                                    )
+                                    editBtn,
+                                    disableBtn,
+                                    deleteBtn,
                                 ]);
                             } else {
                                 return h("div", [
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "primary",
-                                                size: "small"
-                                            },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.edit(params.row);
-                                                }
-                                            }
-                                        },
-                                        "编辑"
-                                    ),
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "success",
-                                                size: "small"
-                                            },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.enable(params.row);
-                                                }
-                                            }
-                                        },
-                                        "启用"
-                                    ),
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "error",
-                                                size: "small"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.remove(params.row);
-                                                }
-                                            }
-                                        },
-                                        "删除"
-                                    )
+                                    editBtn,
+                                    enableBtn,
+                                    deleteBtn,
                                 ]);
                             }
                         }
@@ -659,6 +647,12 @@
                     }
                 });
             },
+            initMeta() {
+                let permTypes = this.$route.meta.permTypes;
+                if (permTypes !== null && permTypes !== undefined) {
+                    this.permTypes = permTypes;
+                }
+            },
             handleDropdown(name) {
                 if (name === "exportData") {
                     if (this.selectCount <= 0) {
@@ -832,10 +826,11 @@
                         });
                     }
                 });
-            }
+            },
         },
         mounted() {
             this.init();
+            this.initMeta();
             this.getRoleList();
         }
     };

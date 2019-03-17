@@ -7,8 +7,8 @@
             <Col>
                 <Card>
                     <Row class="operation">
-                        <Button @click="addRole" type="primary" icon="md-add">添加角色</Button>
-                        <Button @click="delAll" icon="md-trash">批量删除</Button>
+                        <Button @click="addRole" v-has="'add'" type="primary" icon="md-add">添加角色</Button>
+                        <Button @click="delAll" v-has="'delete'" icon="md-trash">批量删除</Button>
                         <Button @click="init" icon="md-refresh">刷新</Button>
                     </Row>
                     <Row>
@@ -80,6 +80,7 @@
                 roleModalVisible: false,
                 permModalVisible: false,
                 modalTitle: "",
+                permTypes: [],
                 roleForm: {
                     description: "",
                     name: "",
@@ -127,48 +128,50 @@
                         key: "defaultRole",
                         align: "center",
                         render: (h, params) => {
-                            if (params.row.defaultRole) {
-                                return h("div", [
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "success",
-                                                size: "small"
-                                            },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.cancelDefault(params.row);
+                            if (this.permTypes.includes("setDefault")) {
+                                if (params.row.defaultRole) {
+                                    return h("div", [
+                                        h(
+                                            "Button",
+                                            {
+                                                props: {
+                                                    type: "success",
+                                                    size: "small"
+                                                },
+                                                style: {
+                                                    marginRight: "5px"
+                                                },
+                                                on: {
+                                                    click: () => {
+                                                        this.cancelDefault(params.row);
+                                                    }
                                                 }
-                                            }
-                                        },
-                                        "取消默认"
-                                    )
-                                ]);
-                            } else {
-                                return h("div", [
-                                    h(
-                                        "Button",
-                                        {
-                                            props: {
-                                                type: "info",
-                                                size: "small"
                                             },
-                                            style: {
-                                                marginRight: "5px"
-                                            },
-                                            on: {
-                                                click: () => {
-                                                    this.setDefault(params.row);
+                                            "取消默认"
+                                        )
+                                    ]);
+                                } else {
+                                    return h("div", [
+                                        h(
+                                            "Button",
+                                            {
+                                                props: {
+                                                    type: "info",
+                                                    size: "small"
+                                                },
+                                                style: {
+                                                    marginRight: "5px"
+                                                },
+                                                on: {
+                                                    click: () => {
+                                                        this.setDefault(params.row);
+                                                    }
                                                 }
-                                            }
-                                        },
-                                        "设为默认"
-                                    )
-                                ]);
+                                            },
+                                            "设为默认"
+                                        )
+                                    ]);
+                                }
                             }
                         }
                     },
@@ -178,26 +181,10 @@
                         align: "center",
                         width: 300,
                         render: (h, params) => {
-                            return h("div", [
-                                h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            type: "warning",
-                                            size: "small"
-                                        },
-                                        style: {
-                                            marginRight: "5px"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.editPerm(params.row);
-                                            }
-                                        }
-                                    },
-                                    "分配权限"
-                                ),
-                                h(
+
+                            let editBtn; let editPermBtn; let deleteBtn;
+                            if (this.permTypes.includes("edit")) {
+                                editBtn = h(
                                     "Button",
                                     {
                                         props: {
@@ -214,8 +201,32 @@
                                         }
                                     },
                                     "编辑"
-                                ),
-                                h(
+                                );
+                            }
+
+                            if (this.permTypes.includes("editPerm")) {
+                                editPermBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            type: "warning",
+                                            size: "small"
+                                        },
+                                        style: {
+                                            marginRight: "5px"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.editPerm(params.row);
+                                            }
+                                        }
+                                    },
+                                    "分配权限"
+                                );
+                            }
+
+                            if (this.permTypes.includes("delete")) {
+                                deleteBtn = h(
                                     "Button",
                                     {
                                         props: {
@@ -229,7 +240,13 @@
                                         }
                                     },
                                     "删除"
-                                )
+                                );
+                            }
+
+                            return h("div", [
+                                editPermBtn,
+                                editBtn,
+                                deleteBtn,
                             ]);
                         }
                     }
@@ -249,6 +266,7 @@
                 this.getRoleList();
                 // 获取所有菜单权限树
                 this.getPermList();
+                this.initMeta();
             },
             changePage(v) {
                 this.pageNumber = v;
@@ -512,7 +530,13 @@
             },
             cancelPermEdit() {
                 this.permModalVisible = false;
-            }
+            },
+            initMeta() {
+                let permTypes = this.$route.meta.permTypes;
+                if (permTypes !== null && permTypes !== undefined) {
+                    this.permTypes = permTypes;
+                }
+            },
         },
         mounted() {
             this.init();

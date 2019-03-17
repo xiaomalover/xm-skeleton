@@ -110,11 +110,11 @@
                         }
                     },
                     legend: {
-                        data: ['完成分润金额', '预分润金额', '取消分润金额']
+                        data: ['测试数据1', '测试数据2', '测试数据3']
                     },
                     series: [
                         {
-                            name: '完成分润金额', itemStyle: {
+                            name: '测试数据1', itemStyle: {
                                 normal: {
                                     color: '#FF005A',
                                     lineStyle: {
@@ -130,7 +130,7 @@
                             animationEasing: 'cubicInOut'
                         },
                         {
-                            name: '预分润金额',
+                            name: '测试数据2',
                             smooth: true,
                             type: 'line',
                             itemStyle: {
@@ -150,7 +150,7 @@
                             animationEasing: 'quadraticOut'
                         },
                         {
-                            name: '取消分润金额', itemStyle: {
+                            name: '测试数据3', itemStyle: {
                                 normal: {
                                     color: '#FF005A',
                                     lineStyle: {

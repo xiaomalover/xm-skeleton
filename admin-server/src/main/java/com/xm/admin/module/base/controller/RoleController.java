@@ -2,6 +2,7 @@ package com.xm.admin.module.base.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xm.admin.common.handler.PermissionEditor;
 import com.xm.admin.module.base.entity.AdminRole;
 import com.xm.admin.module.base.entity.Permission;
 import com.xm.admin.module.base.entity.Role;
@@ -16,8 +17,9 @@ import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 
@@ -139,5 +141,17 @@ public class RoleController {
             rolePermissionService.remove(new QueryWrapper<RolePermission>().eq("role_id", id));
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
+    }
+
+    /**
+     * 初始化绑定<br/>
+     *
+     * @param request http请求实例
+     * @param binder  绑定实例
+     * @throws Exception
+     */
+    @InitBinder
+    public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+        binder.registerCustomEditor(Permission.class, new PermissionEditor());
     }
 }
