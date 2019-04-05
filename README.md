@@ -48,3 +48,22 @@ $ npn run dev
 ```
 $ npm run build
 ```
+
+项目截屏
+---------
+
+![screen-shot](screen-shot/1.png)
+
+![screen-shot](screen-shot/2.png)
+
+![screen-shot](screen-shot/3.png)
+
+![screen-shot](screen-shot/4.jpg)
+
+![screen-shot](screen-shot/5.png)
+
+![screen-shot](screen-shot/6.png)
+
+![screen-shot](screen-shot/7.png)
+
+![screen-shot](screen-shot/8.png)
