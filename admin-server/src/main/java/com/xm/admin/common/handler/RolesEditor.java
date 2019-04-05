@@ -1,6 +1,6 @@
 package com.xm.admin.common.handler;
 
-import com.xm.admin.module.base.entity.Role;
+import com.xm.admin.module.sys.entity.Role;
 
 import java.beans.PropertyEditorSupport;
 

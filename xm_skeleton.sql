@@ -108,8 +108,8 @@ CREATE TABLE `qrtz_job_details` (
 /*Data for the table `qrtz_job_details` */
 
 insert  into `qrtz_job_details`(`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`,`JOB_DATA`) values 
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0nullx\0'),
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0nullx\0'),
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
 
 /*Table structure for table `qrtz_locks` */
 
@@ -143,7 +143,7 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 DROP TABLE IF EXISTS `qrtz_quartz_job`;
 
 CREATE TABLE `qrtz_quartz_job` (
-  `id` varchar(255) NOT NULL,
+  `id` varchar(32) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -255,25 +255,25 @@ insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NA
 DROP TABLE IF EXISTS `sys_admin`;
 
 CREATE TABLE `sys_admin` (
-  `id` varchar(255) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `avatar` varchar(1000) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `mobile` varchar(255) DEFAULT NULL,
-  `nick_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `sex` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `department_id` varchar(255) DEFAULT NULL,
-  `street` varchar(255) DEFAULT NULL,
-  `pass_strength` varchar(2) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `address` varchar(128) NOT NULL DEFAULT '',
+  `avatar` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `email` varchar(64) DEFAULT NULL,
+  `mobile` varchar(32) DEFAULT NULL,
+  `nick_name` varchar(64) NOT NULL DEFAULT '',
+  `password` varchar(64) NOT NULL DEFAULT '',
+  `sex` tinyint(1) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `type` tinyint(1) NOT NULL DEFAULT 1,
+  `username` varchar(32) DEFAULT NULL,
+  `department_id` varchar(32) NOT NULL DEFAULT '',
+  `street` varchar(255) NOT NULL DEFAULT '',
+  `pass_strength` varchar(2) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -288,42 +288,42 @@ insert  into `sys_admin`(`id`,`address`,`avatar`,`description`,`email`,`mobile`,
 DROP TABLE IF EXISTS `sys_admin_log`;
 
 CREATE TABLE `sys_admin_log` (
-  `id` varchar(255) NOT NULL,
-  `cost_time` int(11) DEFAULT NULL,
-  `ip` varchar(255) DEFAULT NULL,
-  `ip_info` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `request_param` varchar(512) DEFAULT NULL,
-  `request_type` varchar(255) DEFAULT NULL,
-  `request_url` varchar(255) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `cost_time` int(11) NOT NULL DEFAULT 0,
+  `ip` varchar(64) NOT NULL DEFAULT '',
+  `ip_info` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(64) NOT NULL DEFAULT '',
+  `request_param` varchar(512) NOT NULL DEFAULT '',
+  `request_type` varchar(16) NOT NULL DEFAULT '',
+  `request_url` varchar(255) NOT NULL DEFAULT '',
+  `username` varchar(32) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_admin_log` */
 
 insert  into `sys_admin_log`(`id`,`cost_time`,`ip`,`ip_info`,`name`,`request_param`,`request_type`,`request_url`,`username`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
-('119645227853025280',6,'127.0.0.1',NULL,'暂停定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"createdAt\":\"2019-03-17 17:50:09.0\",\"updatedBy\":\"admin\",\"_index\":\"0\",\"createdBy\":\"admin\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithoutParam\",\"parameter\":\"null\",\"description\":\"无参数定时任务\",\"id\":\"119642809568333824\",\"updatedAt\":\"2019-03-17 17:50:25.0\",\"status\":\"0\",\"_rowKey\":\"25\"}','POST','/skeleton/quartzJob/pause','admin','2019-03-17 17:59:46','admin','2019-03-17 17:59:46','admin'),
-('119645579809656832',2,'127.0.0.1',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"qhuh\",\"saveLogin\":\"true\",\"captchaId\":\"5728a6ed40f34b5fb53e9ccf0c45ae9e\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-03-17 18:01:10','admin','2019-03-17 18:01:10','admin'),
-('119649717624770560',14,'127.0.0.1',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"tfoz\",\"saveLogin\":\"true\",\"captchaId\":\"18414be1b2684471a154223d2346b41a\",\"username\":\"test\"}','POST','/skeleton/login','admin','2019-03-17 18:17:36','admin','2019-03-17 18:17:36','admin'),
-('119649827846885376',2,'127.0.0.1',NULL,'登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"dbls\",\"saveLogin\":\"true\",\"captchaId\":\"f42664a9f4aa4faf90f2667f01bef757\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-03-17 18:18:02','admin','2019-03-17 18:18:02','admin');
+('119645227853025280',6,'127.0.0.1','','暂停定时任务','{\"cronExpression\":\"*/5 * * * * ?\",\"createdAt\":\"2019-03-17 17:50:09.0\",\"updatedBy\":\"admin\",\"_index\":\"0\",\"createdBy\":\"admin\",\"jobClassName\":\"com.xm.admin.quartz.jobs.JobWithoutParam\",\"parameter\":\"null\",\"description\":\"无参数定时任务\",\"id\":\"119642809568333824\",\"updatedAt\":\"2019-03-17 17:50:25.0\",\"status\":\"0\",\"_rowKey\":\"25\"}','POST','/skeleton/quartzJob/pause','admin','2019-03-17 17:59:46','admin','2019-03-17 17:59:46','admin'),
+('119645579809656832',2,'127.0.0.1','','登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"qhuh\",\"saveLogin\":\"true\",\"captchaId\":\"5728a6ed40f34b5fb53e9ccf0c45ae9e\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-03-17 18:01:10','admin','2019-03-17 18:01:10','admin'),
+('119649717624770560',14,'127.0.0.1','','登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"tfoz\",\"saveLogin\":\"true\",\"captchaId\":\"18414be1b2684471a154223d2346b41a\",\"username\":\"test\"}','POST','/skeleton/login','admin','2019-03-17 18:17:36','admin','2019-03-17 18:17:36','admin'),
+('119649827846885376',2,'127.0.0.1','','登录系统','{\"password\":\"你是看不见我的\",\"captcha\":\"dbls\",\"saveLogin\":\"true\",\"captchaId\":\"f42664a9f4aa4faf90f2667f01bef757\",\"username\":\"admin\"}','POST','/skeleton/login','admin','2019-03-17 18:18:02','admin','2019-03-17 18:18:02','admin');
 
 /*Table structure for table `sys_admin_role` */
 
 DROP TABLE IF EXISTS `sys_admin_role`;
 
 CREATE TABLE `sys_admin_role` (
-  `id` varchar(255) NOT NULL,
-  `role_id` varchar(255) DEFAULT NULL,
-  `user_id` varchar(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `role_id` varchar(32) NOT NULL DEFAULT '',
+  `user_id` varchar(32) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -344,16 +344,16 @@ insert  into `sys_admin_role`(`id`,`role_id`,`user_id`,`created_at`,`created_by`
 DROP TABLE IF EXISTS `sys_department`;
 
 CREATE TABLE `sys_department` (
-  `id` varchar(255) NOT NULL,
+  `id` varchar(32) NOT NULL,
   `is_parent` bit(1) DEFAULT NULL,
-  `parent_id` varchar(255) DEFAULT NULL,
-  `sort_order` decimal(10,2) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
+  `parent_id` varchar(32) NOT NULL DEFAULT '',
+  `sort_order` decimal(10,2) NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `title` varchar(64) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -370,24 +370,24 @@ insert  into `sys_department`(`id`,`is_parent`,`parent_id`,`sort_order`,`status`
 DROP TABLE IF EXISTS `sys_permission`;
 
 CREATE TABLE `sys_permission` (
-  `id` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `parent_id` varchar(255) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
-  `sort_order` decimal(10,2) DEFAULT NULL,
-  `component` varchar(255) DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
-  `button_type` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(64) NOT NULL DEFAULT '',
+  `parent_id` varchar(32) NOT NULL DEFAULT '',
+  `type` tinyint(1) NOT NULL DEFAULT 1,
+  `sort_order` decimal(10,2) NOT NULL DEFAULT 0,
+  `component` varchar(255) NOT NULL DEFAULT '',
+  `path` varchar(128) NOT NULL DEFAULT '',
+  `title` varchar(32) NOT NULL DEFAULT '',
+  `icon` varchar(32) NOT NULL DEFAULT '',
+  `level` tinyint(1) NOT NULL DEFAULT 0,
+  `button_type` varchar(32) NOT NULL DEFAULT '',
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `url` varchar(255) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -398,48 +398,48 @@ insert  into `sys_permission`(`id`,`description`,`name`,`parent_id`,`type`,`sort
 ('5129710648430593','','user-manage','5129710648430592',0,1.10,'module/sys/user-manage/userManage','user-manage','管理员管理','md-person',2,'',0,'','2018-06-04 19:02:32','admin','2018-09-03 16:06:57','admin'),
 ('5129710648430594','','role-manage','5129710648430592',0,1.50,'module/sys/role-manage/roleManage','role-manage','角色管理','md-contacts',2,'',0,'','2018-06-04 19:02:35','admin','2018-08-23 17:31:27','admin'),
 ('5129710648430595','','menu-manage','5129710648430592',0,1.60,'module/sys/menu-manage/menuManage','menu-manage','菜单权限管理','md-menu',2,'',0,'','2018-06-04 19:02:37','admin','2018-08-23 17:31:33','admin'),
-('15701400130424832','','','5129710648430593',1,1.11,'','/iwallet/user/admin/add','添加用户','',3,'add',0,'','2018-06-03 22:04:06','admin','2018-08-31 17:24:08','admin'),
-('15701915807518720','','','5129710648430593',1,1.13,'','/iwallet/user/admin/disable/**','禁用用户','',3,'disable',0,'','2018-06-03 22:06:09','admin','2018-08-31 17:24:39','admin'),
-('15708892205944832','','','5129710648430593',1,1.14,'','/iwallet/user/admin/enable/**','启用用户','',3,'enable',0,'','2018-06-03 22:33:52','admin','2018-08-31 17:24:52','admin'),
-('16678126574637056','','','5129710648430593',1,1.12,'','/iwallet/user/admin/edit','编辑用户','',3,'edit',0,'','2018-06-06 14:45:16','admin','2018-08-31 17:24:23','admin'),
-('16678447719911424','','','5129710648430593',1,1.15,'','/iwallet/user/delByIds/**','删除用户','',3,'delete',0,'','2018-06-06 14:46:32','admin','2018-08-31 17:25:07','admin'),
-('16687383932047360','','','5129710648430594',1,1.21,'','/iwallet/role/save','添加角色','',3,'add',0,'','2018-06-06 15:22:03','admin','2018-08-31 17:26:02','admin'),
-('16689632049631232','','','5129710648430594',1,1.22,'','/iwallet/role/edit','编辑角色','',3,'edit',0,'','2018-06-06 15:30:59','admin','2018-08-31 17:26:13','admin'),
-('16689745006432256','','','5129710648430594',1,1.23,'','/iwallet/role/delAllByIds/**','删除角色','',3,'delete',0,'','2018-06-06 15:31:26','admin','2018-08-31 17:26:23','admin'),
-('16689883993083904','','','5129710648430594',1,1.24,'','/iwallet/role/editRolePerm/**','分配权限','',3,'editPerm',0,'','2018-06-06 15:31:59','admin','2018-08-31 17:26:45','admin'),
-('16690313745666048','','','5129710648430594',1,1.25,'','/iwallet/role/setDefault','设为默认角色','',3,'setDefault',0,'','2018-06-06 15:33:41','admin','2018-08-31 17:27:00','admin'),
-('16694861252005888','','','5129710648430595',1,1.31,'','/iwallet/permission/add','添加菜单','',3,'add',0,'','2018-06-06 15:51:46','admin','2018-08-31 17:27:14','admin'),
-('16695107491205120','','','5129710648430595',1,1.32,'','/iwallet/permission/edit','编辑菜单','',3,'edit',0,'','2018-06-06 15:52:44','admin','2018-08-31 17:27:21','admin'),
-('16695243126607872','','','5129710648430595',1,1.33,'','/iwallet/permission/delByIds/**','删除菜单','',3,'delete',0,'','2018-06-06 15:53:17','admin','2018-08-31 17:27:31','admin'),
+('15701400130424832','','','5129710648430593',1,1.11,'','/skeleton/user/admin/add','添加用户','',3,'add',0,'','2018-06-03 22:04:06','admin','2018-08-31 17:24:08','admin'),
+('15701915807518720','','','5129710648430593',1,1.13,'','/skeleton/user/admin/disable/**','禁用用户','',3,'disable',0,'','2018-06-03 22:06:09','admin','2018-08-31 17:24:39','admin'),
+('15708892205944832','','','5129710648430593',1,1.14,'','/skeleton/user/admin/enable/**','启用用户','',3,'enable',0,'','2018-06-03 22:33:52','admin','2018-08-31 17:24:52','admin'),
+('16678126574637056','','','5129710648430593',1,1.12,'','/skeleton/user/admin/edit','编辑用户','',3,'edit',0,'','2018-06-06 14:45:16','admin','2018-08-31 17:24:23','admin'),
+('16678447719911424','','','5129710648430593',1,1.15,'','/skeleton/user/delByIds/**','删除用户','',3,'delete',0,'','2018-06-06 14:46:32','admin','2018-08-31 17:25:07','admin'),
+('16687383932047360','','','5129710648430594',1,1.21,'','/skeleton/role/save','添加角色','',3,'add',0,'','2018-06-06 15:22:03','admin','2018-08-31 17:26:02','admin'),
+('16689632049631232','','','5129710648430594',1,1.22,'','/skeleton/role/edit','编辑角色','',3,'edit',0,'','2018-06-06 15:30:59','admin','2018-08-31 17:26:13','admin'),
+('16689745006432256','','','5129710648430594',1,1.23,'','/skeleton/role/delAllByIds/**','删除角色','',3,'delete',0,'','2018-06-06 15:31:26','admin','2018-08-31 17:26:23','admin'),
+('16689883993083904','','','5129710648430594',1,1.24,'','/skeleton/role/editRolePerm/**','分配权限','',3,'editPerm',0,'','2018-06-06 15:31:59','admin','2018-08-31 17:26:45','admin'),
+('16690313745666048','','','5129710648430594',1,1.25,'','/skeleton/role/setDefault','设为默认角色','',3,'setDefault',0,'','2018-06-06 15:33:41','admin','2018-08-31 17:27:00','admin'),
+('16694861252005888','','','5129710648430595',1,1.31,'','/skeleton/permission/add','添加菜单','',3,'add',0,'','2018-06-06 15:51:46','admin','2018-08-31 17:27:14','admin'),
+('16695107491205120','','','5129710648430595',1,1.32,'','/skeleton/permission/edit','编辑菜单','',3,'edit',0,'','2018-06-06 15:52:44','admin','2018-08-31 17:27:21','admin'),
+('16695243126607872','','','5129710648430595',1,1.33,'','/skeleton/permission/delByIds/**','删除菜单','',3,'delete',0,'','2018-06-06 15:53:17','admin','2018-08-31 17:27:31','admin'),
 ('39915540965232640','','monitor','',0,4.00,'Main','/monitor','系统监控','ios-analytics',1,'',0,'','2018-08-09 17:42:28','admin','2018-09-04 22:50:47','admin'),
-('40238597734928384',NULL,'department-manage','5129710648430592',0,1.20,'module/sys/department-manage/departmentManage','department-manage','部门管理','md-git-branch',2,'',0,NULL,'2018-08-10 15:06:10','admin','2018-08-10 15:06:10','admin'),
+('40238597734928384','','department-manage','5129710648430592',0,1.20,'module/sys/department-manage/departmentManage','department-manage','部门管理','md-git-branch',2,'',0,'','2018-08-10 15:06:10','admin','2018-08-10 15:06:10','admin'),
 ('41363147411427328','','log-manage','39915540965232640',0,2.20,'module/sys/log-manage/logManage','log-manage','操作日志管理','md-list-box',2,'',0,'','2018-08-13 17:34:43','admin','2018-08-20 20:05:21','admin'),
-('41363537456533504','','','41363147411427328',1,2.11,'','/iwallet/log/delByIds/**','删除日志','',3,'delete',0,'','2018-08-13 17:36:16','admin','2018-08-31 17:28:04','admin'),
-('41364927394353152','','','41363147411427328',1,2.12,'','/iwallet/log/delAll','清空日志','',3,'undefined',0,'','2018-08-13 17:41:48','admin','2018-08-31 17:28:13','admin'),
-('45235621697949696','','','40238597734928384',1,1.21,'','/iwallet/department/add','添加部门','',3,'add',0,'','2018-08-24 10:02:33','admin','2018-08-31 17:25:26','admin'),
-('45235787867885568','','','40238597734928384',1,1.22,'','/iwallet/department/edit','编辑部门','',3,'edit',0,'','2018-08-24 10:03:13','admin','2018-08-31 17:25:36','admin'),
-('45235939278065664','','','40238597734928384',1,1.23,'','/iwallet/department/delByIds/*','删除部门','',3,'delete',0,'','2018-08-24 10:03:49','admin','2018-08-31 17:25:46','admin'),
-('84907582589767680',NULL,'quartz-job','39915540965232640',0,2.10,'module/sys/quartz-manage/quartzManage','quartz-job','定时任务','md-time',2,'',0,NULL,'2018-12-11 21:24:46','admin','2018-12-11 21:24:46','admin'),
-('84907899767230464',NULL,'','84907582589767680',1,2.11,'','/mozi/quartzJob/add*','添加定时任务','',3,'add',0,NULL,'2018-12-11 21:26:02','admin','2018-12-11 21:26:02','admin'),
-('84908172535402496',NULL,'','84907582589767680',1,2.12,'','/mozi/quartzJob/edit*','编辑定时任务','',3,'edit',0,NULL,'2018-12-11 21:27:07','admin','2018-12-11 21:27:07','admin'),
-('84908391842975744',NULL,'','84907582589767680',1,2.13,'','/mozi/quartzJob/pause*','暂停定时任务','',3,'disable',0,NULL,'2018-12-11 21:27:59','admin','2018-12-11 21:27:59','admin'),
-('84908678297161728',NULL,'','84907582589767680',1,2.14,'','/mozi/quartzJob/resume*','恢复定时任务','',3,'enable',0,NULL,'2018-12-11 21:29:07','admin','2018-12-11 21:29:07','admin'),
-('84908899202764800',NULL,'','84907582589767680',1,2.15,'','/mozi/quartzJob/delByIds/*','删除定时任务','',3,'delete',0,NULL,'2018-12-11 21:30:00','admin','2018-12-11 21:30:00','admin');
+('41363537456533504','','','41363147411427328',1,2.11,'','/skeleton/log/delByIds/**','删除日志','',3,'delete',0,'','2018-08-13 17:36:16','admin','2018-08-31 17:28:04','admin'),
+('41364927394353152','','','41363147411427328',1,2.12,'','/skeleton/log/delAll','清空日志','',3,'undefined',0,'','2018-08-13 17:41:48','admin','2018-08-31 17:28:13','admin'),
+('45235621697949696','','','40238597734928384',1,1.21,'','/skeleton/department/add','添加部门','',3,'add',0,'','2018-08-24 10:02:33','admin','2018-08-31 17:25:26','admin'),
+('45235787867885568','','','40238597734928384',1,1.22,'','/skeleton/department/edit','编辑部门','',3,'edit',0,'','2018-08-24 10:03:13','admin','2018-08-31 17:25:36','admin'),
+('45235939278065664','','','40238597734928384',1,1.23,'','/skeleton/department/delByIds/*','删除部门','',3,'delete',0,'','2018-08-24 10:03:49','admin','2018-08-31 17:25:46','admin'),
+('84907582589767680','','quartz-job','39915540965232640',0,2.10,'module/sys/quartz-manage/quartzManage','quartz-job','定时任务','md-time',2,'',0,'','2018-12-11 21:24:46','admin','2018-12-11 21:24:46','admin'),
+('84907899767230464','','','84907582589767680',1,2.11,'','/skeleton/quartzJob/add*','添加定时任务','',3,'add',0,'','2018-12-11 21:26:02','admin','2018-12-11 21:26:02','admin'),
+('84908172535402496','','','84907582589767680',1,2.12,'','/skeleton/quartzJob/edit*','编辑定时任务','',3,'edit',0,'','2018-12-11 21:27:07','admin','2018-12-11 21:27:07','admin'),
+('84908391842975744','','','84907582589767680',1,2.13,'','/skeleton/quartzJob/pause*','暂停定时任务','',3,'disable',0,'','2018-12-11 21:27:59','admin','2018-12-11 21:27:59','admin'),
+('84908678297161728','','','84907582589767680',1,2.14,'','/skeleton/quartzJob/resume*','恢复定时任务','',3,'enable',0,'','2018-12-11 21:29:07','admin','2018-12-11 21:29:07','admin'),
+('84908899202764800','','','84907582589767680',1,2.15,'','/skeleton/quartzJob/delByIds/*','删除定时任务','',3,'delete',0,'','2018-12-11 21:30:00','admin','2018-12-11 21:30:00','admin');
 
 /*Table structure for table `sys_role` */
 
 DROP TABLE IF EXISTS `sys_role`;
 
 CREATE TABLE `sys_role` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `name` varchar(32) NOT NULL DEFAULT '',
   `default_role` bit(1) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL DEFAULT '',
   `data_type` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -454,13 +454,13 @@ insert  into `sys_role`(`id`,`name`,`default_role`,`description`,`data_type`,`cr
 DROP TABLE IF EXISTS `sys_role_permission`;
 
 CREATE TABLE `sys_role_permission` (
-  `id` varchar(255) NOT NULL,
-  `permission_id` varchar(255) DEFAULT NULL,
-  `role_id` varchar(255) DEFAULT NULL,
+  `id` varchar(32) NOT NULL,
+  `permission_id` varchar(32) NOT NULL DEFAULT '',
+  `role_id` varchar(32) NOT NULL DEFAULT '',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -512,25 +512,61 @@ insert  into `sys_role_permission`(`id`,`permission_id`,`role_id`,`created_at`,`
 DROP TABLE IF EXISTS `user_info`;
 
 CREATE TABLE `user_info` (
-  `id` varchar(255) NOT NULL,
+  `id` varchar(32) NOT NULL,
   `username` varchar(32) NOT NULL DEFAULT '' COMMENT '用户名',
   `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '手机号',
   `password` varchar(64) DEFAULT '' COMMENT '密码',
   `email` varchar(32) DEFAULT '' COMMENT '邮箱',
   `status` tinyint(4) DEFAULT '1' COMMENT '状态',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(255) DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(255) DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_info` */
 
 insert  into `user_info`(`id`,`username`,`mobile`,`password`,`email`,`status`,`created_at`,`created_by`,`updated_at`,`updated_by`) values 
-('117411635341037568','test2','13555555555','14e1b600b1fd579f47433b88e8d85291','',1,NULL,NULL,NULL,NULL);
+('117411635341037568','test','13333333333','14e1b600b1fd579f47433b88e8d85291','',1,'','','','');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+DROP TABLE IF EXISTS `article_info`;
+
+CREATE TABLE `article_info` (
+  `id` varchar(32) NOT NULL,
+  `category_id` varchar(32) NOT NULL DEFAULT '' COMMENT '文章分类ID',
+  `title` varchar(128) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '文章封面图',
+  `summary` text COMMENT '文章简介',
+  `content` text COMMENT '文章内容',
+  `author` varchar(32) DEFAULT NULL COMMENT '作者',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态（0启用;1禁用）',
+  `created_at` datetime DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COMMENT='文章表';
+
+DROP TABLE IF EXISTS `article_category`;
+CREATE TABLE `article_category` (
+  `id` varchar(32) NOT NULL COMMENT '主键',
+  `is_parent` bit(1) DEFAULT NULL COMMENT '是否父类',
+  `parent_id` varchar(32) NOT NULL DEFAULT '' COMMENT '父类ID',
+  `sort_no` decimal(10,2) NOT NULL DEFAULT 0 COMMENT '排序',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `short_title` varchar(32) NOT NULL DEFAULT '' COMMENT '短标题',
+  `relations` varchar(255) NOT NULL DEFAULT '' COMMENT '完整关系',
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态',
+  `created_at` datetime DEFAULT NULL,
+  `created_by` varchar(32) NOT NULL DEFAULT '',
+  `updated_at` datetime DEFAULT NULL,
+  `updated_by` varchar(32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8
+

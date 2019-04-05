@@ -2,9 +2,9 @@ package com.xm.admin.config.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.xm.admin.common.constant.CommonConstant;
-import com.xm.admin.module.base.entity.Admin;
-import com.xm.admin.module.base.entity.Permission;
-import com.xm.admin.module.base.entity.Role;
+import com.xm.admin.module.sys.entity.Admin;
+import com.xm.admin.module.sys.entity.Permission;
+import com.xm.admin.module.sys.entity.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

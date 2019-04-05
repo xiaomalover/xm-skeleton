@@ -6,16 +6,17 @@ import com.xm.common.constant.TokenConstant;
 import com.xm.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 用户相关控制器
+ * @author xiaomalover <xiaomalover@gmail.com>
+ */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @RestController
-//@RefreshScope //从git仓库热更新配置
 @Slf4j
 public class UserController {
 
@@ -26,7 +27,7 @@ public class UserController {
     UserFeignService userFeignService;
 
     /**
-     *  本地接口
+     *  本地接口, 这只是一个示例
      */
     @GetMapping("/hello/{name}")
     public Result hello(@PathVariable String name){

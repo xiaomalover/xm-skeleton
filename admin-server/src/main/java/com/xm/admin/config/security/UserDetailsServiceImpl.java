@@ -2,8 +2,8 @@ package com.xm.admin.config.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.xm.admin.config.exception.LoginFailLimitException;
-import com.xm.admin.module.base.entity.Admin;
-import com.xm.admin.module.base.service.IAdminService;
+import com.xm.admin.module.sys.entity.Admin;
+import com.xm.admin.module.sys.service.IAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

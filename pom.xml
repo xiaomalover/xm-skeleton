@@ -15,6 +15,7 @@
         <module>eureka-server</module>
         <module>api-server</module>
         <module>user-server</module>
+        <module>article-server</module>
         <module>zuul-server</module>
         <module>admin-server</module>
         <module>common-lib</module>

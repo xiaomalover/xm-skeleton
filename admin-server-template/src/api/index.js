@@ -198,3 +198,63 @@ export const resumeQuartz = (params) => {
 export const deleteQuartz = (ids, params) => {
     return deleteRequest(`/quartzJob/delByIds/${ids}`, params)
 };
+
+// 获取文章一级分类
+export const initArticleCategory = (params) => {
+    return getRequest('/article/category/getByParentId/0', params)
+};
+
+// 加载文章分类子级数据
+export const loadArticleCategory = (id, params) => {
+    return getRequest(`/article/category/getByParentId/${id}`, params)
+};
+
+// 添加文章分类
+export const addArticleCategory = (params) => {
+    return postRequest('/article/category/add', params)
+};
+
+// 编辑文章分类
+export const editArticleCategory = (params) => {
+    return postRequest('/article/category/edit', params)
+};
+
+// 删除文章分类
+export const deleteArticleCategory = (ids, params) => {
+    return deleteRequest(`/article/category/delByIds/${ids}`, params)
+};
+
+// 获取文章数据 多条件
+export const getArticleListData = (params) => {
+    return getRequest('/article/getByCondition', params)
+};
+
+// 添加文章
+export const addArticle = (params) => {
+    return postRequest('/article/add', params)
+};
+
+// 编辑文章
+export const editArticle = (params) => {
+    return postRequest('/article/edit', params)
+};
+
+// 启用文章
+export const enableArticle = (id, params) => {
+    return postRequest(`/article/enable/${id}`, params)
+};
+
+// 禁用文章
+export const disableArticle = (id, params) => {
+    return postRequest(`/article/disable/${id}`, params)
+};
+
+// 删除文章
+export const deleteArticle = (ids, params) => {
+    return deleteRequest(`/article/delByIds/${ids}`, params)
+};
+
+//上传图片
+export const uploadCommon = (params) => {
+    return uploadFileRequest('/upload/common', params)
+};

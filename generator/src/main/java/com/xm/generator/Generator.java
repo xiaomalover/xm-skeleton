@@ -47,7 +47,7 @@ public class Generator {
 
         String projectName = scanner("项目名");
         gc.setOutputDir(rootPath + "/" + projectName +"/src/main/java");
-        gc.setAuthor("xiaomalover");
+        gc.setAuthor("xiaomalover <xiaomalover@gmail.com>");
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
 
