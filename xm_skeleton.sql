@@ -159,8 +159,8 @@ CREATE TABLE `qrtz_job_details` (
 /*Data for the table `qrtz_job_details` */
 
 insert  into `qrtz_job_details`(`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`,`JOB_DATA`) values 
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','¬í\0sr\0org.quartz.JobDataMapŸ°ƒè¿©°Ë\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap‚èÃûÅ](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapæ.­(v\nÎ\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMapÚÁÃ`Ñ\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0nullx\0'),
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','¬í\0sr\0org.quartz.JobDataMapŸ°ƒè¿©°Ë\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap‚èÃûÅ](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapæ.­(v\nÎ\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMapÚÁÃ`Ñ\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','ï¿½ï¿½\0sr\0org.quartz.JobDataMapï¿½ï¿½ï¿½è¿©ï¿½ï¿½\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMapï¿½ï¿½ï¿½ï¿½ï¿½](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapï¿½.ï¿½(v\nï¿½\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMapï¿½ï¿½ï¿½`ï¿½\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0nullx\0'),
+('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','ï¿½ï¿½\0sr\0org.quartz.JobDataMapï¿½ï¿½ï¿½è¿©ï¿½ï¿½\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMapï¿½ï¿½ï¿½ï¿½ï¿½](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMapï¿½.ï¿½(v\nï¿½\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMapï¿½ï¿½ï¿½`ï¿½\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
 
 /*Table structure for table `qrtz_locks` */
 
@@ -613,9 +613,9 @@ CREATE TABLE `user_info` (
   `email` varchar(32) DEFAULT '' COMMENT 'é‚®ç®±',
   `status` tinyint(4) DEFAULT '1' COMMENT 'çŠ¶æ€',
   `created_at` datetime DEFAULT NULL,
-  `created_by` varchar(32) NOT NULL DEFAULT '',
+  `created_by` varchar(32) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `updated_by` varchar(32) NOT NULL DEFAULT '',
+  `updated_by` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
