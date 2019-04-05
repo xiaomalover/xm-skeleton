@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.admin.module.article.mapper.ArticleInfoMapper">
+
+    <select id="selectArticleList" resultType="com.xm.admin.module.article.entity.ArticleInfo">
+        SELECT
+            a.*, c.title as categoryTitle, c.short_title as categoryShortTitle
+        FROM article_info a
+        LEFT JOIN article_category c on a.category_id = c.id
+        where 1 = 1
+
+        <if test="articleInfo.title != null and articleInfo.title != ''">
+            AND a.title like '%${articleInfo.title}%'
+        </if>
+
+        <if test="articleInfo.categoryId != null and articleInfo.categoryId != ''">
+            AND c.id = #{articleInfo.categoryId}
+        </if>
+
+        <if test="articleInfo.status != null">
+            AND a.status = #{articleInfo.status}
+        </if>
+
+        <if test="extraVo.startDate != null and extraVo.startDate !=''">
+            AND a.created_at >= #{extraVo.startDate}
+        </if>
+        <if test="extraVo.endDate != null and extraVo.endDate != ''">
+            AND a.created_at &lt;= #{extraVo.endDate}
+        </if>
+
+        <if test="extraVo.order != null and extraVo.order != ''">
+            ORDER BY #{extraVo.sort} #{extraVo.order}
+        </if>
+
+        <if test="extraVo.order == null or extraVo.order == ''">
+            ORDER BY a.created_at desc
+        </if>
+    </select>
+
+</mapper>

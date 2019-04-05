@@ -5,9 +5,9 @@
     <div class="search">
         <Card>
             <Row class="operation">
-                <Button @click="add" type="primary" icon="md-add">添加子分类</Button>
-                <Button @click="addRoot" icon="md-add">添加一级分类</Button>
-                <Button @click="delAll" icon="md-trash">批量删除</Button>
+                <Button @click="add" type="primary" icon="md-add" v-has="'add'">添加子分类</Button>
+                <Button @click="addRoot" icon="md-add" v-has="'add'">添加一级分类</Button>
+                <Button @click="delAll" icon="md-trash" v-has="'delete'">批量删除</Button>
                 <Button @click="getParentList" icon="md-refresh">刷新</Button>
             </Row>
             <Row type="flex" justify="start" class="code-row-bg">
@@ -50,9 +50,9 @@
                         </FormItem>
                         <Form-item>
                             <Button @click="submitEdit" :loading="submitLoading" type="primary"
-                                    icon="ios-create-outline">修改并保存
+                                    icon="ios-create-outline" v-has="'edit'">修改并保存
                             </Button>
-                            <Button @click="handleReset">重置</Button>
+                            <Button @click="handleReset" v-has="'edit'">重置</Button>
                         </Form-item>
                     </Form>
                 </Col>
@@ -85,7 +85,7 @@
             </Form>
             <div slot="footer">
                 <Button type="text" @click="cancelAdd">取消</Button>
-                <Button type="primary" :loading="submitLoading" @click="submitAdd">提交</Button>
+                <Button v-has="'update'" type="primary" :loading="submitLoading" @click="submitAdd">提交</Button>
             </div>
         </Modal>
     </div>

@@ -33,6 +33,11 @@ public class UploadController {
         return doUpload(file, "adminAvatar");
     }
 
+    @RequestMapping(value = "/articleThumb", method = RequestMethod.POST)
+    public Result<Object> uploadArticleThumb(@RequestParam(required = false) MultipartFile file) {
+        return doUpload(file, "articleThumb");
+    }
+
     @RequestMapping(value = "/common", method = RequestMethod.POST)
     public Result<Object> upload(
             @RequestParam(required = false) MultipartFile file,
@@ -85,5 +90,10 @@ public class UploadController {
             log.error(e.toString());
             return new ResultUtil<>().setErrorMsg(e.toString());
         }
+    }
+
+    @GetMapping(value = "/getDomain")
+    public Result getImageDomain(){
+        return new ResultUtil<>().setData(imageDomain);
     }
 }
