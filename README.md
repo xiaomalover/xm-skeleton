@@ -67,3 +67,10 @@ $ npm run build
 ![screen-shot](screen-shot/7.png)
 
 ![screen-shot](screen-shot/8.png)
+
+
+联系作者
+---------
+如果有任何安装问题，请加我微信，如果你觉得对你有用，请帮忙star, 让更多人看到此项目，希望能帮到大家。
+
+![contact](screen-shot/contact.jpg)
