@@ -63,11 +63,6 @@
 <script>
     import {
         userInfoEdit,
-        relatedInfo,
-        unRelate,
-        githubLogin,
-        qqLogin,
-        weiboLogin
     } from "@/api/index";
     import Cookies from "js-cookie";
 
@@ -89,34 +84,13 @@
                     address: "",
                     addressArray: []
                 },
-                defaultList: [
-                    {
-                        url: ""
-                    }
-                ],
                 codeError: "",
                 initPhone: "",
                 initEmail: "",
                 uid: "", // 登录用户的userId
                 saveLoading: false,
                 savePassLoading: false,
-                oldPassError: "",
-                github: {
-                    related: false,
-                    id: "",
-                    username: ""
-                },
-                qq: {
-                    related: false,
-                    id: "",
-                    username: ""
-                },
-                weibo: {
-                    related: false,
-                    id: "",
-                    username: ""
-                },
-                jumping: false
+                oldPassError: ""
             };
         },
         methods: {
@@ -137,7 +111,6 @@
                 this.userForm = userInfo;
                 this.initPhone = userInfo.mobile;
                 this.initEmail = userInfo.email;
-                this.defaultList[0].url = userInfo.avatar;
                 if (userInfo.address !== null && userInfo.address !== "") {
                     this.userForm.address = userInfo.address;
                     this.userForm.addressArray = JSON.parse(userInfo.address);
