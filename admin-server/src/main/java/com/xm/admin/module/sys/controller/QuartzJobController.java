@@ -33,7 +33,7 @@ public class QuartzJobController {
     @Autowired
     private Scheduler scheduler;
 
-    @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
+    @GetMapping("/getAllByPage")
     public Result<IPage<QuartzJob>> getAll(@ModelAttribute ExtraVo extraVo) {
 
         IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
@@ -41,7 +41,7 @@ public class QuartzJobController {
         return new ResultUtil<IPage<QuartzJob>>().setData(data);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping("/add")
     @SystemLog(description = "添加定时任务")
     public Result<Object> addJob(@ModelAttribute QuartzJob job) {
 
@@ -54,7 +54,7 @@ public class QuartzJobController {
         return new ResultUtil<>().setSuccessMsg("创建定时任务成功");
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     public Result<Object> editJob(@ModelAttribute QuartzJob job) {
 
         delete(job.getJobClassName());
@@ -64,7 +64,7 @@ public class QuartzJobController {
         return new ResultUtil<>().setSuccessMsg("更新定时任务成功");
     }
 
-    @RequestMapping(value = "/pause", method = RequestMethod.POST)
+    @PostMapping("/pause")
     @SystemLog(description = "暂停定时任务")
     public Result<Object> pauseJob(@ModelAttribute QuartzJob job) {
 
@@ -78,7 +78,7 @@ public class QuartzJobController {
         return new ResultUtil<>().setSuccessMsg("暂停定时任务成功");
     }
 
-    @RequestMapping(value = "/resume", method = RequestMethod.POST)
+    @PostMapping("/resume")
     @SystemLog(description = "恢复定时任务")
     public Result<Object> resumeJob(@ModelAttribute QuartzJob job) {
 
@@ -92,7 +92,7 @@ public class QuartzJobController {
         return new ResultUtil<>().setSuccessMsg("恢复定时任务成功");
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     @SystemLog(description = "删除定时任务")
     public Result<Object> deleteJob(@PathVariable String[] ids) {
         for (String id : ids) {
@@ -106,9 +106,9 @@ public class QuartzJobController {
     /**
      * 添加定时任务
      *
-     * @param jobClassName
-     * @param cronExpression
-     * @param parameter
+     * @param jobClassName 任务类名
+     * @param cronExpression 表达式
+     * @param parameter 参数
      */
     public void add(String jobClassName, String cronExpression, String parameter) {
 
@@ -141,7 +141,7 @@ public class QuartzJobController {
     /**
      * 删除定时任务
      *
-     * @param jobClassName
+     * @param jobClassName 定时任务类
      */
     public void delete(String jobClassName) {
 

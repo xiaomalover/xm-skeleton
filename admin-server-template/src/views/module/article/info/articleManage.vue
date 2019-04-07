@@ -939,7 +939,7 @@
                 return this.defaultList[0].url === "";
             },
             operateEnable:function() {
-                return this.defaultList[0].url === "";
+                return this.defaultList[0].url !== "";
             },
             operateDisable:function() {
                 return this.defaultList[0].url === "";

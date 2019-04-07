@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 首页示例
+ * @author xiaomalover <xiaomalover@gmail.com>
+ */
 @RestController
 @RequestMapping("/skeleton/home")
 public class HomeController {

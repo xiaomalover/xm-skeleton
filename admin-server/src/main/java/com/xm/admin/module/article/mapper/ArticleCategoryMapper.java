@@ -2,6 +2,7 @@ package com.xm.admin.module.article.mapper;
 
 import com.xm.admin.module.article.entity.ArticleCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-04-05
  */
+@Repository
 public interface ArticleCategoryMapper extends BaseMapper<ArticleCategory> {
 
 }

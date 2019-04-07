@@ -28,17 +28,12 @@ public class UploadController {
     @Value("${upload.domain}")
     private String imageDomain;
 
-    @RequestMapping(value = "/adminAvatar", method = RequestMethod.POST)
-    public Result<Object> upload(@RequestParam(required = false) MultipartFile file) {
-        return doUpload(file, "adminAvatar");
-    }
-
-    @RequestMapping(value = "/articleThumb", method = RequestMethod.POST)
+    @PostMapping("/articleThumb")
     public Result<Object> uploadArticleThumb(@RequestParam(required = false) MultipartFile file) {
         return doUpload(file, "articleThumb");
     }
 
-    @RequestMapping(value = "/common", method = RequestMethod.POST)
+    @PostMapping("/common")
     public Result<Object> upload(
             @RequestParam(required = false) MultipartFile file,
             @RequestParam String folder
@@ -50,8 +45,7 @@ public class UploadController {
         try {
 
             String rootPath = imagePath;
-            String sbPath = folder;
-            String savePath = rootPath + File.separator + sbPath;
+            String savePath = rootPath + File.separator + folder;
             if (!ImageUtil.initDir(savePath)) {
                 return new ResultUtil<>().setErrorMsg("创建上传目录失败");
             }
@@ -80,11 +74,11 @@ public class UploadController {
             //关闭输出流
             fos.close();
 
-            String fullUrl = imageDomain + sbPath + "/" + fileName;
+            String fullUrl = imageDomain + folder + "/" + fileName;
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("fullUrl", fullUrl);
-            jsonObject.put("relative", sbPath + "/" + fileName);
+            jsonObject.put("relative", folder + "/" + fileName);
             return new ResultUtil<>().setData(jsonObject);
         } catch (Exception e) {
             log.error(e.toString());

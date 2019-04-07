@@ -85,7 +85,7 @@
             </Form>
             <div slot="footer">
                 <Button type="text" @click="cancelAdd">取消</Button>
-                <Button v-has="'update'" type="primary" :loading="submitLoading" @click="submitAdd">提交</Button>
+                <Button v-has="'add'" type="primary" :loading="submitLoading" @click="submitAdd">提交</Button>
             </div>
         </Modal>
     </div>

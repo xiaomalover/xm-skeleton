@@ -8,11 +8,7 @@ import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
@@ -29,7 +25,7 @@ public class CaptchaController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/init", method = RequestMethod.GET)
+    @GetMapping("/init")
     public Result<Object> initCaptcha() {
 
         String captchaId = UUID.randomUUID().toString().replace("-", "");
@@ -41,7 +37,7 @@ public class CaptchaController {
         return new ResultUtil<Object>().setData(captcha);
     }
 
-    @RequestMapping(value = "/draw/{captchaId}", method = RequestMethod.GET)
+    @GetMapping("/draw/{captchaId}")
     public JSONObject drawCaptcha(@PathVariable("captchaId") String captchaId, HttpServletResponse response) throws IOException {
 
         //得到验证码 生成指定验证码

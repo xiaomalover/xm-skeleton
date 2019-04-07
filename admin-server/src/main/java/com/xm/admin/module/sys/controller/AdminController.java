@@ -28,7 +28,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +40,7 @@ import java.util.List;
  * @author xiaomalover
  * @since 2019-03-06
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Slf4j
 @RestController
 @RequestMapping("/skeleton/user")
@@ -66,10 +66,11 @@ public class AdminController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/regist", method = RequestMethod.POST)
+    @PostMapping("/regist")
     public Result<Object> regist(@ModelAttribute Admin u,
-                                 @RequestParam String verify,
-                                 @RequestParam String captchaId) {
+         @RequestParam String verify,
+         @RequestParam String captchaId
+    ) {
 
         if (StrUtil.isBlank(verify) || StrUtil.isBlank(u.getUsername())
                 || StrUtil.isBlank(u.getPassword())) {
@@ -114,7 +115,7 @@ public class AdminController {
         return new ResultUtil<>().setData(u);
     }
 
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @GetMapping("/info")
     public Result<Admin> getUserInfo() {
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -124,7 +125,7 @@ public class AdminController {
         return new ResultUtil<Admin>().setData(u);
     }
 
-    @RequestMapping(value = "/unlock", method = RequestMethod.POST)
+    @PostMapping("/unlock")
     public Result<Object> unLock(@RequestParam String password) {
 
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -135,7 +136,7 @@ public class AdminController {
         return new ResultUtil<>().setData(null);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     @CacheEvict(key = "#u.username")
     public Result<Object> editOwn(@ModelAttribute Admin u) {
 
@@ -150,11 +151,11 @@ public class AdminController {
     }
 
     /**
-     * @param u
-     * @param roles
-     * @return
+     * @param u 用户
+     * @param roles 角色列表
+     * @return 修改结果
      */
-    @RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
+    @PostMapping("/admin/edit")
     @CacheEvict(key = "#u.username")
     public Result<Object> edit(@ModelAttribute Admin u,
                                @RequestParam(required = false) String[] roles) {
@@ -195,14 +196,12 @@ public class AdminController {
     }
 
     /**
-     * 线上demo仅允许ADMIN权限改密码
-     *
-     * @param id
-     * @param password
-     * @param newPass
-     * @return
+     * @param id 主键
+     * @param password 密码
+     * @param newPass 新密码
+     * @return 结果
      */
-    @RequestMapping(value = "/modifyPass", method = RequestMethod.POST)
+    @PostMapping("/modifyPass")
     public Result<Object> modifyPass(@RequestParam String id, @RequestParam String password, @RequestParam String newPass) {
 
         Admin old = adminService.getById(id);
@@ -224,7 +223,7 @@ public class AdminController {
         return new ResultUtil<>().setData(old);
     }
 
-    @RequestMapping(value = "/getByCondition", method = RequestMethod.GET)
+    @GetMapping("/getByCondition")
     public Result<IPage<Admin>> getByCondition(@ModelAttribute Admin user, @ModelAttribute ExtraVo extraVo) {
 
         IPage<Admin> page = new CommonPageUtil<Admin>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
@@ -294,7 +293,7 @@ public class AdminController {
         return new ResultUtil<IPage<Admin>>().setData(page);
     }
 
-    @RequestMapping(value = "/admin/add", method = RequestMethod.POST)
+    @PostMapping("/admin/add")
     public Result<Object> add(@ModelAttribute Admin u,
                               @RequestParam(required = false) String[] roles) {
 
@@ -327,7 +326,7 @@ public class AdminController {
         return new ResultUtil<>().setData(u);
     }
 
-    @RequestMapping(value = "/admin/disable/{userId}", method = RequestMethod.POST)
+    @PostMapping("/admin/disable/{userId}")
     public Result<Object> disable(@PathVariable String userId) {
 
         Admin user = adminService.getById(userId);
@@ -341,7 +340,7 @@ public class AdminController {
         return new ResultUtil<>().setData(null);
     }
 
-    @RequestMapping(value = "/admin/enable/{userId}", method = RequestMethod.POST)
+    @PostMapping("/admin/enable/{userId}")
     public Result<Object> enable(@PathVariable String userId) {
 
         Admin user = adminService.getById(userId);
@@ -355,7 +354,7 @@ public class AdminController {
         return new ResultUtil<>().setData(null);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     public Result<Object> delAllByIds(@PathVariable String[] ids) {
 
         for (String id : ids) {
@@ -371,7 +370,7 @@ public class AdminController {
      *
      * @param request http请求实例
      * @param binder  绑定实例
-     * @throws Exception
+     * @throws Exception 异常
      */
     @InitBinder
     public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {

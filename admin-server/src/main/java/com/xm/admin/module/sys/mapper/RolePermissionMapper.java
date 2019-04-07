@@ -2,6 +2,7 @@ package com.xm.admin.module.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xm.admin.module.sys.entity.RolePermission;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.xm.admin.module.sys.entity.RolePermission;
  * @author xiaomalover
  * @since 2019-03-08
  */
+@Repository
 public interface RolePermissionMapper extends BaseMapper<RolePermission> {
 
 }

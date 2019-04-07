@@ -17,9 +17,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import java.util.Set;
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @Slf4j
 @RestController
 @RequestMapping("/skeleton/permission")
@@ -47,7 +48,7 @@ public class PermissionController {
     @Autowired
     private MySecurityMetadataSource mySecurityMetadataSource;
 
-    @RequestMapping(value = "/getMenuList/{userId}", method = RequestMethod.GET)
+    @GetMapping("/getMenuList/{userId}")
     @Cacheable(key = "'adminMenuList:'+#userId")
     public Result<List<Permission>> getAllMenuList(@PathVariable String userId) {
 
@@ -100,7 +101,7 @@ public class PermissionController {
         return new ResultUtil<List<Permission>>().setData(menuList);
     }
 
-    @RequestMapping(value = "/getAllList", method = RequestMethod.GET)
+    @GetMapping("/getAllList")
     @Cacheable(key = "'allList'")
     public Result<List<Permission>> getAllList() {
 
@@ -119,7 +120,7 @@ public class PermissionController {
         return new ResultUtil<List<Permission>>().setData(list);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping("/add")
     @CacheEvict(key = "'menuList'")
     public Result<Permission> add(@ModelAttribute Permission permission) {
 
@@ -138,7 +139,7 @@ public class PermissionController {
         return new ResultUtil<Permission>().setData(permission);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     public Result<Permission> edit(@ModelAttribute Permission permission) {
 
         // 判断拦截请求的操作权限按钮名是否已存在
@@ -157,16 +158,22 @@ public class PermissionController {
         mySecurityMetadataSource.loadResourceDefine();
         //手动批量删除缓存
         Set<String> keys = redisTemplate.keys("adminPermission:" + "*");
-        redisTemplate.delete(keys);
+        if (!ObjectUtils.isEmpty(keys)) {
+            redisTemplate.delete(keys);
+        }
         Set<String> keysUser = redisTemplate.keys("admin:" + "*");
-        redisTemplate.delete(keysUser);
+        if (!ObjectUtils.isEmpty(keysUser)) {
+            redisTemplate.delete(keysUser);
+        }
         Set<String> keysUserMenu = redisTemplate.keys("permission::adminMenuList:*");
-        redisTemplate.delete(keysUserMenu);
+        if (!ObjectUtils.isEmpty(keysUserMenu)) {
+            redisTemplate.delete(keysUserMenu);
+        }
         redisTemplate.delete("permission::allList");
         return new ResultUtil<Permission>().setData(permission);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     @CacheEvict(key = "'menuList'")
     public Result<Object> delByIds(@PathVariable String[] ids) {
 
@@ -191,7 +198,7 @@ public class PermissionController {
      *
      * @param request http请求实例
      * @param binder  绑定实例
-     * @throws Exception
+     * @throws Exception 异常
      */
     @InitBinder
     public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {

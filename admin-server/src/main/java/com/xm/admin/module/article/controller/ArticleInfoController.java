@@ -26,7 +26,7 @@ public class ArticleInfoController {
     @Autowired
     IArticleInfoService articleInfoService;
 
-    @GetMapping(value = "/getByCondition")
+    @GetMapping("/getByCondition")
     public Result getByCondition(
             @ModelAttribute ArticleInfo articleInfo,
             @ModelAttribute ExtraVo extraVo
@@ -36,7 +36,7 @@ public class ArticleInfoController {
         return new ResultUtil<IPage<ArticleInfo>>().setData(articleInfoList);
     }
 
-    @PostMapping(value = "/disable/{id}")
+    @PostMapping("/disable/{id}")
     public Result<Object> disable(@PathVariable String id) {
         ArticleInfo articleInfo = articleInfoService.getById(id);
         articleInfo.setStatus(CommonStatus.STATUS_DISABLED.getStatus());
@@ -47,7 +47,7 @@ public class ArticleInfoController {
         }
     }
 
-    @PostMapping(value = "/enable/{id}")
+    @PostMapping("/enable/{id}")
     public Result<Object> enable(@PathVariable String id) {
         ArticleInfo articleInfo = articleInfoService.getById(id);
         articleInfo.setStatus(CommonStatus.STATUS_ENABLED.getStatus());
@@ -58,15 +58,15 @@ public class ArticleInfoController {
         }
     }
 
-    @RequestMapping(value = "/delByIds/{ids}",method = RequestMethod.DELETE)
-    public Result<Object> delAllByIds(@PathVariable String[] ids){
-        for(String id:ids){
+    @DeleteMapping("/delByIds/{ids}")
+    public Result<Object> delAllByIds(@PathVariable String[] ids) {
+        for (String id : ids) {
             articleInfoService.removeById(id);
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping("/add")
     public Result add(@ModelAttribute ArticleInfo articleInfo) {
         if (articleInfoService.save(articleInfo)) {
             return new ResultUtil<>().setSuccessMsg("添加文章成功");
@@ -75,7 +75,7 @@ public class ArticleInfoController {
         }
     }
 
-    @PostMapping(value = "/edit")
+    @PostMapping("/edit")
     public Result edit(@ModelAttribute ArticleInfo articleInfo) {
         if (articleInfoService.updateById(articleInfo)) {
             return new ResultUtil<>().setSuccessMsg("编辑文章成功");

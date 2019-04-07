@@ -15,8 +15,9 @@ import com.xm.admin.module.sys.mapper.UserRoleMapper;
 import com.xm.admin.module.sys.service.IAdminService;
 import com.xm.admin.module.sys.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -27,8 +28,9 @@ import java.util.List;
  * @author xiaomalover
  * @since 2019-03-06
  */
-@SuppressWarnings({"SpringJavaInjectionPointsAutowiringInspection", "SpringJavaAutowiredFieldsWarningInspection"})
+@SuppressWarnings({"SpringJavaAutowiredFieldsWarningInspection"})
 @Service
+@CacheConfig(cacheNames = "admin")
 public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements IAdminService {
 
     @Autowired
@@ -49,6 +51,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @return 用户详细信息
      */
     @Override
+    @Cacheable(key = "#username")
     public Admin findUserDetailInfo(String username) {
 
         QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();

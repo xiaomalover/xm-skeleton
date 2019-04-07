@@ -16,7 +16,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,7 @@ import java.util.Set;
  * @author xiaomalover
  * @since 2019-03-06
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @RestController
 @RequestMapping("/skeleton/department")
 @CacheConfig(cacheNames = "department")
@@ -43,7 +43,7 @@ public class DepartmentController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/getByParentId/{parentId}", method = RequestMethod.GET)
+    @GetMapping("/getByParentId/{parentId}")
     @Cacheable(key = "#parentId")
     public Result<List<Department>> getByParentId(@PathVariable String parentId) {
 
@@ -62,7 +62,7 @@ public class DepartmentController {
         return new ResultUtil<List<Department>>().setData(list);
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping("/add")
     @CacheEvict(key = "#department.parentId")
     public Result<Department> add(@ModelAttribute Department department) {
 
@@ -81,20 +81,24 @@ public class DepartmentController {
         return new ResultUtil<Department>().setData(department);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     public Result<Department> edit(@ModelAttribute Department department) {
 
         departmentService.updateById(department);
         // 手动删除所有部门缓存
         Set<String> keys = redisTemplate.keys("department:" + "*");
-        redisTemplate.delete(keys);
+        if (!ObjectUtils.isEmpty(keys)) {
+            redisTemplate.delete(keys);
+        }
         // 删除所有用户缓存
         Set<String> keysUser = redisTemplate.keys("admin:" + "*");
-        redisTemplate.delete(keysUser);
+        if (!ObjectUtils.isEmpty(keysUser)) {
+            redisTemplate.delete(keysUser);
+        }
         return new ResultUtil<Department>().setData(department);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     public Result<Object> delByIds(@PathVariable String[] ids) {
 
         for (String id : ids) {
@@ -108,7 +112,9 @@ public class DepartmentController {
         }
         // 手动删除所有部门缓存
         Set<String> keys = redisTemplate.keys("department:" + "*");
-        redisTemplate.delete(keys);
+        if (!ObjectUtils.isEmpty(keys)) {
+            redisTemplate.delete(keys);
+        }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
     }
 }

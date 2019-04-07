@@ -41,7 +41,7 @@ public class ArticleCategoryController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @GetMapping(value = "/getByParentId/{parentId}")
+    @GetMapping("/getByParentId/{parentId}")
     @Cacheable(key = "#parentId")
     public Result<List<ArticleCategory>> getByParentId(@PathVariable String parentId) {
 
@@ -62,7 +62,7 @@ public class ArticleCategoryController {
         return new ResultUtil<List<ArticleCategory>>().setData(list);
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping("/add")
     @CacheEvict(key = "#articleCategory.parentId")
     public Result<ArticleCategory> add(@ModelAttribute ArticleCategory articleCategory) {
 
@@ -88,7 +88,7 @@ public class ArticleCategoryController {
         return new ResultUtil<ArticleCategory>().setData(articleCategory);
     }
 
-    @PostMapping(value = "/edit")
+    @PostMapping("/edit")
     public Result<ArticleCategory> edit(@ModelAttribute ArticleCategory articleCategory) {
 
         String parentId = articleCategory.getParentId();
@@ -107,7 +107,7 @@ public class ArticleCategoryController {
         return new ResultUtil<ArticleCategory>().setData(articleCategory);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     public Result<Object> delByIds(@PathVariable String[] ids) {
 
         for (String id : ids) {

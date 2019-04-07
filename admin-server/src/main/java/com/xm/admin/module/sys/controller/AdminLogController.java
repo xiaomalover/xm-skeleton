@@ -30,7 +30,7 @@ public class AdminLogController {
     @Autowired
     private IAdminLogService adminLogService;
 
-    @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
+    @GetMapping("/getAllByPage")
     public Result<Object> getAllByPage(@ModelAttribute ExtraVo extraVo) {
 
         IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
@@ -40,7 +40,7 @@ public class AdminLogController {
         return new ResultUtil<>().setData(log);
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @GetMapping("/search")
     public Result<Object> search(@RequestParam String key, @ModelAttribute ExtraVo extraVo) {
 
         IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
@@ -68,7 +68,7 @@ public class AdminLogController {
         return new ResultUtil<>().setData(log);
     }
 
-    @RequestMapping(value = "/delByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delByIds/{ids}")
     public Result<Object> delByIds(@PathVariable String[] ids) {
 
         for (String id : ids) {
@@ -77,7 +77,7 @@ public class AdminLogController {
         return new ResultUtil<>().setSuccessMsg("删除成功");
     }
 
-    @RequestMapping(value = "/delAll", method = RequestMethod.DELETE)
+    @DeleteMapping("/delAll")
     public Result<Object> delAll() {
         QueryWrapper<AdminLog> queryWrapper = new QueryWrapper<>();
         queryWrapper.gt("id", 0);

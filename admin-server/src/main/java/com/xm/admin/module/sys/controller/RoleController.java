@@ -17,6 +17,7 @@ import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ import java.util.Set;
  * @author xiaomalover
  * @since 2019-03-07
  */
+@SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @RestController
 @RequestMapping("/skeleton/role")
 public class RoleController {
@@ -50,14 +52,14 @@ public class RoleController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/getAllList", method = RequestMethod.GET)
+    @GetMapping("/getAllList")
     public Result<Object> roleGetAll() {
 
         List<Role> list = roleService.list();
         return new ResultUtil<>().setData(list);
     }
 
-    @RequestMapping(value = "/getAllByPage", method = RequestMethod.GET)
+    @GetMapping("/getAllByPage")
     public Result<IPage<Role>> getRoleByPage(@ModelAttribute ExtraVo extraVo) {
 
         IPage<Role> page = new CommonPageUtil<Role>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
@@ -71,9 +73,8 @@ public class RoleController {
         return new ResultUtil<IPage<Role>>().setData(roles);
     }
 
-    @RequestMapping(value = "/setDefault", method = RequestMethod.POST)
-    public Result<Object> setDefault(@RequestParam String id,
-                                     @RequestParam Boolean isDefault) {
+    @PostMapping("/setDefault")
+    public Result<Object> setDefault(@RequestParam String id, @RequestParam Boolean isDefault) {
 
         Role role = roleService.getById(id);
         if (role == null) {
@@ -84,9 +85,8 @@ public class RoleController {
         return new ResultUtil<>().setSuccessMsg("设置成功");
     }
 
-    @RequestMapping(value = "/editRolePerm/{roleId}", method = RequestMethod.POST)
-    public Result<Object> editRolePerm(@PathVariable String roleId,
-                                       @RequestParam(required = false) String[] permIds) {
+    @PostMapping("/editRolePerm/{roleId}")
+    public Result<Object> editRolePerm(@PathVariable String roleId, @RequestParam(required = false) String[] permIds) {
 
         //删除其关联权限
         rolePermissionService.remove(new QueryWrapper<RolePermission>().eq("role_id", roleId));
@@ -99,34 +99,46 @@ public class RoleController {
         }
         //手动批量删除缓存
         Set<String> keysUser = redisTemplate.keys("admin:" + "*");
-        redisTemplate.delete(keysUser);
+        if (!ObjectUtils.isEmpty(keysUser)) {
+            redisTemplate.delete(keysUser);
+        }
         Set<String> keysUserRole = redisTemplate.keys("adminRole:" + "*");
-        redisTemplate.delete(keysUserRole);
+        if (!ObjectUtils.isEmpty(keysUserRole)) {
+            redisTemplate.delete(keysUserRole);
+        }
         Set<String> keysUserPerm = redisTemplate.keys("adminPermission:" + "*");
-        redisTemplate.delete(keysUserPerm);
+        if (!ObjectUtils.isEmpty(keysUserPerm)) {
+            redisTemplate.delete(keysUserPerm);
+        }
         Set<String> keysUserMenu = redisTemplate.keys("permission::adminMenuList:*");
-        redisTemplate.delete(keysUserMenu);
+        if (!ObjectUtils.isEmpty(keysUserMenu)) {
+            redisTemplate.delete(keysUserMenu);
+        }
         return new ResultUtil<>().setData(null);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping("/save")
     public Result<Role> save(@ModelAttribute Role role) {
         roleService.save(role);
         return new ResultUtil<Role>().setData(role);
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @PostMapping("/edit")
     public Result<Role> edit(@ModelAttribute Role entity) {
         roleService.updateById(entity);
         //手动批量删除缓存
         Set<String> keysUser = redisTemplate.keys("admin:" + "*");
-        redisTemplate.delete(keysUser);
+        if (!ObjectUtils.isEmpty(keysUser)) {
+            redisTemplate.delete(keysUser);
+        }
         Set<String> keysUserRole = redisTemplate.keys("adminRole:" + "*");
-        redisTemplate.delete(keysUserRole);
+        if (!ObjectUtils.isEmpty(keysUserRole)) {
+            redisTemplate.delete(keysUserRole);
+        }
         return new ResultUtil<Role>().setData(entity);
     }
 
-    @RequestMapping(value = "/delAllByIds/{ids}", method = RequestMethod.DELETE)
+    @DeleteMapping("/delAllByIds/{ids}")
     public Result<Object> delByIds(@PathVariable String[] ids) {
 
         for (String id : ids) {
@@ -148,7 +160,7 @@ public class RoleController {
      *
      * @param request http请求实例
      * @param binder  绑定实例
-     * @throws Exception
+     * @throws Exception 异常
      */
     @InitBinder
     public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
