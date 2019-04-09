@@ -1,12 +1,14 @@
 package com.xm.admin.config.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class LoginFailLimitException extends InternalAuthenticationServiceException {
 
     private String msg;

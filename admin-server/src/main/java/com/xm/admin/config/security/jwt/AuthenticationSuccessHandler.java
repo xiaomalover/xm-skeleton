@@ -16,7 +16,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +52,7 @@ public class AuthenticationSuccessHandler extends SavedRequestAwareAuthenticatio
             tokenExpireTime = saveLoginTime * 60 * 24;
         }
         String username = ((UserDetails) authentication.getPrincipal()).getUsername();
-        List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails) authentication.getPrincipal()).getAuthorities();
+        @SuppressWarnings("unchecked") List<GrantedAuthority> list = (List<GrantedAuthority>) ((UserDetails) authentication.getPrincipal()).getAuthorities();
         List<String> authorities = new ArrayList<>();
         for (GrantedAuthority g : list) {
             authorities.add(g.getAuthority());
