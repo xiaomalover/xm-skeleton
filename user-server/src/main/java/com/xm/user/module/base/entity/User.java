@@ -3,11 +3,13 @@ package com.xm.user.module.base.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author xiaomalover <xiaomalover@gmail.com>
  * 用户数据库模型
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("user_info")
 public class User extends BaseEntity {
