@@ -16,7 +16,7 @@ config-server                           配置服务，采用git仓库方式
 eureka-server                           微服务注册发现中心
 generator                               基于Mybatis-plus的生成工具
 user-server                             用户服务，提供用户注册，授权等服务
-gateway-server                             网关服务，在此服务做了全局token校验
+gateway-server                          网关服务，在此服务做了全局token校验
 ```
 
 运行
