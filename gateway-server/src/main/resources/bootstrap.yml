@@ -5,4 +5,4 @@ spring:
       label: master
       uri: http://localhost:8888/
   application:
-    name: zuul-server
+    name: gateway-server

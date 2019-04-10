@@ -6,8 +6,10 @@ import com.xm.common.constant.TokenConstant;
 import com.xm.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,11 +20,13 @@ import javax.servlet.http.HttpServletRequest;
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
 @RestController
 @Slf4j
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     IUserLocalService userLocalService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     UserFeignService userFeignService;
 

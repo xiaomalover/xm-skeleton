@@ -17,6 +17,7 @@
 	</parent>
 
 	<dependencies>
+
 		<!-- 全局引入lombok 解放实体get和set方法，简化实体-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
