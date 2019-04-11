@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xm.admin.module.article.entity.ArticleInfo;
 import com.xm.admin.module.article.service.IArticleInfoService;
 import com.xm.common.enums.CommonStatus;
-import com.xm.common.utils.PageUtil;
+import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
@@ -31,7 +31,7 @@ public class ArticleInfoController {
             @ModelAttribute ArticleInfo articleInfo,
             @ModelAttribute ExtraVo extraVo
     ) {
-        IPage<ArticleInfo> page = new PageUtil<ArticleInfo>().initIPage(extraVo);
+        IPage<ArticleInfo> page = new CommonPageUtil<ArticleInfo>().initIPage(extraVo);
         IPage<ArticleInfo> articleInfoList = articleInfoService.getArticleList(page, articleInfo, extraVo);
         return new ResultUtil<IPage<ArticleInfo>>().setData(articleInfoList);
     }
