@@ -62,7 +62,7 @@ public class RoleController {
     @GetMapping("/getAllByPage")
     public Result<IPage<Role>> getRoleByPage(@ModelAttribute ExtraVo extraVo) {
 
-        IPage<Role> page = new CommonPageUtil<Role>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
+        IPage<Role> page = new CommonPageUtil<Role>().initIPage(extraVo);
         QueryWrapper<Role> roleQueryWrapper = new QueryWrapper<>();
         roleQueryWrapper.orderByDesc("created_at");
         IPage<Role> roles = roleService.page(page, roleQueryWrapper);

@@ -33,7 +33,7 @@ public class AdminLogController {
     @GetMapping("/getAllByPage")
     public Result<Object> getAllByPage(@ModelAttribute ExtraVo extraVo) {
 
-        IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
+        IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo);
         QueryWrapper<AdminLog> adminLogQueryWrapper = new QueryWrapper<>();
         adminLogQueryWrapper.orderByDesc("created_at");
         IPage<AdminLog> log = adminLogService.page(page, adminLogQueryWrapper);
@@ -43,7 +43,7 @@ public class AdminLogController {
     @GetMapping("/search")
     public Result<Object> search(@RequestParam String key, @ModelAttribute ExtraVo extraVo) {
 
-        IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
+        IPage<AdminLog> page = new CommonPageUtil<AdminLog>().initIPage(extraVo);
 
         QueryWrapper<AdminLog> adminLogQueryWrapper = new QueryWrapper<>();
         if (!ObjectUtils.isEmpty(key)) {

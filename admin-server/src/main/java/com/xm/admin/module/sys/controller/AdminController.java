@@ -226,7 +226,7 @@ public class AdminController {
     @GetMapping("/getByCondition")
     public Result<IPage<Admin>> getByCondition(@ModelAttribute Admin user, @ModelAttribute ExtraVo extraVo) {
 
-        IPage<Admin> page = new CommonPageUtil<Admin>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
+        IPage<Admin> page = new CommonPageUtil<Admin>().initIPage(extraVo);
 
         QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();
 

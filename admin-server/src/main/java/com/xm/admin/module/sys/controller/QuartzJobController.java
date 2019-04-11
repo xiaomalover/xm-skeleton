@@ -36,7 +36,7 @@ public class QuartzJobController {
     @GetMapping("/getAllByPage")
     public Result<IPage<QuartzJob>> getAll(@ModelAttribute ExtraVo extraVo) {
 
-        IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(extraVo.getPageNumber(), extraVo.getPageSize());
+        IPage<QuartzJob> page = new CommonPageUtil<QuartzJob>().initIPage(extraVo);
         IPage<QuartzJob> data = quartzJobService.page(page);
         return new ResultUtil<IPage<QuartzJob>>().setData(data);
     }
