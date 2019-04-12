@@ -64,28 +64,29 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
                 token = request.getQueryParams().getFirst(TokenConstant.TOKEN_PARAM_NAME);
             }
 
-            ServerHttpResponse response = exchange.getResponse();
             if (StringUtils.isEmpty(token)) {
-                return getResponseMono(exchange, response);
+                return getResponseMono(exchange);
             }
 
             String redisToken = stringRedisTemplate.opsForValue().get(TokenConstant.TOKEN_KEY_PREFIX + token);
             if (StringUtils.isEmpty(redisToken)) {
-                return getResponseMono(exchange, response);
+                return getResponseMono(exchange);
             }
         }
 
         return chain.filter(exchange);
     }
 
-    private Mono<Void> getResponseMono(ServerWebExchange exchange, ServerHttpResponse response)
+    private Mono<Void> getResponseMono(ServerWebExchange exchange)
     {
+        ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        Result result = new ResultUtil<>().setErrorMsg(HttpStatus.UNAUTHORIZED.value(), "未授权");
+        response.getHeaders().add("Content-Type", "application/json");
+        Result result = new ResultUtil<>().setErrorMsg(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
         String resultJson = JSONObject.toJSONString(result);
         byte[] bytes = resultJson.getBytes(StandardCharsets.UTF_8);
-        DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
-        return exchange.getResponse().writeWith(Flux.just(buffer));
+        DataBuffer buffer = response.bufferFactory().wrap(bytes);
+        return response.writeWith(Flux.just(buffer));
     }
 
     @Override
