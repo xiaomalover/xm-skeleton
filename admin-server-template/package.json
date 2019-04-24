@@ -28,8 +28,8 @@
     "vue-router": "^3.0.1",
     "vue-virtual-scroller": "^0.12.0",
     "vuex": "^3.0.1",
-    "wangeditor": "^3.1.1",
-    "xlsx": "^0.13.4"
+    "xlsx": "^0.13.4",
+    "vue-ueditor-wrap": "^2.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",

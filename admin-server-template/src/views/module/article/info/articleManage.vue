@@ -114,7 +114,8 @@
                     <Input v-model="articleForm.summary" type="textarea" placeholder="请输入公告简介..."/>
                 </FormItem>
                 <FormItem label="文章内容" prop="content">
-                    <div id="editorElt" content="articleForm.content"></div>
+                    <vue-ueditor-wrap ref="ueditor" v-model="articleForm.content" :destroy="false" :config="config"></vue-ueditor-wrap>
+                    <!--<div id="editorElt" content="articleForm.content"></div>-->
                 </FormItem>
                 <FormItem label="作者" prop="author">
                     <Input v-model="articleForm.author" autocomplete="off" placeholder="请输入作者信息"/>
@@ -157,7 +158,7 @@
 
 <script>
 
-    import Editor from 'wangeditor';
+    import VueUeditorWrap from 'vue-ueditor-wrap'
 
     import {
         addArticle,
@@ -166,7 +167,7 @@
         editArticle,
         enableArticle,
         getArticleListData,
-        uploadCommon,
+        editorUpload,
         loadArticleCategory,
         uploadArticleThumb,
         getUploadDomain,
@@ -174,6 +175,9 @@
 
     export default {
         name: "article-manage",
+        components: {
+            VueUeditorWrap
+        },
         data() {
             return {
                 accessToken: {},
@@ -190,10 +194,27 @@
                         url: ""
                     }
                 ],
+                config: {
+                    // 编辑器不自动被内容撑高
+                    autoHeightEnabled: false,
+                    // 初始容器高度
+                    initialFrameHeight: 240,
+                    // 初始容器宽度
+                    initialFrameWidth: '100%',
+                    // 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
+                    serverUrl: "http://localhost:7777/skeleton/ueditor/exec",
+                    // UEditor 资源文件的存放路径，如果你使用的是 vue-cli 生成的项目，通常不需要设置该选项，vue-ueditor-wrap 会自动处理常见的情况，如果需要特殊配置，参考下方的常见问题2
+                    UEDITOR_HOME_URL: 'ueditor/'
+                    // 配合最新编译的资源文件，你可以实现添加自定义Request Headers,详情https://github.com/HaoChuan9421/ueditor/commits/dev-1.4.3.3
+                    // headers: {
+                    //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
+                    // }
+                },
                 imgUrl: "",
                 uploadList: [],
                 viewImage: false,
                 uploadFileUrl: uploadArticleThumb,
+                editorUploadUrl: editorUpload,
                 selectList: [],
                 category: [],
                 selectDep: [],
@@ -600,7 +621,6 @@
                 this.articleModalVisible = true;
                 this.defaultList[0].url = "";
                 this.uploadList = [];
-                this.editor.txt.html('');
             },
 
             edit(v) {
@@ -618,7 +638,6 @@
                 this.articleForm = articleInfo;
                 this.defaultList[0].url = this.articleForm.thumb !== "" ? this.imageDomain + this.articleForm.thumb : "";
                 this.uploadList = this.articleForm.thumb !== "" ? this.defaultList : [];
-                this.editor.txt.html(this.articleForm.content);
                 this.articleModalVisible = true;
             },
 
@@ -711,54 +730,6 @@
                         });
                     }
                 });
-            },
-
-            async initEditor() {
-                this.editor = new Editor('#editorElt');
-                /* 括号里面的对应的是html里div的id */
-                /* 配置菜单栏 */
-                this.editor.customConfig.menu = [
-                    'head',  // 标题
-                    'bold',  // 粗体
-                    'fontSize',  // 字号
-                    'fontName',  // 字体
-                    'italic',  // 斜体
-                    'underline',  // 下划线
-                    'strikeThrough',  // 删除线
-                    'foreColor',  // 文字颜色
-                    'backColor',  // 背景颜色
-                    'link',  // 插入链接
-                    'list',  // 列表
-                    'justify',  // 对齐方式
-                    'quote',  // 引用
-                    'emoticon',  // 表情
-                    'image',  // 插入图片
-                    'table',  // 表格
-                    'code',  // 插入代码
-                    'undo',  // 撤销
-                    'redo'  // 重复
-                ];
-                this.editor.customConfig.uploadImgMaxLength = 5;
-                /*限制一次最多上传 5 张图片 */
-                this.editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
-                /* 将图片大小限制为 3M 默认为5M /
-                               /* 自定义图片上传（支持跨域和非跨域上传，简单操作）*/
-                this.editor.customConfig.customUploadImg = async (files, insert) => {
-                    /* files 是 input 中选中的文件列表 */
-                    let formData = new FormData();
-                    formData.append('file', files[0]);
-                    formData.append('folder', 'article');
-                    uploadCommon(formData).then(res => {
-                        if (res.success === true) {
-                            insert(res.result.fullUrl);
-                        }
-                    });
-                };
-                this.editor.customConfig.onchange = (html) => {
-                    this.articleForm.content = html;
-                };
-                this.editor.create()
-                /* 创建编辑器 */
             },
 
             initCategoryData() {
@@ -948,7 +919,6 @@
 
         mounted() {
             this.init();
-            this.initEditor();
         }
     };
 </script>
