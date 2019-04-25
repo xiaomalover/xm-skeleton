@@ -130,14 +130,13 @@
                     initialFrameHeight: 240,
                     // 初始容器宽度
                     initialFrameWidth: '100%',
-                    //TODO 调试和线上要改地址
-                    serverUrl: "http://localhost:20003/skeleton/ueditor/exec",
+                    serverUrl: window.location.protocol + "//" + window.location.host + "/skeleton/ueditor/exec",
                     // UEditor 资源文件的存放路径，如果你使用的是 vue-cli 生成的项目，通常不需要设置该选项，vue-ueditor-wrap 会自动处理常见的情况，如果需要特殊配置，参考下方的常见问题2
-                    UEDITOR_HOME_URL: 'ueditor/'
+                    UEDITOR_HOME_URL: 'ueditor/',
                     // 配合最新编译的资源文件，你可以实现添加自定义Request Headers,详情https://github.com/HaoChuan9421/ueditor/commits/dev-1.4.3.3
-                    // headers: {
-                    //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
-                    // }
+                    headers: {
+                        accessToken: this.getStore("accessToken")
+                    }
                 },
                 imgUrl: "",
                 uploadList: [],
