@@ -229,6 +229,11 @@ export const getArticleListData = (params) => {
     return getRequest('/article/getByCondition', params)
 };
 
+// 获取文章详情
+export const getArticle = (id) => {
+    return getRequest(`/article/detail/${id}`)
+};
+
 // 添加文章
 export const addArticle = (params) => {
     return postRequest('/article/add', params)

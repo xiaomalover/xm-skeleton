@@ -71,150 +71,30 @@
                 </Card>
             </Col>
         </Row>
-        <Modal @on-visible-change="changeVisible" :fullscreen="fullscreen" :title="modalTitle"
-               v-model="articleModalVisible" :mask-closable='false' width="1000px;">
-            <Form ref="articleForm" :model="articleForm" :label-width="70" :rules="articleFormValidate">
-                <FormItem label="文章标题" prop="title">
-                    <Input v-model="articleForm.title" autocomplete="off" placeholder="请输入文章标题"/>
-                </FormItem>
-                <FormItem label="缩略图">
-                    <div class="upload-list" v-for="item in uploadList" :key="item.url">
-                        <template v-if="item.status === 'finished'">
-                            <img :src="item.url" style="width: 100px; height: 100px;">
-                            <div :class="{optEnable:operateEnable, optDisable:operateDisable}">
-                                <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
-                                <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-                        </template>
-                    </div>
-                    <Upload
-                            :class="{uploadBtnDisabled:uploadDisabled, uploadBtnEnable:uploadEnable}"
-                            ref="upload"
-                            :show-upload-list="false"
-                            :default-file-list="defaultList"
-                            :on-success="handleSuccess"
-                            :on-error="handleError"
-                            :format="['jpg','jpeg','png','gif']"
-                            :max-size="5120"
-                            :multiple="false"
-                            :on-format-error="handleFormatError"
-                            :on-exceeded-size="handleMaxSize"
-                            type="drag"
-                            :action="uploadFileUrl"
-                            :headers="accessToken">
-                        <div style="width: 58px;height:58px;line-height: 58px;">
-                            <Icon type="md-add" size="20"></Icon>
-                        </div>
-                    </Upload>
-                </FormItem>
-                <FormItem label="文章简介" prop="summary">
-                    <Input v-model="articleForm.summary" type="textarea" placeholder="请输入公告简介..."/>
-                </FormItem>
-                <FormItem label="文章内容" prop="content">
-                    <vue-ueditor-wrap ref="ueditor" v-model="articleForm.content" :destroy="false" :config="config"></vue-ueditor-wrap>
-                    <!--<div id="editorElt" content="articleForm.content"></div>-->
-                </FormItem>
-                <FormItem label="作者" prop="author">
-                    <Input v-model="articleForm.author" autocomplete="off" placeholder="请输入作者信息"/>
-                </FormItem>
-                <Form-item label="所属分类" prop="categoryTitle">
-                    <Poptip trigger="click" placement="right" title="选择分类" width="250">
-                        <div style="display:flex;">
-                            <Input v-model="articleForm.categoryTitle" readonly style="margin-right:10px;"/>
-                            <Button icon="md-trash" @click="clearSelectDep">清空已选</Button>
-                        </div>
-                        <div slot="content">
-                            <Tree :data="dataDep" :load-data="loadDataTree" @on-select-change="selectTree"></Tree>
-                            <Spin size="large" fix v-if="loading"></Spin>
-                        </div>
-                    </Poptip>
-                </Form-item>
-                <FormItem label="是否展示" prop="status">
-                    <Select v-model="articleForm.status" placeholder="请选择是否要展示">
-                        <Option :value="0">否</Option>
-                        <Option :value="1">是</Option>
-                    </Select>
-                </FormItem>
-            </Form>
-            <div slot="footer">
-                <i :title="fullscreen ? '关闭全屏' : '开启全屏'" @click="fullSc" class="ivu-icon ivu-icon-ios-expand"
-                   style="font-size: 23px; float: left"></i>
-                <Button type="text" @click="cancelArticle">取消</Button>
-                <Button type="primary" :loading="submitLoading" @click="submitArticle">提交</Button>
-            </div>
-        </Modal>
-
-        <Modal title="图片预览" v-model="viewImage" draggable>
-            <img :src="imgUrl" style="width: 80%;margin: 0 auto;display: block;">
-            <div slot="footer">
-                <Button @click="viewImage=false">关闭</Button>
-            </div>
-        </Modal>
     </div>
 </template>
 
 <script>
-
-    import VueUeditorWrap from 'vue-ueditor-wrap'
-
     import {
-        addArticle,
         deleteArticle,
         disableArticle,
-        editArticle,
         enableArticle,
         getArticleListData,
-        editorUpload,
         loadArticleCategory,
-        uploadArticleThumb,
         getUploadDomain,
     } from "@/api/index";
 
     export default {
         name: "article-manage",
-        components: {
-            VueUeditorWrap
-        },
         data() {
             return {
                 accessToken: {},
                 loading: true,
-                editor: '',
                 drop: false,
-                fullscreen: false,
                 dropDownContent: "展开",
                 dropDownIcon: "ios-arrow-down",
                 selectCount: 0,
                 imageDomain: "",
-                defaultList: [
-                    {
-                        url: ""
-                    }
-                ],
-                config: {
-                    // 编辑器不自动被内容撑高
-                    autoHeightEnabled: false,
-                    // 初始容器高度
-                    initialFrameHeight: 240,
-                    // 初始容器宽度
-                    initialFrameWidth: '100%',
-                    // 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
-                    serverUrl: "http://localhost:7777/skeleton/ueditor/exec",
-                    // UEditor 资源文件的存放路径，如果你使用的是 vue-cli 生成的项目，通常不需要设置该选项，vue-ueditor-wrap 会自动处理常见的情况，如果需要特殊配置，参考下方的常见问题2
-                    UEDITOR_HOME_URL: 'ueditor/'
-                    // 配合最新编译的资源文件，你可以实现添加自定义Request Headers,详情https://github.com/HaoChuan9421/ueditor/commits/dev-1.4.3.3
-                    // headers: {
-                    //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
-                    // }
-                },
-                imgUrl: "",
-                uploadList: [],
-                viewImage: false,
-                uploadFileUrl: uploadArticleThumb,
-                editorUploadUrl: editorUpload,
                 selectList: [],
                 category: [],
                 selectDep: [],
@@ -230,30 +110,6 @@
                 },
                 selectDate: null,
                 modalType: 0,
-                articleModalVisible: false,
-                modalTitle: "",
-                articleForm: {
-                    title: "",
-                    content: "",
-                    author: "xm-skeleton",
-                    summary: "",
-                    categoryTitle: "",
-                    status: null,
-                    thumb: "",
-                },
-
-                articleFormValidate: {
-                    title: [
-                        {required: true, message: "标题不能为空"}
-                    ],
-                    status: [
-                        {required: true, message: "请选择是否展示"}
-                    ],
-                    content: [
-                        {required: true, message: "内容不能为空", trigger: "blur"}
-                    ],
-                },
-                submitLoading: false,
                 columns: [
                     {
                         type: "selection",
@@ -393,7 +249,11 @@
                                         },
                                         on: {
                                             click: () => {
-                                                this.edit(params.row);
+                                                let articleId = params.row.id;
+                                                this.$router.push({
+                                                    name: 'article_edit',
+                                                    query: {type: 'edit', id: articleId},
+                                                })
                                             }
                                         }
                                     },
@@ -482,23 +342,13 @@
             };
         },
         methods: {
-            //全屏切换
-            fullSc() {
-                this.fullscreen = !this.fullscreen;
-            },
-            //弹框发生变化时，关闭全屏
-            changeVisible() {
-                if (this.fullscreen === true) {
-                    this.fullscreen = false;
-                }
-            },
             init() {
                 this.accessToken = {
                     accessToken: this.getStore("accessToken")
                 };
-                this.initMeta();
+                this.$refs.ueditor = {};
                 this.getImageBase();
-                this.uploadList = this.$refs.upload.fileList;
+                this.initMeta();
                 this.initCategoryData();
                 this.getParentList();
                 this.getArticleList();
@@ -581,64 +431,12 @@
                     this.getArticleList();
                 }
             },
-            cancelArticle() {
-                this.articleModalVisible = false;
-            },
-            submitArticle() {
-                this.$refs.articleForm.validate(valid => {
-                    if (valid) {
-                        if (this.modalType === 0) {
-                            // 添加文章 避免编辑后传入id
-                            delete this.articleForm.id;
-                            this.submitLoading = true;
-                            addArticle(this.articleForm).then(res => {
-                                this.submitLoading = false;
-                                if (res.success === true) {
-                                    this.$Message.success("操作成功");
-                                    this.getArticleList();
-                                    this.articleModalVisible = false;
-                                }
-                            });
-                        } else {
-                            // 编辑
-                            editArticle(this.articleForm).then(res => {
-                                this.submitLoading = false;
-                                if (res.success === true) {
-                                    this.$Message.success("操作成功");
-                                    this.getArticleList();
-                                    this.articleModalVisible = false;
-                                }
-                            });
-                        }
-                    }
-                });
-            },
 
             add() {
-                this.modalType = 0;
-                this.modalTitle = "添加文章";
-                this.$refs.articleForm.resetFields();
-                this.articleModalVisible = true;
-                this.defaultList[0].url = "";
-                this.uploadList = [];
-            },
-
-            edit(v) {
-                this.modalType = 1;
-                this.modalTitle = "编辑文章";
-                this.$refs.articleForm.resetFields();
-                // 转换null为""
-                for (let attr in v) {
-                    if (v[attr] === null) {
-                        v[attr] = "";
-                    }
-                }
-                let str = JSON.stringify(v);
-                let articleInfo = JSON.parse(str);
-                this.articleForm = articleInfo;
-                this.defaultList[0].url = this.articleForm.thumb !== "" ? this.imageDomain + this.articleForm.thumb : "";
-                this.uploadList = this.articleForm.thumb !== "" ? this.defaultList : [];
-                this.articleModalVisible = true;
+                this.$router.push({
+                    name: 'article_edit',
+                    query: {type: 'add'},
+                })
             },
 
             enable(v) {
@@ -843,51 +641,6 @@
                 }
             },
 
-            handleView(imgUrl) {
-                this.imgUrl = imgUrl;
-                this.viewImage = true;
-            },
-
-            handleRemove(file) {
-                const fileList = this.$refs.upload.fileList;
-                this.articleForm.thumb = "";
-                this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-                this.defaultList[0].url = "";
-                this.uploadList = [];
-            },
-
-            handleSuccess(res, file) {
-                if (res.success === true) {
-                    file.url = res.result.fullUrl;
-                    this.articleForm.thumb = res.result.relative;
-                    this.defaultList[0].url = res.result.fullUrl;
-                    this.uploadList = this.defaultList;
-                } else {
-                    this.$Message.error(res.message);
-                }
-            },
-
-            handleError(error, file, fileList) {
-                this.$Message.error(error.toString());
-            },
-
-            handleFormatError(file) {
-                this.$Notice.warning({
-                    title: "不支持的文件格式",
-                    desc:
-                    "所选文件‘ " +
-                    file.name +
-                    " ’格式不正确, 请选择 .jpg .jpeg .png .gif格式文件"
-                });
-            },
-
-            handleMaxSize(file) {
-                this.$Notice.warning({
-                    title: "文件大小过大",
-                    desc: "所选文件‘ " + file.name + " ’大小过大, 不得超过 5M."
-                });
-            },
-
             getImageBase() {
                 // 多条件搜索配置列表
                 this.loading = true;
@@ -898,23 +651,6 @@
                     }
                 });
             },
-        },
-
-        computed: {
-
-            uploadDisabled:function() {
-                return this.defaultList[0].url !== "";
-            },
-
-            uploadEnable:function() {
-                return this.defaultList[0].url === "";
-            },
-            operateEnable:function() {
-                return this.defaultList[0].url !== "";
-            },
-            operateDisable:function() {
-                return this.defaultList[0].url === "";
-            }
         },
 
         mounted() {

@@ -44,6 +44,7 @@ export const otherRouter = {
         { path: 'home', title: { i18n: 'home' }, name: 'home_index', component: () => import('@/views/module/sys/home/home.vue') },
         { path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/views/module/sys/own-space/own-space.vue') },
         { path: 'change-pass', title: '修改密码', name: 'change_pass', component: () => import('@/views/module/sys/change-pass/change-pass.vue') },
+        { path: 'edit-article', title: '编辑文章', name: 'article_edit', component: () => import(`@/views/module/article/info/editManage.vue`) },
     ]
 };
 

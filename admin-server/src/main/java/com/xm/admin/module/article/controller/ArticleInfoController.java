@@ -1,7 +1,9 @@
 package com.xm.admin.module.article.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xm.admin.module.article.entity.ArticleCategory;
 import com.xm.admin.module.article.entity.ArticleInfo;
+import com.xm.admin.module.article.service.IArticleCategoryService;
 import com.xm.admin.module.article.service.IArticleInfoService;
 import com.xm.common.enums.CommonStatus;
 import com.xm.common.utils.CommonPageUtil;
@@ -9,6 +11,7 @@ import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,7 +27,10 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleInfoController {
 
     @Autowired
-    IArticleInfoService articleInfoService;
+    private IArticleInfoService articleInfoService;
+
+    @Autowired
+    private IArticleCategoryService articleCategoryService;
 
     @GetMapping("/getByCondition")
     public Result getByCondition(
@@ -34,6 +40,18 @@ public class ArticleInfoController {
         IPage<ArticleInfo> page = new CommonPageUtil<ArticleInfo>().initIPage(extraVo);
         IPage<ArticleInfo> articleInfoList = articleInfoService.getArticleList(page, articleInfo, extraVo);
         return new ResultUtil<IPage<ArticleInfo>>().setData(articleInfoList);
+    }
+
+    @GetMapping("/detail/{id}")
+    public Result getArticle(@PathVariable String id) {
+        ArticleInfo articleInfo = articleInfoService.getById(id);
+        if (!ObjectUtils.isEmpty(articleInfo) && !ObjectUtils.isEmpty(articleInfo.getCategoryId())) {
+            ArticleCategory articleCategory = articleCategoryService.getById(articleInfo.getCategoryId());
+            if (!ObjectUtils.isEmpty(articleCategory)) {
+                articleInfo.setCategoryTitle(articleCategory.getTitle());
+            }
+        }
+        return new ResultUtil<>().setData(articleInfo);
     }
 
     @PostMapping("/disable/{id}")
