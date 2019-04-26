@@ -135,12 +135,16 @@ public final class ConfigManager {
                 conf.put("allowFiles", this.getArray("imageManagerAllowFiles"));
                 conf.put("dir", this.jsonConfig.getString("imageManagerListPath"));
                 conf.put("count", this.jsonConfig.getInt("imageManagerListSize"));
+                conf.put("imageUrlPrefix", this.jsonConfig.getString("imageUrlPrefix"));
+                localSavePathPrefix = this.jsonConfig.getString("localSavePathPrefix");
                 break;
 
             case ActionMap.LIST_FILE:
                 conf.put("allowFiles", this.getArray("fileManagerAllowFiles"));
                 conf.put("dir", this.jsonConfig.getString("fileManagerListPath"));
                 conf.put("count", this.jsonConfig.getInt("fileManagerListSize"));
+                conf.put("imageUrlPrefix", this.jsonConfig.getString("imageUrlPrefix"));
+                localSavePathPrefix = this.jsonConfig.getString("localSavePathPrefix");
                 break;
 
         }

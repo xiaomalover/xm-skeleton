@@ -18,14 +18,18 @@ public class FileManager {
     private String rootPath;
     private String[] allowFiles;
     private int count;
+    private String imageUrlPrefix;
+    private String localSavePathPrefix;
 
     public FileManager(Map<String, Object> conf) {
 
         this.rootPath = (String) conf.get("rootPath");
-        this.dir = this.rootPath + conf.get("dir");
+        //this.dir = this.rootPath + conf.get("dir");
+        this.dir = (String) conf.get("localSavePathPrefix") + conf.get("dir");
         this.allowFiles = this.getAllowFiles(conf.get("allowFiles"));
         this.count = (Integer) conf.get("count");
-
+        this.imageUrlPrefix =  (String) conf.get("imageUrlPrefix");
+        this.localSavePathPrefix = (String) conf.get("localSavePathPrefix");
     }
 
     public State listFile(int index) {
@@ -70,7 +74,7 @@ public class FileManager {
             }
             file = (File) obj;
             fileState = new BaseState(true);
-            fileState.putInfo("url", PathFormat.format(this.getPath(file)));
+            fileState.putInfo("url", PathFormat.format(this.getPath(file)).replace(PathFormat.format(this.localSavePathPrefix), this.imageUrlPrefix));
             state.addState(fileState);
         }
 
