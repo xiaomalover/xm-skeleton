@@ -18,7 +18,7 @@ public final class Base64Uploader {
 
         byte[] data = decode(content);
 
-        long maxSize = ((Long) conf.get("maxSize")).longValue();
+        long maxSize = (Long) conf.get("maxSize");
 
         if (!validSize(data, maxSize)) {
             return new BaseState(false, AppInfo.MAX_SIZE);

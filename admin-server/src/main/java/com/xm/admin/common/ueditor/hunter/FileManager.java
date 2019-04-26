@@ -14,15 +14,15 @@ import com.xm.admin.common.ueditor.define.State;
 
 public class FileManager {
 
-    private String dir = null;
-    private String rootPath = null;
-    private String[] allowFiles = null;
-    private int count = 0;
+    private String dir;
+    private String rootPath;
+    private String[] allowFiles;
+    private int count;
 
     public FileManager(Map<String, Object> conf) {
 
         this.rootPath = (String) conf.get("rootPath");
-        this.dir = this.rootPath + (String) conf.get("dir");
+        this.dir = this.rootPath + conf.get("dir");
         this.allowFiles = this.getAllowFiles(conf.get("allowFiles"));
         this.count = (Integer) conf.get("count");
 
@@ -31,7 +31,7 @@ public class FileManager {
     public State listFile(int index) {
 
         File dir = new File(this.dir);
-        State state = null;
+        State state;
 
         if (!dir.exists()) {
             return new BaseState(false, AppInfo.NOT_EXIST);
@@ -60,9 +60,9 @@ public class FileManager {
     private State getState(Object[] files) {
 
         MultiState state = new MultiState(true);
-        BaseState fileState = null;
+        BaseState fileState;
 
-        File file = null;
+        File file;
 
         for (Object obj : files) {
             if (obj == null) {
@@ -88,8 +88,8 @@ public class FileManager {
 
     private String[] getAllowFiles(Object fileExt) {
 
-        String[] exts = null;
-        String ext = null;
+        String[] exts;
+        String ext;
 
         if (fileExt == null) {
             return new String[0];

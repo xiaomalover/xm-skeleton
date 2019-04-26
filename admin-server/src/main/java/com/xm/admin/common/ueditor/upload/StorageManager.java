@@ -67,7 +67,7 @@ public class StorageManager {
     public static State saveFileByInputStream(HttpServletRequest request, InputStream is, String path, String picName,
                                               long maxSize) {
 
-        State state = null;
+        State state;
         File tmpFile = getTmpFile();
         byte[] dataBuf = new byte[2048];
 
@@ -119,7 +119,7 @@ public class StorageManager {
     }
 
     public static State saveFileByInputStream(InputStream is, String path, String picName) {
-        State state = null;
+        State state;
 
         File tmpFile = getTmpFile();
 
@@ -130,7 +130,7 @@ public class StorageManager {
             BufferedOutputStream bos = new BufferedOutputStream(
                     new FileOutputStream(tmpFile), StorageManager.BUFFER_SIZE);
 
-            int count = 0;
+            int count;
             while ((count = bis.read(dataBuf)) != -1) {
                 bos.write(dataBuf, 0, count);
             }
@@ -168,7 +168,7 @@ public class StorageManager {
     }
 
     private static State saveTmpFile(File tmpFile, String path) {
-        State state = null;
+        State state;
         File targetFile = new File(path);
 
         if (targetFile.canWrite()) {

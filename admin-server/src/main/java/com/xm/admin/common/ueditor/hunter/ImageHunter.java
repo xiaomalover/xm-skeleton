@@ -21,14 +21,14 @@ import com.xm.admin.common.ueditor.upload.StorageManager;
  */
 public class ImageHunter {
 
-    private String filename = null;
-    private String savePath = null;
-    private String rootPath = null;
-    private List<String> allowTypes = null;
-    private long maxSize = -1;
-    private String localSavePathPrefix = null;
+    private String filename;
+    private String savePath;
+    private String rootPath;
+    private List<String> allowTypes;
+    private long maxSize;
+    private String localSavePathPrefix;
 
-    private List<String> filters = null;
+    private List<String> filters;
 
     public ImageHunter(Map<String, Object> conf) {
 
@@ -54,11 +54,11 @@ public class ImageHunter {
 
     }
 
-    public State captureRemoteData(String urlStr) {
+    private State captureRemoteData(String urlStr) {
 
-        HttpURLConnection connection = null;
-        URL url = null;
-        String suffix = null;
+        HttpURLConnection connection;
+        URL url;
+        String suffix;
 
         try {
             url = new URL(urlStr);
@@ -89,12 +89,12 @@ public class ImageHunter {
             String savePath = this.getPath(this.savePath, this.filename, suffix);
             String physicalPath = this.localSavePathPrefix + savePath;
             String path = physicalPath.substring(0, physicalPath.lastIndexOf("/"));
-            String picName = physicalPath.substring(physicalPath.lastIndexOf("/") + 1, physicalPath.length());
+            String picName = physicalPath.substring(physicalPath.lastIndexOf("/") + 1);
 
             State state = StorageManager.saveFileByInputStream(connection.getInputStream(), path, picName);
 
             if (state.isSuccess()) {
-                state.putInfo("url", null);
+                state.putInfo("url", urlStr);
                 state.putInfo("source", urlStr);
             }
 

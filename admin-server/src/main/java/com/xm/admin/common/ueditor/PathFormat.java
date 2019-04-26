@@ -21,7 +21,7 @@ public class PathFormat {
 
     public static String parse(String input) {
 
-        Pattern pattern = Pattern.compile("\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("\\{([^}]+)}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
 
         PathFormat.currentDate = new Date();
@@ -53,9 +53,9 @@ public class PathFormat {
 
     public static String parse(String input, String filename) {
 
-        Pattern pattern = Pattern.compile("\\{([^\\}]+)\\}", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("\\{([^}]+)}", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
-        String matchStr = null;
+        String matchStr;
 
         PathFormat.currentDate = new Date();
 
@@ -64,8 +64,8 @@ public class PathFormat {
         while (matcher.find()) {
 
             matchStr = matcher.group(1);
-            if (matchStr.indexOf("filename") != -1) {
-                filename = filename.replace("$", "\\$").replaceAll("[\\/:*?\"<>|]", "");
+            if (matchStr.contains("filename")) {
+                filename = filename.replace("$", "\\$").replaceAll("[/:*?\"<>|]", "");
                 matcher.appendReplacement(sb, filename);
             } else {
                 matcher.appendReplacement(sb, PathFormat.getString(matchStr));
@@ -83,23 +83,23 @@ public class PathFormat {
         pattern = pattern.toLowerCase();
 
         // time 处理
-        if (pattern.indexOf(PathFormat.TIME) != -1) {
+        if (pattern.contains(PathFormat.TIME)) {
             return PathFormat.getTimestamp();
-        } else if (pattern.indexOf(PathFormat.FULL_YEAR) != -1) {
+        } else if (pattern.contains(PathFormat.FULL_YEAR)) {
             return PathFormat.getFullYear();
-        } else if (pattern.indexOf(PathFormat.YEAR) != -1) {
+        } else if (pattern.contains(PathFormat.YEAR)) {
             return PathFormat.getYear();
-        } else if (pattern.indexOf(PathFormat.MONTH) != -1) {
+        } else if (pattern.contains(PathFormat.MONTH)) {
             return PathFormat.getMonth();
-        } else if (pattern.indexOf(PathFormat.DAY) != -1) {
+        } else if (pattern.contains(PathFormat.DAY)) {
             return PathFormat.getDay();
-        } else if (pattern.indexOf(PathFormat.HOUR) != -1) {
+        } else if (pattern.contains(PathFormat.HOUR)) {
             return PathFormat.getHour();
-        } else if (pattern.indexOf(PathFormat.MINUTE) != -1) {
+        } else if (pattern.contains(PathFormat.MINUTE)) {
             return PathFormat.getMinute();
-        } else if (pattern.indexOf(PathFormat.SECOND) != -1) {
+        } else if (pattern.contains(PathFormat.SECOND)) {
             return PathFormat.getSecond();
-        } else if (pattern.indexOf(PathFormat.RAND) != -1) {
+        } else if (pattern.contains(PathFormat.RAND)) {
             return PathFormat.getRandom(pattern);
         }
 
@@ -141,7 +141,7 @@ public class PathFormat {
 
     private static String getRandom(String pattern) {
 
-        int length = 0;
+        int length;
         pattern = pattern.split(":")[1].trim();
 
         length = Integer.parseInt(pattern);

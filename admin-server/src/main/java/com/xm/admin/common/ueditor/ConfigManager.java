@@ -82,7 +82,7 @@ public final class ConfigManager {
 
     public Map<String, Object> getConfig(int type) throws JSONException {
 
-        Map<String, Object> conf = new HashMap<String, Object>();
+        Map<String, Object> conf = new HashMap<>();
         String savePath = null;
         String localSavePathPrefix = null;
 
@@ -210,7 +210,7 @@ public final class ConfigManager {
             InputStreamReader reader = new InputStreamReader(new FileInputStream(path), "UTF-8");
             BufferedReader bfReader = new BufferedReader(reader);
 
-            String tmpContent = null;
+            String tmpContent;
 
             while ((tmpContent = bfReader.readLine()) != null) {
                 builder.append(tmpContent);

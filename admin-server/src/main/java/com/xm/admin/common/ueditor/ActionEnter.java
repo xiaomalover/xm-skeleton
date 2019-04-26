@@ -16,14 +16,14 @@ import com.xm.admin.common.ueditor.upload.Uploader;
 
 public class ActionEnter {
 
-	private HttpServletRequest request = null;
+	private HttpServletRequest request;
 
-	private String rootPath = null;
-	private String contextPath = null;
+	private String rootPath;
+	private String contextPath;
 
-	private String actionType = null;
+	private String actionType;
 
-	private ConfigManager configManager = null;
+	private ConfigManager configManager;
 
 	public ActionEnter ( HttpServletRequest request, String rootPath) {
 
@@ -67,7 +67,7 @@ public class ActionEnter {
 
 		int actionCode = ActionMap.getType( this.actionType );
 
-		Map<String, Object> conf = null;
+		Map<String, Object> conf;
 
 		switch ( actionCode ) {
 

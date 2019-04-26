@@ -1,7 +1,6 @@
 package com.xm.admin.common.ueditor.define;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import com.xm.admin.common.ueditor.Encoder;
 
@@ -10,7 +9,7 @@ public class BaseState implements State {
     private boolean state = false;
     private String info = null;
 
-    private Map<String, String> infoMap = new HashMap<String, String>();
+    private Map<String, String> infoMap = new HashMap<>();
 
     public BaseState() {
         this.state = true;
@@ -53,20 +52,18 @@ public class BaseState implements State {
 
     public String toString() {
 
-        String key = null;
+        String key;
         String stateVal = this.isSuccess() ? AppInfo.getStateInfo(AppInfo.SUCCESS) : this.info;
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append("{\"state\": \"" + stateVal + "\"");
+        builder.append("{\"state\": \"").append(stateVal).append("\"");
 
-        Iterator<String> iterator = this.infoMap.keySet().iterator();
+        for (String s : this.infoMap.keySet()) {
 
-        while (iterator.hasNext()) {
+            key = s;
 
-            key = iterator.next();
-
-            builder.append(",\"" + key + "\": \"" + this.infoMap.get(key) + "\"");
+            builder.append(",\"").append(key).append("\": \"").append(this.infoMap.get(key)).append("\"");
 
         }
 

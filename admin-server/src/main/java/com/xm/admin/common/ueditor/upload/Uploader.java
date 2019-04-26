@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.xm.admin.common.ueditor.define.State;
 
 public class Uploader {
-    private HttpServletRequest request = null;
-    private Map<String, Object> conf = null;
+    private HttpServletRequest request;
+    private Map<String, Object> conf;
 
     public Uploader(HttpServletRequest request, Map<String, Object> conf) {
         this.request = request;
@@ -15,7 +15,7 @@ public class Uploader {
 
     public final State doExec() {
         String filedName = (String) this.conf.get("fieldName");
-        State state = null;
+        State state;
 
         if ("true".equals(this.conf.get("isBase64"))) {
             state = Base64Uploader.save(this.request.getParameter(filedName),

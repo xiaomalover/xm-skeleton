@@ -15,11 +15,11 @@ import com.xm.admin.common.ueditor.Encoder;
  */
 public class MultiState implements State {
 
-    private boolean state = false;
+    private boolean state;
     private String info = null;
-    private Map<String, Long> intMap = new HashMap<String, Long>();
-    private Map<String, String> infoMap = new HashMap<String, String>();
-    private List<String> stateList = new ArrayList<String>();
+    private Map<String, Long> intMap = new HashMap<>();
+    private Map<String, String> infoMap = new HashMap<>();
+    private List<String> stateList = new ArrayList<>();
 
     public MultiState(boolean state) {
         this.state = state;
@@ -59,7 +59,7 @@ public class MultiState implements State {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append("{\"state\": \"" + stateVal + "\"");
+        builder.append("{\"state\": \"").append(stateVal).append("\"");
 
         // 数字转换
         Iterator<String> iterator = this.intMap.keySet().iterator();
@@ -68,7 +68,7 @@ public class MultiState implements State {
 
             stateVal = iterator.next();
 
-            builder.append(",\"" + stateVal + "\": " + this.intMap.get(stateVal));
+            builder.append(",\"").append(stateVal).append("\": ").append(this.intMap.get(stateVal));
 
         }
 
@@ -78,7 +78,7 @@ public class MultiState implements State {
 
             stateVal = iterator.next();
 
-            builder.append(",\"" + stateVal + "\": \"" + this.infoMap.get(stateVal) + "\"");
+            builder.append(",\"").append(stateVal).append("\": \"").append(this.infoMap.get(stateVal)).append("\"");
 
         }
 
@@ -89,7 +89,7 @@ public class MultiState implements State {
 
         while (iterator.hasNext()) {
 
-            builder.append(iterator.next() + ",");
+            builder.append(iterator.next()).append(",");
 
         }
 
