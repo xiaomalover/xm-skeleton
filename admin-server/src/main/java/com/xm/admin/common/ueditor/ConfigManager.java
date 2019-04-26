@@ -94,6 +94,7 @@ public final class ConfigManager {
                 conf.put("allowFiles", this.getArray("fileAllowFiles"));
                 conf.put("fieldName", this.jsonConfig.getString("fileFieldName"));
                 savePath = this.jsonConfig.getString("filePathFormat");
+                localSavePathPrefix = this.jsonConfig.getString("localSavePathPrefix");
                 break;
 
             case ActionMap.UPLOAD_IMAGE:
@@ -119,6 +120,7 @@ public final class ConfigManager {
                 conf.put("fieldName", this.jsonConfig.getString("scrawlFieldName"));
                 conf.put("isBase64", "true");
                 savePath = this.jsonConfig.getString("scrawlPathFormat");
+                localSavePathPrefix = this.jsonConfig.getString("localSavePathPrefix");
                 break;
 
             case ActionMap.CATCH_IMAGE:
