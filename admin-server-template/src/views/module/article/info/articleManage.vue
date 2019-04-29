@@ -51,6 +51,18 @@
                                 <DropdownItem name="exportData">导出所选数据</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
+
+                        <Dropdown @on-click="handleDropdown" style="float:right">
+                            <Button>
+                                设置显示列
+                                <Icon type="md-arrow-dropdown"/>
+                            </Button>
+                            <DropdownMenu slot="list" style="padding: 10px;">
+                                <Checkbox-group v-model="tableColumnsChecked" @on-change="changeTableColumns">
+                                    <Checkbox v-for="(item) in allColumns" :label="item.key">{{item.title}}</Checkbox>
+                                </Checkbox-group>
+                            </DropdownMenu>
+                        </Dropdown>
                     </Row>
                     <Row>
                         <Alert show-icon>
@@ -100,6 +112,7 @@
                 selectDep: [],
                 dataDep: [],
                 permTypes: [],
+                tableColumnsChecked: ['thumb', 'title', 'categoryTitle', 'status', 'createdAt'],
                 searchForm: {
                     title: "",
                     content: "",
@@ -110,18 +123,8 @@
                 },
                 selectDate: null,
                 modalType: 0,
-                columns: [
-                    {
-                        type: "selection",
-                        width: 60,
-                        align: "center",
-                        fixed: "left"
-                    },
-                    {
-                        type: "index",
-                        width: 60,
-                        align: "center",
-                    },
+                columns: [],
+                allColumns: [
                     {
                         title: "缩略图",
                         key: "thumb",
@@ -153,7 +156,6 @@
                     {
                         title: "标题",
                         key: "title",
-                        width: 350,
                         sortable: true,
                         align: "center",
                     },
@@ -161,7 +163,6 @@
                         title: "简介",
                         key: "summary",
                         sortable: true,
-                        //width: 590,
                         align: "center",
                         type: "html",
                     },
@@ -187,7 +188,6 @@
                     {
                         title: "是否展示",
                         key: "status",
-                        width: 120,
                         align: "center",
                         render: (h, params) => {
                             let re = "";
@@ -222,119 +222,10 @@
                         key: "createdAt",
                         sortable: true,
                         sortType: "desc",
-                        width: 150,
                         render: (h, params) => {
                             return h("div", params.row.createdAt.replace(/.[0-9]*$/,''));
                         }
                     },
-                    {
-                        title: "操作",
-                        key: "action",
-                        width: 200,
-                        align: "center",
-                        fixed: "right",
-                        render: (h, params) => {
-                            let editBtn; let disableBtn; let enableBtn; let deleteBtn;
-
-                            if (this.permTypes.includes("edit")) {
-                                editBtn = h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            type: "primary",
-                                            size: "small"
-                                        },
-                                        style: {
-                                            marginRight: "5px"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                let articleId = params.row.id;
-                                                this.$router.push({
-                                                    name: 'article_edit',
-                                                    query: {type: 'edit', id: articleId},
-                                                })
-                                            }
-                                        }
-                                    },
-                                    "编辑"
-                                );
-                            }
-
-                            if (this.permTypes.includes("enable")) {
-                                enableBtn = h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            type: "success",
-                                            size: "small"
-                                        },
-                                        style: {
-                                            marginRight: "5px"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.enable(params.row);
-                                            }
-                                        }
-                                    },
-                                    "启用"
-                                );
-                            }
-
-                            if (this.permTypes.includes("disable")) {
-                                disableBtn = h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            size: "small"
-                                        },
-                                        style: {
-                                            marginRight: "5px"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.disable(params.row);
-                                            }
-                                        }
-                                    },
-                                    "禁用"
-                                );
-                            }
-
-                            if (this.permTypes.includes("delete")) {
-                                deleteBtn = h(
-                                    "Button",
-                                    {
-                                        props: {
-                                            type: "error",
-                                            size: "small"
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.remove(params.row);
-                                            }
-                                        }
-                                    },
-                                    "删除"
-                                );
-                            }
-
-                            if (params.row.status === 1) {
-                                return h("div", [
-                                    editBtn,
-                                    disableBtn,
-                                    deleteBtn
-                                ]);
-                            } else {
-                                return h("div", [
-                                    editBtn,
-                                    enableBtn,
-                                    deleteBtn
-                                ]);
-                            }
-                        }
-                    }
                 ],
                 data: [],
                 exportData: [],
@@ -346,6 +237,7 @@
                 this.accessToken = {
                     accessToken: this.getStore("accessToken")
                 };
+                this.changeTableColumns();
                 this.$refs.ueditor = {};
                 this.getImageBase();
                 this.initMeta();
@@ -650,6 +542,144 @@
                         this.imageDomain = res.result;
                     }
                 });
+            },
+
+            changeTableColumns() {
+                this.columns = this.getTableColumns();
+            },
+
+            getTableColumns() {
+                let checkedColumns = [];
+
+                //加入前面的复选框，这是必展示的
+                let selectionColumn = {
+                    type: "selection",
+                    align: "center",
+                    fixed: "left"
+                };
+                checkedColumns.push(selectionColumn);
+
+                //后面加入操作按键，这是必展示的
+                let operateColumn = {
+                    title: "操作",
+                    key: "action",
+                    align: "center",
+                    fixed: "right",
+                    render: (h, params) => {
+                        let editBtn; let disableBtn; let enableBtn; let deleteBtn;
+
+                        if (this.permTypes.includes("edit")) {
+                            editBtn = h(
+                                "Button",
+                                {
+                                    props: {
+                                        type: "primary",
+                                        size: "small"
+                                    },
+                                    style: {
+                                        marginRight: "5px"
+                                    },
+                                    on: {
+                                        click: () => {
+                                            let articleId = params.row.id;
+                                            this.$router.push({
+                                                name: 'article_edit',
+                                                query: {type: 'edit', id: articleId},
+                                            })
+                                        }
+                                    }
+                                },
+                                "编辑"
+                            );
+                        }
+
+                        if (this.permTypes.includes("enable")) {
+                            enableBtn = h(
+                                "Button",
+                                {
+                                    props: {
+                                        type: "success",
+                                        size: "small"
+                                    },
+                                    style: {
+                                        marginRight: "5px"
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.enable(params.row);
+                                        }
+                                    }
+                                },
+                                "启用"
+                            );
+                        }
+
+                        if (this.permTypes.includes("disable")) {
+                            disableBtn = h(
+                                "Button",
+                                {
+                                    props: {
+                                        size: "small"
+                                    },
+                                    style: {
+                                        marginRight: "5px"
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.disable(params.row);
+                                        }
+                                    }
+                                },
+                                "禁用"
+                            );
+                        }
+
+                        if (this.permTypes.includes("delete")) {
+                            deleteBtn = h(
+                                "Button",
+                                {
+                                    props: {
+                                        type: "error",
+                                        size: "small"
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.remove(params.row);
+                                        }
+                                    }
+                                },
+                                "删除"
+                            );
+                        }
+
+                        if (params.row.status === 1) {
+                            return h("div", [
+                                editBtn,
+                                disableBtn,
+                                deleteBtn
+                            ]);
+                        } else {
+                            return h("div", [
+                                editBtn,
+                                enableBtn,
+                                deleteBtn
+                            ]);
+                        }
+                    }
+                };
+
+                let that = this;
+                this.allColumns.forEach(function (c) {
+                    that.tableColumnsChecked.forEach(function (e) {
+                        if (c.key === e) {
+                            checkedColumns.push(c);
+                        }
+                    })
+                });
+
+                checkedColumns.push(operateColumn);
+
+                return checkedColumns;
             },
         },
 
