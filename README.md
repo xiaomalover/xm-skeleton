@@ -2,6 +2,7 @@ Xm Skeleton
 ===================================
 这是一个Spring Cloud的基础项目
 
+如果你更需要单纯Spring-boot版本，请移步 [xm-spring-boot](https://github.com/xiaomalover/xm-spring-boot "XM Skeleton"). 
 
 
 目录结构
