@@ -135,23 +135,7 @@
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "mobile",
-							"value": "13555555556",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
 					"raw": "http://localhost:30001/api/hello/aa",
@@ -180,28 +164,12 @@
 					{
 						"key": "token",
 						"type": "text",
-						"value": "a93869ece1361a675bebb4fca2d326c2"
+						"value": "3e2fb071e310c375dbb0a32ab54963ea"
 					}
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "mobile",
-							"value": "13555555556",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
 					"raw": "http://localhost:30001/api/getUserInfo",
@@ -234,23 +202,7 @@
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "mobile",
-							"value": "13555555556",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
 					"raw": "http://localhost:30001/article/articleCategory/list",
@@ -284,23 +236,7 @@
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "mobile",
-							"value": "13555555556",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
 					"raw": "http://localhost:30001/article/articleInfo/list",
@@ -334,26 +270,10 @@
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test1",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "123456",
-							"type": "text"
-						},
-						{
-							"key": "mobile",
-							"value": "13555555556",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:30001/article/articleInfo/detail/247274922353627136",
+					"raw": "http://localhost:30001/article/articleInfo/detail/247573101250875392",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -363,7 +283,7 @@
 						"article",
 						"articleInfo",
 						"detail",
-						"247274922353627136"
+						"247573101250875392"
 					]
 				}
 			},
