@@ -29,6 +29,7 @@ gateway-server                          网关服务，在此服务做了全局t
 
 2, 依次启动，eureka, config等服务
 
+3, 测试微服务，请用postman 导入要目录下的 xm-skeleton.postman_collection.json
 
 功能
 -------
