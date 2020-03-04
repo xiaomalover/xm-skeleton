@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ArticleInfo extends BaseEntity{
+public class ArticleInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

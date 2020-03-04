@@ -143,7 +143,6 @@
                 viewImage: false,
                 uploadFileUrl: uploadArticleThumb,
                 selectList: [],
-                category: [],
                 selectDep: [],
                 dataDep: [],
                 selectDate: null,
@@ -152,7 +151,7 @@
                 articleForm: {
                     title: "",
                     content: "",
-                    author: "xm-skeleton",
+                    author: "XM 团队",
                     summary: "",
                     categoryTitle: "",
                     status: null,
@@ -183,7 +182,6 @@
                 };
                 this.getImageBase();
                 this.uploadList = this.$refs.upload.fileList;
-                this.initCategoryData();
                 this.getParentList();
                 this.actionType = this.$route.query.type;
                 if (this.actionType === "edit") {
@@ -238,25 +236,6 @@
                     }
                 });
             },
-            initCategoryData() {
-                loadArticleCategory(0).then(res => {
-                    if (res.success === true) {
-                        res.result.forEach(function (e) {
-                            if (e.isParent) {
-                                e.value = e.id;
-                                e.label = e.title;
-                                e.loading = false;
-                                e.children = [];
-                            } else {
-                                e.value = e.id;
-                                e.label = e.title;
-                            }
-                        });
-                        this.category = res.result;
-                    }
-                });
-            },
-
             getParentList() {
                 loadArticleCategory(0).then(res => {
                     if (res.success === true) {
@@ -266,7 +245,22 @@
                                 e.children = [];
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         this.dataDep = res.result;
+                    }
+                });
+            },
+
+            // 递归标记禁用节点
+            deleteDisableNode(permData) {
+                let that = this;
+                permData.forEach(function (e) {
+                    if (e.status === 0) {
+                        e.title = "[已禁用] " + e.title;
+                        e.disabled = true;
+                    }
+                    if (e.children && e.children.length > 0) {
+                        that.deleteDisableNode(e.children);
                     }
                 });
             },
@@ -286,11 +280,8 @@
                                 e.value = e.id;
                                 e.label = e.title;
                             }
-                            if (e.status === -1) {
-                                e.label = "[已禁用] " + e.label;
-                                e.disabled = true;
-                            }
                         });
+                        deleteDisableNode(res.result);
                         item.children = res.result;
                         callback();
                     }
@@ -298,6 +289,7 @@
             },
 
             loadDataTree(item, callback) {
+                item.loading = true;
                 loadArticleCategory(item.id).then(res => {
                     if (res.success === true) {
                         res.result.forEach(function (e) {
@@ -306,6 +298,7 @@
                                 e.children = [];
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         callback(res.result);
                     }
                 });

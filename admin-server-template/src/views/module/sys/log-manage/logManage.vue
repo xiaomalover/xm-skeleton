@@ -54,6 +54,7 @@
         deleteLog,
         deleteAllLog
     } from "@/api/index";
+    import moment from 'moment';
 
     export default {
         name: "role-manage",
@@ -190,8 +191,10 @@
                         title: "创建时间",
                         key: "createdAt",
                         sortable: true,
-                        width: 150,
-                        sortType: "desc"
+                        sortType: "desc",
+                        render: (h, params) => {
+                            return h("div", moment(params.row.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
                     },
                     {
                         title: "操作",

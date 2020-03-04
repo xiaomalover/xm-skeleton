@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Mapper 接口
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @Repository

@@ -1,8 +1,8 @@
 package com.xm.admin.module.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xm.admin.common.constant.CommonConstant;
 import com.xm.common.entity.BaseEntity;
+import com.xm.common.enums.CommonStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  *
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @Data
@@ -29,5 +29,5 @@ public class QuartzJob extends BaseEntity {
 
     private String parameter;
 
-    private Integer status = CommonConstant.STATUS_NORMAL;
+    private Integer status = CommonStatus.STATUS_ENABLED.getStatus();
 }

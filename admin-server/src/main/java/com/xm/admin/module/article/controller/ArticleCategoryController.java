@@ -15,12 +15,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Set;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author xiaomalover <xiaomalover@gmail.com>
@@ -92,7 +93,7 @@ public class ArticleCategoryController {
     public Result<ArticleCategory> edit(@ModelAttribute ArticleCategory articleCategory) {
 
         String parentId = articleCategory.getParentId();
-        if(CommonConstant.PARENT_ID.equals(parentId)) {
+        if (CommonConstant.PARENT_ID.equals(parentId)) {
             articleCategory.setRelations(articleCategory.getId());
         } else {
             ArticleCategory parent = articleCategoryService.getById(parentId);

@@ -1,21 +1,21 @@
 package com.xm.admin.common.ueditor.upload;
 
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.xm.admin.common.ueditor.PathFormat;
 import com.xm.admin.common.ueditor.define.AppInfo;
 import com.xm.admin.common.ueditor.define.BaseState;
 import com.xm.admin.common.ueditor.define.FileType;
 import com.xm.admin.common.ueditor.define.State;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class BinaryUploader {

@@ -1,17 +1,14 @@
 package com.xm.admin.common.ueditor.hunter;
 
+import com.xm.admin.common.ueditor.PathFormat;
+import com.xm.admin.common.ueditor.define.*;
+import com.xm.admin.common.ueditor.upload.StorageManager;
+
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import com.xm.admin.common.ueditor.PathFormat;
-import com.xm.admin.common.ueditor.define.AppInfo;
-import com.xm.admin.common.ueditor.define.BaseState;
-import com.xm.admin.common.ueditor.define.MIMEType;
-import com.xm.admin.common.ueditor.define.MultiState;
-import com.xm.admin.common.ueditor.define.State;
-import com.xm.admin.common.ueditor.upload.StorageManager;
 
 
 /**

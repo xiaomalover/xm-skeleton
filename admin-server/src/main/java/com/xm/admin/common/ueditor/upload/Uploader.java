@@ -1,8 +1,9 @@
 package com.xm.admin.common.ueditor.upload;
 
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import com.xm.admin.common.ueditor.define.State;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 public class Uploader {
     private HttpServletRequest request;

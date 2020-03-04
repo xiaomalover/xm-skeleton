@@ -8,7 +8,7 @@ import com.xm.admin.module.sys.entity.Admin;
  * 服务类
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 public interface IAdminService extends IService<Admin> {

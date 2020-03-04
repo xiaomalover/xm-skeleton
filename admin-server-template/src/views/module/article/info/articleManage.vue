@@ -95,6 +95,7 @@
         loadArticleCategory,
         getUploadDomain,
     } from "@/api/index";
+    import moment from 'moment';
 
     export default {
         name: "article-manage",
@@ -110,7 +111,6 @@
                 selectList: [],
                 category: [],
                 selectDep: [],
-                dataDep: [],
                 permTypes: [],
                 tableColumnsChecked: ['thumb', 'title', 'categoryTitle', 'status', 'createdAt'],
                 searchForm: {
@@ -223,7 +223,7 @@
                         sortable: true,
                         sortType: "desc",
                         render: (h, params) => {
-                            return h("div", params.row.createdAt.replace(/.[0-9]*$/,''));
+                            return h("div", moment(params.row.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
                         }
                     },
                 ],
@@ -242,7 +242,6 @@
                 this.getImageBase();
                 this.initMeta();
                 this.initCategoryData();
-                this.getParentList();
                 this.getArticleList();
             },
 
@@ -436,21 +435,22 @@
                                 e.label = e.title;
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         this.category = res.result;
                     }
                 });
             },
 
-            getParentList() {
-                loadArticleCategory(0).then(res => {
-                    if (res.success === true) {
-                        res.result.forEach(function (e) {
-                            if (e.isParent) {
-                                e.loading = false;
-                                e.children = [];
-                            }
-                        });
-                        this.dataDep = res.result;
+            // 递归标记禁用节点
+            deleteDisableNode(permData) {
+                let that = this;
+                permData.forEach(function (e) {
+                    if (e.status === 0) {
+                        e.title = "[已禁用] " + e.title;
+                        e.disabled = true;
+                    }
+                    if (e.children && e.children.length > 0) {
+                        that.deleteDisableNode(e.children);
                     }
                 });
             },
@@ -470,11 +470,8 @@
                                 e.value = e.id;
                                 e.label = e.title;
                             }
-                            if (e.status === -1) {
-                                e.label = "[已禁用] " + e.label;
-                                e.disabled = true;
-                            }
                         });
+                        this.deleteDisableNode(res.result);
                         item.children = res.result;
                         callback();
                     }

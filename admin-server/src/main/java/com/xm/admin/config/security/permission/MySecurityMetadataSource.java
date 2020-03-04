@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.module.sys.entity.Permission;
 import com.xm.admin.module.sys.service.IPermissionService;
+import com.xm.common.enums.CommonStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -43,7 +44,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
         // 获取启用的权限操作请求
         QueryWrapper<Permission> permissionQueryWrapper = new QueryWrapper<>();
         permissionQueryWrapper.eq("type", CommonConstant.PERMISSION_OPERATION);
-        permissionQueryWrapper.eq("status", CommonConstant.STATUS_NORMAL);
+        permissionQueryWrapper.eq("status", CommonStatus.STATUS_ENABLED);
         permissionQueryWrapper.orderByAsc("sort_order");
         List<Permission> permissions = permissionService.list(permissionQueryWrapper);
         for (Permission permission : permissions) {

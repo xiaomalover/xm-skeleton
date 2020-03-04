@@ -13,7 +13,7 @@ import java.util.Map;
  * 管理员日志
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @Data

@@ -2,8 +2,8 @@ package com.xm.admin.module.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.xm.admin.common.constant.CommonConstant;
 import com.xm.common.entity.BaseEntity;
+import com.xm.common.enums.CommonStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -44,7 +44,7 @@ public class Permission extends BaseEntity {
 
     private BigDecimal sortOrder;
 
-    private Integer status = CommonConstant.STATUS_NORMAL;
+    private Integer status = CommonStatus.STATUS_ENABLED.getStatus();
 
     private String url;
 

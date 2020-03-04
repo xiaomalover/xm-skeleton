@@ -1,12 +1,12 @@
 package com.xm.admin.module.article.mapper;
 
-import com.xm.admin.module.article.entity.ArticleCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xm.admin.module.article.entity.ArticleCategory;
 import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author xiaomalover <xiaomalover@gmail.com>

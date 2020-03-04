@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * Token的Model类，可以增加字段提高安全性，例如时间戳、url签名
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Data

@@ -1,8 +1,9 @@
 package com.xm.admin.common.ueditor.define;
 
+import com.xm.admin.common.ueditor.Encoder;
+
 import java.util.HashMap;
 import java.util.Map;
-import com.xm.admin.common.ueditor.Encoder;
 
 public class BaseState implements State {
 

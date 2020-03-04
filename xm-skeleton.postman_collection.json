@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "ba161cb2-5c79-4eb6-b3cf-a5664f464240",
+		"name": "xm-skeleton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "gateway  调用 【user服务】用户注册",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "1234",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test2aa",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13565555558",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway  调用 【user服务】用户登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account",
+							"value": "xiaoma",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway  调用 【user服务】获取用户信息",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "a93869ece1361a675bebb4fca2d326c2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:30001/user/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"user",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway 调用 【api 服务】测试",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "8c49e63104849629458148586ffdacb3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13555555556",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/api/hello/aa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"api",
+						"hello",
+						"aa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway 调用 【api 服务】fegin获取用户信息",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "a93869ece1361a675bebb4fca2d326c2"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13555555556",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/api/getUserInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"api",
+						"getUserInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway 调用 【article服务】获取文章分类",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "8c49e63104849629458148586ffdacb3"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13555555556",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/article/articleCategory/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"article",
+						"articleCategory",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway 调用 【article服务】获取文章列表",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "8c49e63104849629458148586ffdacb3"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13555555556",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/article/articleInfo/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"article",
+						"articleInfo",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gateway 调用 【article服务】获取文章详情",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "8c49e63104849629458148586ffdacb3"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "mobile",
+							"value": "13555555556",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:30001/article/articleInfo/detail/247274922353627136",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30001",
+					"path": [
+						"article",
+						"articleInfo",
+						"detail",
+						"247274922353627136"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

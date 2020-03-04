@@ -8,7 +8,7 @@ import com.xm.admin.module.sys.entity.Department;
  * 服务类
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 public interface IDepartmentService extends IService<Department> {

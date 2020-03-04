@@ -4,7 +4,7 @@
 
     <select id="selectArticleList" resultType="com.xm.admin.module.article.entity.ArticleInfo">
         SELECT
-            a.*, c.title as categoryTitle, c.short_title as categoryShortTitle
+        a.*, c.title as categoryTitle, c.short_title as categoryShortTitle
         FROM article_info a
         LEFT JOIN article_category c on a.category_id = c.id
         where 1 = 1

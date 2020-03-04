@@ -1,16 +1,16 @@
 package com.xm.admin.common.ueditor.hunter;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
 import com.xm.admin.common.ueditor.PathFormat;
 import com.xm.admin.common.ueditor.define.AppInfo;
 import com.xm.admin.common.ueditor.define.BaseState;
 import com.xm.admin.common.ueditor.define.MultiState;
 import com.xm.admin.common.ueditor.define.State;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
 
 public class FileManager {
 
@@ -28,7 +28,7 @@ public class FileManager {
         this.dir = (String) conf.get("localSavePathPrefix") + conf.get("dir");
         this.allowFiles = this.getAllowFiles(conf.get("allowFiles"));
         this.count = (Integer) conf.get("count");
-        this.imageUrlPrefix =  (String) conf.get("imageUrlPrefix");
+        this.imageUrlPrefix = (String) conf.get("imageUrlPrefix");
         this.localSavePathPrefix = (String) conf.get("localSavePathPrefix");
     }
 

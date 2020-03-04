@@ -40,8 +40,8 @@
                               </Form-item>
                               <Form-item label="用户状态" prop="status">
                                 <Select v-model="searchForm.status" placeholder="请选择" clearable style="width: 200px">
-                                  <Option value="0">正常</Option>
-                                  <Option value="-1">禁用</Option>
+                                  <Option value="1">正常</Option>
+                                  <Option value="0">禁用</Option>
                                 </Select>
                               </Form-item>
                               <Form-item label="创建时间">
@@ -162,6 +162,7 @@
         disableUser,
         deleteUser
     } from "@/api/index";
+    import moment from 'moment';
 
     export default {
         name: "user-manage",
@@ -313,7 +314,7 @@
                         width: 140,
                         render: (h, params) => {
                             let re = "";
-                            if (params.row.status === 0) {
+                            if (params.row.status === 1) {
                                 return h("div", [
                                     h(
                                         "Tag",
@@ -326,7 +327,7 @@
                                         "正常启用"
                                     )
                                 ]);
-                            } else if (params.row.status === -1) {
+                            } else if (params.row.status === 0) {
                                 return h("div", [
                                     h(
                                         "Tag",
@@ -344,28 +345,30 @@
                         filters: [
                             {
                                 label: "正常启用",
-                                value: 0
+                                value: 1
                             },
                             {
                                 label: "禁用",
-                                value: -1
+                                value: 0
                             }
                         ],
                         filterMultiple: false,
                         filterMethod(value, row) {
-                            if (value === 0) {
+                            if (value === 1) {
+                                return row.status === 1;
+                            } else if (value === 0) {
                                 return row.status === 0;
-                            } else if (value === -1) {
-                                return row.status === -1;
                             }
                         }
                     },
                     {
                         title: "创建时间",
-                        key: "createdAt",
-                        sortable: true,
-                        sortType: "desc",
-                        width: 150
+                            key: "createdAt",
+                            sortable: true,
+                            sortType: "desc",
+                            render: (h, params) => {
+                            return h("div", moment(params.row.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
                     },
                     {
                         title: "操作",
@@ -456,7 +459,7 @@
                             }
 
 
-                            if (params.row.status === 0) {
+                            if (params.row.status === 1) {
                                 return h("div", [
                                     editBtn,
                                     disableBtn,
@@ -500,12 +503,14 @@
                                 e.label = e.title;
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         this.department = res.result;
                     }
                 });
             },
+
             getParentList() {
-                initDepartment().then(res => {
+                initDepartment(0).then(res => {
                     if (res.success === true) {
                         res.result.forEach(function (e) {
                             if (e.isParent) {
@@ -513,7 +518,22 @@
                                 e.children = [];
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         this.dataDep = res.result;
+                    }
+                });
+            },
+
+            // 递归标记禁用节点
+            deleteDisableNode(permData) {
+                let that = this;
+                permData.forEach(function (e) {
+                    if (e.status === 0) {
+                        e.title = "[已禁用] " + e.title;
+                        e.disabled = true;
+                    }
+                    if (e.children && e.children.length > 0) {
+                        that.deleteDisableNode(e.children);
                     }
                 });
             },
@@ -532,11 +552,8 @@
                                 e.value = e.id;
                                 e.label = e.title;
                             }
-                            if (e.status === -1) {
-                                e.label = "[已禁用] " + e.label;
-                                e.disabled = true;
-                            }
                         });
+                        this.deleteDisableNode(res.result);
                         item.children = res.result;
                         callback();
                     }
@@ -551,6 +568,7 @@
                                 e.children = [];
                             }
                         });
+                        this.deleteDisableNode(res.result);
                         callback(res.result);
                     }
                 });

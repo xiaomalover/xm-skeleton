@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.common.entity.BaseEntity;
+import com.xm.common.enums.CommonStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @Data
@@ -40,7 +41,7 @@ public class Admin extends BaseEntity {
 
     private Integer sex;
 
-    private Integer status = CommonConstant.USER_STATUS_NORMAL;
+    private Integer status = CommonStatus.STATUS_ENABLED.getStatus();
 
     private Integer type = CommonConstant.USER_TYPE_NORMAL;
 

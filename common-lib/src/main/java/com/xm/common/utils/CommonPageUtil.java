@@ -11,8 +11,9 @@ public class CommonPageUtil<T> {
 
     /**
      * 初始化分页抽象类
+     *
      * @param pageNumber 页数
-     * @param pageSize 每页条数
+     * @param pageSize   每页条数
      * @return 分页抽象类
      */
     public IPage<T> initIPage(Integer pageNumber, Integer pageSize) {

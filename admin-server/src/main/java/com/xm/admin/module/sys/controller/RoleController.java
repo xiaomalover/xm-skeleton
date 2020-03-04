@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ import java.util.Set;
  * 前端控制器
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-07
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")

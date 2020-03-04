@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import java.text.SimpleDateFormat;
-
 /**
  * 填充器, 新增和修改时自动填充时间
  * 配合实体中的 @TableField(fill= FieldFill.INSERT) 和 @TableField(fill= FieldFill.INSERT_UPDATE) 使用
@@ -21,7 +19,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        String now = getSqlDate();
+        Long now = getTimestamp();
         String user = getUser();
         setFieldValByName("createdAt", now, metaObject);
         setFieldValByName("updatedAt", now, metaObject);
@@ -31,11 +29,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        setFieldValByName("updatedAt", getSqlDate(), metaObject);
+        setFieldValByName("updatedAt", getTimestamp(), metaObject);
     }
 
-    private String getSqlDate() {
-        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis());
+    private Long getTimestamp() {
+        return System.currentTimeMillis() / 1000;
     }
 
     private String getUser() {

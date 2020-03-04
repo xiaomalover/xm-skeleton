@@ -1,8 +1,8 @@
 package com.xm.admin.module.article.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xm.admin.module.article.entity.ArticleInfo;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xm.common.vo.ExtraVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -20,9 +20,10 @@ public interface ArticleInfoMapper extends BaseMapper<ArticleInfo> {
 
     /**
      * 获取文章列表
-     * @param page 分页
+     *
+     * @param page        分页
      * @param articleInfo 搜索参数
-     * @param extraVo 额外参数
+     * @param extraVo     额外参数
      * @return 文章列表
      */
     IPage<ArticleInfo> selectArticleList(

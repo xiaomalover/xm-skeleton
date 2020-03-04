@@ -119,7 +119,7 @@
                     parentId: "",
                     parentTitle: "",
                     sortNo: null,
-                    status: 0,
+                    status: 1,
                     url: "",
                 },
                 formAdd: {},
@@ -189,7 +189,7 @@
             selectTree(v) {
                 if (v.length > 0) {
 
-                    if (Number(v[0].status) === 0) {
+                    if (Number(v[0].status) === 1) {
                         this.editStatus = true;
                     } else {
                         this.editStatus = false;
@@ -234,13 +234,13 @@
             handleReset() {
                 this.$refs.form.resetFields();
                 this.editStatus = true;
-                this.form.status = 0;
+                this.form.status = 1;
             },
             changeEditSwitch(v) {
                 if (v) {
-                    this.form.status = 0;
+                    this.form.status = 1;
                 } else {
-                    this.form.status = -1;
+                    this.form.status = 0;
                 }
             },
             submitEdit() {
@@ -270,9 +270,9 @@
             },
             changeAddSwitch(v) {
                 if (v) {
-                    this.formAdd.status = 0;
+                    this.formAdd.status = 1;
                 } else {
-                    this.formAdd.status = -1;
+                    this.formAdd.status = 0;
                 }
             },
             submitAdd() {
@@ -306,7 +306,7 @@
                 this.formAdd = {
                     parentId: this.form.id,
                     sortNo: 1,
-                    status: 0
+                    status: 1
                 };
                 this.menuModalVisible = true;
             },
@@ -316,7 +316,7 @@
                 this.formAdd = {
                     parentId: 0,
                     sortNo: 1,
-                    status: 0
+                    status: 1
                 };
                 this.menuModalVisible = true;
             },

@@ -13,6 +13,7 @@ import com.xm.admin.module.sys.service.IAdminService;
 import com.xm.admin.module.sys.service.IDepartmentService;
 import com.xm.admin.module.sys.service.IRoleService;
 import com.xm.admin.module.sys.service.IUserRoleService;
+import com.xm.common.enums.CommonStatus;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.ExtraVo;
@@ -28,6 +29,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ import java.util.List;
  * 前端控制器
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
@@ -68,8 +70,8 @@ public class AdminController {
 
     @PostMapping("/regist")
     public Result<Object> regist(@ModelAttribute Admin u,
-         @RequestParam String verify,
-         @RequestParam String captchaId
+                                 @RequestParam String verify,
+                                 @RequestParam String captchaId
     ) {
 
         if (StrUtil.isBlank(verify) || StrUtil.isBlank(u.getUsername())
@@ -151,7 +153,7 @@ public class AdminController {
     }
 
     /**
-     * @param u 用户
+     * @param u     用户
      * @param roles 角色列表
      * @return 修改结果
      */
@@ -196,9 +198,9 @@ public class AdminController {
     }
 
     /**
-     * @param id 主键
+     * @param id       主键
      * @param password 密码
-     * @param newPass 新密码
+     * @param newPass  新密码
      * @return 结果
      */
     @PostMapping("/modifyPass")
@@ -259,10 +261,10 @@ public class AdminController {
             adminQueryWrapper.eq("status", user.getStatus());
         }
 
-        if (!StringUtils.isEmpty(extraVo.getStartDate())) {
+        if (ObjectUtils.isNotNull(extraVo.getStartDate()) && extraVo.getStartDate() > 0) {
             adminQueryWrapper.gt("created_at", extraVo.getStartDate());
         }
-        if (!StringUtils.isEmpty(extraVo.getEndDate())) {
+        if (ObjectUtils.isNotNull(extraVo.getEndDate()) && extraVo.getEndDate() > 0) {
             adminQueryWrapper.lt("created_at", extraVo.getEndDate());
         }
 
@@ -333,7 +335,7 @@ public class AdminController {
         if (user == null) {
             return new ResultUtil<>().setErrorMsg("通过userId获取用户失败");
         }
-        user.setStatus(CommonConstant.USER_STATUS_LOCK);
+        user.setStatus(CommonStatus.STATUS_DISABLED.getStatus());
         adminService.updateById(user);
         //手动更新缓存
         redisTemplate.delete("admin::" + user.getUsername());
@@ -347,7 +349,7 @@ public class AdminController {
         if (user == null) {
             return new ResultUtil<>().setErrorMsg("通过userId获取用户失败");
         }
-        user.setStatus(CommonConstant.USER_STATUS_NORMAL);
+        user.setStatus(CommonStatus.STATUS_ENABLED.getStatus());
         adminService.updateById(user);
         //手动更新缓存
         redisTemplate.delete("admin::" + user.getUsername());

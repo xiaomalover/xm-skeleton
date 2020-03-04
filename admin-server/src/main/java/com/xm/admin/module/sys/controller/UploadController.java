@@ -10,6 +10,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -87,7 +88,7 @@ public class UploadController {
     }
 
     @GetMapping(value = "/getDomain")
-    public Result getImageDomain(){
+    public Result getImageDomain() {
         return new ResultUtil<>().setData(imageDomain);
     }
 }

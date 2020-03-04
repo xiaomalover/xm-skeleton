@@ -1,14 +1,14 @@
 package com.xm.admin.module.article.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xm.admin.module.article.entity.ArticleCategory;
 import com.xm.admin.module.article.mapper.ArticleCategoryMapper;
 import com.xm.admin.module.article.service.IArticleCategoryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author xiaomalover <xiaomalover@gmail.com>

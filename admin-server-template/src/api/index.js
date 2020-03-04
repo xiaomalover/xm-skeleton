@@ -270,3 +270,33 @@ export const uploadCommon = (params) => {
 export const getUploadDomain = () => {
     return getRequest('/upload/getDomain');
 };
+
+// 获取用户数据 多条件
+export const getUserInfoListData = (params) => {
+    return getRequest('/userInfo/getByCondition', params)
+};
+
+// 添加用户
+export const addUserInfo = (params) => {
+    return postRequest('/userInfo/add', params)
+};
+
+// 删除用户
+export const deleteUserInfo = (ids, params) => {
+    return deleteRequest(`/userInfo/delByIds/${ids}`, params)
+};
+
+// 编辑用户
+export const editUserInfo = (params) => {
+    return postRequest('/userInfo/edit', params)
+};
+
+// 启用用户
+export const enableUserInfo = (id, params) => {
+    return postRequest(`/userInfo/enable/${id}`, params)
+};
+
+// 禁用用户
+export const disableUserInfo = (id, params) => {
+    return postRequest(`/userInfo/disable/${id}`, params)
+};

@@ -1,11 +1,11 @@
 package com.xm.admin.config.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.xm.admin.common.constant.SecurityConstant;
 import com.xm.admin.common.utils.ResponseUtil;
 import com.xm.admin.config.exception.SkeletonException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * JWT过滤器
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j

@@ -3,6 +3,7 @@ package com.xm.user.module.base.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xm.common.enums.CommonStatus;
 import com.xm.user.dto.UserLoginRequest;
 import com.xm.user.dto.UserRegisterRequest;
 import com.xm.user.module.base.entity.User;
@@ -66,6 +67,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = userMapper.selectByUsernameOrMobile(userLoginRequest.getAccount());
         if (ObjectUtil.isNull(user)) {
             return new ResultUtil<>().setErrorMsg(HttpStatus.INTERNAL_SERVER_ERROR.value(), "用户名不正确");
+        }
+
+        //用户禁用
+        if (user.getStatus() == CommonStatus.STATUS_DISABLED.getStatus()) {
+            return new ResultUtil<>().setErrorMsg(HttpStatus.INTERNAL_SERVER_ERROR.value(), "用户被禁用");
+        }
+
+        //用户删除
+        if (user.getStatus() == CommonStatus.STATUS_DELETED.getStatus()) {
+            return new ResultUtil<>().setErrorMsg(HttpStatus.INTERNAL_SERVER_ERROR.value(), "用户已被删除");
         }
 
         //校验密码

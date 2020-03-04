@@ -33,7 +33,7 @@
         <Modal :title="modalTitle" v-model="modalVisible" :mask-closable='false' :width="500">
             <Form ref="form" :model="form" :label-width="80" :rules="formValidate">
                 <FormItem label="任务类名" prop="jobClassName">
-                    <Input v-model="form.jobClassName" placeholder="例如 com.xm.skeleton.quartz.jobs.Job" clearable/>
+                    <Input v-model="form.jobClassName" placeholder="例如 com.xm.admin.quartz.jobs.Job" clearable/>
                 </FormItem>
                 <FormItem label="cron表达式" prop="cronExpression" style="margin-bottom: 5px;">
                     <Input v-model="form.cronExpression" clearable/>
@@ -60,6 +60,7 @@
 <script>
     import {addQuartz, deleteQuartz, editQuartz, getQuartzListData, pauseQuartz, resumeQuartz} from "@/api/index";
     import circleLoading from "../../../my-components/circle-loading.vue";
+    import moment from 'moment';
 
     export default {
         name: "quartz-manage",
@@ -126,13 +127,31 @@
                         width: 180
                     },
                     {
+                        title: "创建时间",
+                        key: "createdAt",
+                        sortable: true,
+                        sortType: "desc",
+                        render: (h, params) => {
+                            return h("div", moment(params.row.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
+                    },
+                    {
+                        title: "更新时间",
+                        key: "updatedAt",
+                        sortable: true,
+                        sortType: "desc",
+                        render: (h, params) => {
+                            return h("div", moment(params.row.updatedAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
+                    },
+                    {
                         title: "状态",
                         key: "status",
                         align: "center",
                         width: 140,
                         render: (h, params) => {
                             let re = "";
-                            if (params.row.status === 0) {
+                            if (params.row.status === 1) {
                                 return h("div", [
                                     h(
                                         "Tag",
@@ -145,7 +164,7 @@
                                         "执行中"
                                     )
                                 ]);
-                            } else if (params.row.status === -1) {
+                            } else if (params.row.status === 0) {
                                 return h("div", [
                                     h(
                                         "Tag",
@@ -163,19 +182,19 @@
                         filters: [
                             {
                                 label: "执行中",
-                                value: 0
+                                value: 1
                             },
                             {
                                 label: "已停止",
-                                value: -1
+                                value: 0
                             }
                         ],
                         filterMultiple: false,
                         filterMethod(value, row) {
-                            if (value === 0) {
+                            if (value === 1) {
+                                return row.status === 1;
+                            } else if (value === 0) {
                                 return row.status === 0;
-                            } else if (value === -1) {
-                                return row.status === -1;
                             }
                         }
                     },
@@ -270,7 +289,7 @@
                             }
 
                             let runOrResume = "";
-                            if (params.row.status == 0) {
+                            if (params.row.status == 1) {
                                 runOrResume = disableBtn;
                             } else {
                                 runOrResume = enableBtn;

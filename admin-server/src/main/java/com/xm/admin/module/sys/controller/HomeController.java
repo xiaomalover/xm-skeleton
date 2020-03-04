@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 首页示例
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @RestController

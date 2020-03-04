@@ -1,0 +1,46 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.admin.module.user.mapper.UserInfoMapper">
+
+    <select id="selectUserList" resultType="com.xm.admin.module.user.entity.UserInfo">
+        SELECT
+        u.*
+        FROM user_info u
+        where status != 2
+
+        <if test="userInfo.username != null and userInfo.username != ''">
+            AND u.username like '%${userInfo.username}%'
+        </if>
+
+        <if test="userInfo.mobile != null and userInfo.mobile != ''">
+            AND u.mobile = #{userInfo.mobile}
+        </if>
+
+        <if test="userInfo.status != null">
+            AND u.status = #{userInfo.status}
+        </if>
+
+        <if test="extraVo.startDate != null and extraVo.startDate !=''">
+            AND u.created_at >= #{extraVo.startDate}
+        </if>
+        <if test="extraVo.endDate != null and extraVo.endDate != ''">
+            AND u.created_at &lt;= #{extraVo.endDate}
+        </if>
+
+        <if test="extraVo.order != null and extraVo.order != ''">
+            ORDER BY #{extraVo.sort} #{extraVo.order}
+        </if>
+
+        <if test="extraVo.order == null or extraVo.order == ''">
+            ORDER BY u.created_at desc
+        </if>
+    </select>
+
+    <select id="selectByUsername" resultType="com.xm.admin.module.user.entity.UserInfo" parameterType="String">
+        SELECT  * from user_info where username = #{username}
+    </select>
+
+    <select id="selectByMobile" resultType="com.xm.admin.module.user.entity.UserInfo" parameterType="String">
+        SELECT  * from user_info where mobile = #{mobile}
+    </select>
+
+</mapper>

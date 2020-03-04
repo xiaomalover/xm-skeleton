@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  *
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @Data

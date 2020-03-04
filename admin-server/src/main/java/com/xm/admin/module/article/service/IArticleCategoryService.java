@@ -1,11 +1,11 @@
 package com.xm.admin.module.article.service;
 
-import com.xm.admin.module.article.entity.ArticleCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xm.admin.module.article.entity.ArticleCategory;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author xiaomalover <xiaomalover@gmail.com>

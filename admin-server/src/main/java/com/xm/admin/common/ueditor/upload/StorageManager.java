@@ -1,20 +1,15 @@
 package com.xm.admin.common.ueditor.upload;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.io.FileUtils;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 import com.xm.admin.common.ueditor.define.AppInfo;
 import com.xm.admin.common.ueditor.define.BaseState;
 import com.xm.admin.common.ueditor.define.State;
+import org.apache.commons.io.FileUtils;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 
 @Component
 @ConfigurationProperties(prefix = "nginx")

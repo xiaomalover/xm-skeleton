@@ -1,15 +1,16 @@
 package com.xm.admin.module.article.entity;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.xm.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author xiaomalover <xiaomalover@gmail.com>
@@ -18,7 +19,7 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class ArticleCategory extends BaseEntity{
+public class ArticleCategory extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +56,7 @@ public class ArticleCategory extends BaseEntity{
     /**
      * 状态
      */
-    private Boolean status;
+    private Integer status;
 
     @TableField(exist = false)
     private String parentTitle;

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * 前端控制器
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @RestController
@@ -49,10 +49,10 @@ public class AdminLogController {
         if (!ObjectUtils.isEmpty(key)) {
             adminLogQueryWrapper.like("request_param", key.trim());
         }
-        if (!StringUtils.isEmpty(extraVo.getStartDate())) {
+        if (ObjectUtils.isNotNull(extraVo.getStartDate()) && extraVo.getStartDate() > 0) {
             adminLogQueryWrapper.gt("created_at", extraVo.getStartDate());
         }
-        if (!StringUtils.isEmpty(extraVo.getEndDate())) {
+        if (ObjectUtils.isNotNull(extraVo.getEndDate()) && extraVo.getEndDate() > 0) {
             adminLogQueryWrapper.lt("created_at", extraVo.getEndDate());
         }
 

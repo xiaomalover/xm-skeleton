@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  *
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-08
  */
 @Data

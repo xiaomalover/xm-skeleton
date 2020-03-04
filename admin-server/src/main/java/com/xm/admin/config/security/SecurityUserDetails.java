@@ -5,17 +5,18 @@ import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.module.sys.entity.Admin;
 import com.xm.admin.module.sys.entity.Permission;
 import com.xm.admin.module.sys.entity.Role;
+import com.xm.common.enums.CommonStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * 安全用户详情类
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
@@ -23,7 +24,7 @@ public class SecurityUserDetails extends Admin implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    public SecurityUserDetails(Admin user) {
+    SecurityUserDetails(Admin user) {
 
         if (user != null) {
             this.setUsername(user.getUsername());
@@ -37,7 +38,7 @@ public class SecurityUserDetails extends Admin implements UserDetails {
     /**
      * 添加用户拥有的权限和角色
      *
-     * @return
+     * @return Collection
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -71,7 +72,7 @@ public class SecurityUserDetails extends Admin implements UserDetails {
     /**
      * 账户是否过期
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isAccountNonExpired() {
@@ -82,18 +83,18 @@ public class SecurityUserDetails extends Admin implements UserDetails {
     /**
      * 是否禁用
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isAccountNonLocked() {
 
-        return CommonConstant.USER_STATUS_LOCK.equals(this.getStatus()) ? false : true;
+        return CommonStatus.STATUS_ENABLED.getStatus() == this.getStatus();
     }
 
     /**
      * 密码是否过期
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isCredentialsNonExpired() {
@@ -104,10 +105,10 @@ public class SecurityUserDetails extends Admin implements UserDetails {
     /**
      * 是否启用
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean isEnabled() {
-        return CommonConstant.USER_STATUS_NORMAL.equals(this.getStatus());
+        return CommonStatus.STATUS_ENABLED.getStatus() == this.getStatus();
     }
 }

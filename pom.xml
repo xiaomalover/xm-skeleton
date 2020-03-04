@@ -15,6 +15,7 @@
         <module>eureka-server</module>
         <module>api-server</module>
         <module>user-server</module>
+        <module>article-server</module>
         <module>gateway-server</module>
         <module>admin-server</module>
         <module>common-lib</module>
@@ -30,7 +31,7 @@
         <beetl.version>2.9.8</beetl.version>
         <mysql-connect.version>5.1.44</mysql-connect.version>
         <druid.version>1.1.10</druid.version>
-        <spring-boot-starter-redis.version>1.4.7.RELEASE</spring-boot-starter-redis.version>
+        <spring-boot-starter-data-redis.version>2.2.5.RELEASE</spring-boot-starter-data-redis.version>
         <fastjson.version>1.2.54</fastjson.version>
         <hutool.version>4.4.0</hutool.version>
         <lombok.version>1.16.20</lombok.version>
@@ -89,8 +90,8 @@
             <!-- Redis-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-redis</artifactId>
-                <version>${spring-boot-starter-redis.version}</version>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
             </dependency>
 
             <!-- 数据库连接池 -->

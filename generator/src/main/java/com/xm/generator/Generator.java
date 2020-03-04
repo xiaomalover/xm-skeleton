@@ -9,13 +9,11 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import java.util.*;
 
 /**
  * 代码生成器
- * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class Generator {
 
@@ -46,14 +44,14 @@ public class Generator {
         String rootPath = System.getProperty("user.dir");
 
         String projectName = scanner("项目名");
-        gc.setOutputDir(rootPath + "/" + projectName +"/src/main/java");
+        gc.setOutputDir(rootPath + "/" + projectName + "/src/main/java");
         gc.setAuthor("xiaomalover <xiaomalover@gmail.com>");
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/xm_skeleton?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/xm_boot?useUnicode=true&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
@@ -78,6 +76,10 @@ public class Generator {
                 // to do nothing
             }
         };
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("requestMappingPrefix", "/" + moduleName);
+        cfg.setMap(params);
 
         String templatePath = "/templates/mapper.xml.btl";
 

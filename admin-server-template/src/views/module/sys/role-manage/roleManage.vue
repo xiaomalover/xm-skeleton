@@ -66,6 +66,7 @@
         setDefaultRole,
         editRolePerm
     } from "@/api/index";
+    import moment from 'moment';
 
     export default {
         name: "role-manage",
@@ -116,12 +117,19 @@
                         title: "创建时间",
                         key: "createdAt",
                         sortable: true,
-                        sortType: "desc"
+                        sortType: "desc",
+                        render: (h, params) => {
+                            return h("div", moment(params.row.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
                     },
                     {
                         title: "更新时间",
                         key: "updatedAt",
-                        sortable: true
+                        sortable: true,
+                        sortType: "desc",
+                        render: (h, params) => {
+                            return h("div", moment(params.row.updatedAt * 1000).format('YYYY-MM-DD HH:mm:ss'));
+                        }
                     },
                     {
                         title: "是否设置为注册用户默认角色",
@@ -315,7 +323,7 @@
             deleteDisableNode(permData) {
                 let that = this;
                 permData.forEach(function (e) {
-                    if (e.status === -1) {
+                    if (e.status === 0) {
                         e.title = "[已禁用] " + e.title;
                         e.disabled = true;
                     }

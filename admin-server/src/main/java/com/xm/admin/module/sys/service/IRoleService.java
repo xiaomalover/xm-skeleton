@@ -8,7 +8,7 @@ import com.xm.admin.module.sys.entity.Role;
  * 服务类
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-07
  */
 public interface IRoleService extends IService<Role> {

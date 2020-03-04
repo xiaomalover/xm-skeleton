@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ import java.util.Set;
  * 前端控制器
  * </p>
  *
- * @author xiaomalover
+ * @author xiaomalover <xiaomalover@gmail.com>
  * @since 2019-03-06
  */
 @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")

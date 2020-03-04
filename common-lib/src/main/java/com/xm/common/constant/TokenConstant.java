@@ -2,6 +2,7 @@ package com.xm.common.constant;
 
 /**
  * Token相关常量
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 public class TokenConstant {

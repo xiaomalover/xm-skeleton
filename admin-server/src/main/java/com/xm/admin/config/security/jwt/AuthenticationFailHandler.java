@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 登录失败处理类
+ *
  * @author xiaomalover <xiaomalover@gmail.com>
  */
 @Slf4j
@@ -57,13 +58,18 @@ public class AuthenticationFailHandler extends SimpleUrlAuthenticationFailureHan
             } else if (restLoginTime <= 0) {
                 ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "登录错误次数超过限制，请" + loginAfterTime + "分钟后再试"));
             } else {
-                ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "用户名或密码错误"));
+                if (e instanceof UsernameNotFoundException) {
+                    ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "用户名或密码错误"));
+                } else {
+                    ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "用户被禁用"));
+                }
             }
         } else if (e instanceof DisabledException) {
             ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "账户被禁用，请联系管理员"));
         } else if (e instanceof LoginFailLimitException) {
             ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, ((LoginFailLimitException) e).getMsg()));
         } else {
+            System.out.println(e.getMessage());
             ResponseUtil.out(response, ResponseUtil.resultMap(false, 500, "登录失败，其他内部错误"));
         }
     }

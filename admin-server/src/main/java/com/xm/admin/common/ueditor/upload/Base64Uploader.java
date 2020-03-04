@@ -1,15 +1,15 @@
 package com.xm.admin.common.ueditor.upload;
 
-import java.util.Map;
-
+import com.xm.admin.common.ueditor.PathFormat;
+import com.xm.admin.common.ueditor.define.AppInfo;
+import com.xm.admin.common.ueditor.define.BaseState;
+import com.xm.admin.common.ueditor.define.FileType;
+import com.xm.admin.common.ueditor.define.State;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
-import com.xm.admin.common.ueditor.PathFormat;
-import com.xm.admin.common.ueditor.define.FileType;
-import com.xm.admin.common.ueditor.define.State;
-import com.xm.admin.common.ueditor.define.AppInfo;
-import com.xm.admin.common.ueditor.define.BaseState;
+
+import java.util.Map;
 
 @Slf4j
 public final class Base64Uploader {

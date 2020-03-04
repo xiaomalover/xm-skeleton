@@ -230,7 +230,7 @@
                     type: 0,
                     sortOrder: null,
                     level: null,
-                    status: 0,
+                    status: 1,
                     url: ""
                 },
                 menuFormAdd: {
@@ -327,7 +327,7 @@
                         this.isButton = true;
                         this.isMenu = false;
                     }
-                    if (Number(v[0].status) === 0) {
+                    if (Number(v[0].status) === 1) {
                         this.editStatus = true;
                     } else {
                         this.editStatus = false;
@@ -357,13 +357,13 @@
             handleReset() {
                 this.$refs.menuForm.resetFields();
                 this.editStatus = true;
-                this.menuForm.status = 0;
+                this.menuForm.status = 1;
             },
             changeEditSwitch(v) {
                 if (v) {
-                    this.menuForm.status = 0;
+                    this.menuForm.status = 1;
                 } else {
-                    this.menuForm.status = -1;
+                    this.menuForm.status = 0;
                 }
             },
             submitEdit() {
@@ -398,9 +398,9 @@
             },
             changeAddSwitch(v) {
                 if (v) {
-                    this.menuFormAdd.status = 0;
+                    this.menuFormAdd.status = 1;
                 } else {
-                    this.menuFormAdd.status = -1;
+                    this.menuFormAdd.status = 0;
                 }
             },
             submitAdd() {
@@ -463,7 +463,7 @@
                     level: Number(this.menuForm.level) + 1,
                     sortOrder: 1,
                     buttonType: "",
-                    status: 0
+                    status: 1
                 };
                 this.menuModalVisible = true;
             },
@@ -476,7 +476,7 @@
                     type: 0,
                     level: 1,
                     sortOrder: 1,
-                    status: 0
+                    status: 1
                 };
                 this.menuModalVisible = true;
             },

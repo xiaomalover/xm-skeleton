@@ -1,7 +1,7 @@
 package com.xm.admin.common.ueditor.define;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 定义请求action类型

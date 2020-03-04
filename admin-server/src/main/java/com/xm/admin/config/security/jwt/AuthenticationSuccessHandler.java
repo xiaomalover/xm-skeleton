@@ -1,10 +1,10 @@
 package com.xm.admin.config.security.jwt;
 
 import cn.hutool.core.util.StrUtil;
-import com.google.gson.Gson;
 import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.common.constant.SecurityConstant;
 import com.xm.admin.common.utils.ResponseUtil;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
