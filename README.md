@@ -15,6 +15,7 @@ Xm Skeleton
 admin-server-template                   管理后台模板，用vue.js搭建
 admin-server                            管理后台服务
 api-server                              接口服务
+article-server                          文章服务
 common-lib                              公共资源
 config-server                           配置服务，采用git仓库方式
 eureka-server                           微服务注册发现中心
