@@ -12,10 +12,6 @@
 
     <artifactId>generator</artifactId>
 
-    <properties>
-        <beetl.version>2.9.7</beetl.version>
-    </properties>
-
     <dependencies>
 
         <dependency>
@@ -28,19 +24,16 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connect.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis-plus.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
-            <version>${beetl.version}</version>
         </dependency>
 
     </dependencies>

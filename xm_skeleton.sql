@@ -123,12 +123,6 @@ CREATE TABLE `qrtz_cron_triggers` (
 
 /*Data for the table `qrtz_cron_triggers` */
 
-insert  into `qrtz_cron_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`CRON_EXPRESSION`,`TIME_ZONE_ID`) values 
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','*/5 * * * * ?','Asia/Shanghai'),
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT','*/5 * * * * ?','Asia/Shanghai');
-
 /*Table structure for table `qrtz_fired_triggers` */
 
 DROP TABLE IF EXISTS `qrtz_fired_triggers`;
@@ -152,10 +146,6 @@ CREATE TABLE `qrtz_fired_triggers` (
 
 /*Data for the table `qrtz_fired_triggers` */
 
-insert  into `qrtz_fired_triggers`(`SCHED_NAME`,`ENTRY_ID`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`INSTANCE_NAME`,`FIRED_TIME`,`SCHED_TIME`,`PRIORITY`,`STATE`,`JOB_NAME`,`JOB_GROUP`,`IS_NONCONCURRENT`,`REQUESTS_RECOVERY`) values 
-
-('quartzScheduler','NON_CLUSTERED1583136848010','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','NON_CLUSTERED',1583136955101,1583136960000,5,'ACQUIRED',NULL,NULL,'0','0');
-
 /*Table structure for table `qrtz_job_details` */
 
 DROP TABLE IF EXISTS `qrtz_job_details`;
@@ -176,12 +166,6 @@ CREATE TABLE `qrtz_job_details` (
 
 /*Data for the table `qrtz_job_details` */
 
-insert  into `qrtz_job_details`(`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`JOB_CLASS_NAME`,`IS_DURABLE`,`IS_NONCONCURRENT`,`IS_UPDATE_DATA`,`REQUESTS_RECOVERY`,`JOB_DATA`) values 
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithoutParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parameterpx\0'),
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,'com.xm.admin.quartz.jobs.JobWithParam','0','0','0','0','��\0sr\0org.quartz.JobDataMap���迩��\0\0xr\0&org.quartz.utils.StringKeyDirtyFlagMap�����](\0Z\0allowsTransientDataxr\0org.quartz.utils.DirtyFlagMap�.�(v\n�\0Z\0dirtyL\0mapt\0Ljava/util/Map;xpsr\0java.util.HashMap���`�\0F\0\nloadFactorI\0	thresholdxp?@\0\0\0\0\0w\0\0\0\0\0\0t\0	parametert\0Test Jobx\0');
-
 /*Table structure for table `qrtz_locks` */
 
 DROP TABLE IF EXISTS `qrtz_locks`;
@@ -193,10 +177,6 @@ CREATE TABLE `qrtz_locks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `qrtz_locks` */
-
-insert  into `qrtz_locks`(`SCHED_NAME`,`LOCK_NAME`) values 
-
-('quartzScheduler','TRIGGER_ACCESS');
 
 /*Table structure for table `qrtz_paused_trigger_grps` */
 
@@ -229,12 +209,6 @@ CREATE TABLE `qrtz_quartz_job` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `qrtz_quartz_job` */
-
-insert  into `qrtz_quartz_job`(`id`,`created_at`,`created_by`,`updated_at`,`updated_by`,`cron_expression`,`description`,`job_class_name`,`parameter`,`status`) values 
-
-('246491053039816704',1583059187,'admin',1583136887,'admin','*/5 * * * * ?','无参数定时任务','com.xm.admin.quartz.jobs.JobWithoutParam','null',1),
-
-('95632048328282112',1582959143,'null',1583058606,'null','*/5 * * * * ?','有参测试任务','com.xm.admin.quartz.jobs.JobWithParam','Test Job',0);
 
 /*Table structure for table `qrtz_scheduler_state` */
 
@@ -319,12 +293,6 @@ CREATE TABLE `qrtz_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `qrtz_triggers` */
-
-insert  into `qrtz_triggers`(`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`,`JOB_NAME`,`JOB_GROUP`,`DESCRIPTION`,`NEXT_FIRE_TIME`,`PREV_FIRE_TIME`,`PRIORITY`,`TRIGGER_STATE`,`TRIGGER_TYPE`,`START_TIME`,`END_TIME`,`CALENDAR_NAME`,`MISFIRE_INSTR`,`JOB_DATA`) values 
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithoutParam','DEFAULT',NULL,1583136960000,1583136955000,5,'ACQUIRED','CRON',1583059187000,0,NULL,0,''),
-
-('quartzScheduler','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT','com.xm.admin.quartz.jobs.JobWithParam','DEFAULT',NULL,1583058600000,-1,5,'PAUSED','CRON',1583058598000,0,NULL,0,'');
 
 /*Table structure for table `sys_admin` */
 
