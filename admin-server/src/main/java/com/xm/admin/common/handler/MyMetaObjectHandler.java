@@ -30,6 +30,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         setFieldValByName("updatedAt", getTimestamp(), metaObject);
+        setFieldValByName("updatedBy", getUser(), metaObject);
     }
 
     private Long getTimestamp() {
@@ -37,10 +38,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     }
 
     private String getUser() {
-        if (ObjectUtils.isEmpty(SecurityContextHolder.getContext())) {
-            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (ObjectUtil.isNotNull(user)) {
-                return user.getUsername();
+        if (!ObjectUtils.isEmpty(SecurityContextHolder.getContext())) {
+            if (!ObjectUtils.isEmpty(SecurityContextHolder.getContext().getAuthentication())) {
+                UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (ObjectUtil.isNotNull(user)) {
+                    return user.getUsername();
+                }
             }
         }
         return "admin";

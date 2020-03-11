@@ -81,10 +81,12 @@ public class SystemLogAspect {
         try {
 
             String username = "admin";
-            if (ObjectUtils.isEmpty(SecurityContextHolder.getContext())) {
-                UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                if (ObjectUtil.isNotNull(user)) {
-                    username = user.getUsername();
+            if (!ObjectUtils.isEmpty(SecurityContextHolder.getContext())) {
+                if (!ObjectUtils.isEmpty(SecurityContextHolder.getContext().getAuthentication())) {
+                    UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                    if (ObjectUtil.isNotNull(user)) {
+                        username = user.getUsername();
+                    }
                 }
             }
 

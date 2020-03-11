@@ -56,18 +56,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.headers().frameOptions().disable();
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
-                .authorizeRequests().antMatchers(
-                        "/",
-                        "/img/**",
-                        "/css/**",
-                        "/js/**",
-                        "/fonts/**",
-                        "/static/**",
-                        "/*.*",
-                        "/skeleton/ueditor/**",
-                        "/ueditor/**"
-                ).permitAll();
+                .authorizeRequests();
+
+        for(String url:ignoredUrlsProperties.getUrls()){
+            registry.antMatchers(url).permitAll();
+        }
 
         //除配置文件忽略路径其它所有请求都需经过认证和授权
         for (String url : ignoredUrlsProperties.getUrls()) {
