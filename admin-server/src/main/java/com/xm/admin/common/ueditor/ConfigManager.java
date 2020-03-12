@@ -1,15 +1,13 @@
 package com.xm.admin.common.ueditor;
 
+import cn.hutool.core.io.resource.ClassPathResource;
 import com.xm.admin.common.ueditor.define.ActionMap;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.util.ResourceUtils;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  * 配置管理器
@@ -171,8 +169,8 @@ public final class ConfigManager {
 
 		String configContent = this.readFile( this.getConfigPath() );*/
         //更改获取配置文件的方式
-        String configPath = ResourceUtils.getFile("classpath:config.json").getAbsolutePath();
-        String configContent = this.readFile(configPath);
+        ClassPathResource editorConfig = new ClassPathResource("classpath:config.json");
+        String configContent = this.readFile(new InputStreamReader(editorConfig.getStream()));
 
         try {
             JSONObject jsonConfig = new JSONObject(configContent);
@@ -200,14 +198,13 @@ public final class ConfigManager {
 
     }
 
-    private String readFile(String path) throws IOException {
+    private String readFile(InputStreamReader inputStream) throws IOException {
 
         StringBuilder builder = new StringBuilder();
 
         try {
 
-            InputStreamReader reader = new InputStreamReader(new FileInputStream(path), "UTF-8");
-            BufferedReader bfReader = new BufferedReader(reader);
+            BufferedReader bfReader = new BufferedReader(inputStream);
 
             String tmpContent;
 
