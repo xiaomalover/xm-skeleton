@@ -49,6 +49,7 @@
                             <DropdownMenu slot="list">
                                 <DropdownItem name="refresh">刷新</DropdownItem>
                                 <DropdownItem name="exportData">导出所选数据</DropdownItem>
+                                <DropdownItem name="exportDataAll">导出全部数据</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
 
@@ -73,7 +74,7 @@
                     <Row>
                         <Table :loading="loading" border :columns="columns" :data="data" sortable="custom"
                                @on-sort-change="changeSort" @on-selection-change="showSelect" ref="table"></Table>
-                        <Table :columns="columns" :data="exportData" ref="exportTable" style="display:none"></Table>
+                        <Table :columns="allColumns" :data="exportData" ref="exportTable" style="display:none"></Table>
                     </Row>
                     <Row type="flex" justify="end" class="page">
                         <Page :current="searchForm.pageNumber" :total="total" :page-size="searchForm.pageSize"
@@ -269,6 +270,7 @@
             },
             getArticleList() {
                 // 多条件搜索配置列表
+                this.selectCount = 0;
                 this.loading = true;
                 getArticleListData(this.searchForm).then(res => {
                     this.loading = false;
@@ -282,6 +284,18 @@
                 this.searchForm.pageNumber = 1;
                 this.searchForm.pageSize = 10;
                 this.getArticleList();
+            },
+            handleSearchExportAll() {
+                let str = JSON.stringify(this.searchForm);
+                let params = JSON.parse(str);
+                params.pageNumber = 1;
+                params.pageSize = 1000000000;
+                // 多条件搜索配置列表
+                getArticleListData(params).then(res => {
+                    if (res.success === true) {
+                        this.exportData = res.result.records;
+                    }
+                });
             },
             handleReset() {
                 this.$refs.searchForm.resetFields();
@@ -314,7 +328,50 @@
                         content: "您确认要导出所选 " + this.selectCount + " 条数据?",
                         onOk: () => {
                             this.$refs.exportTable.exportCsv({
-                                filename: "文章数据"
+                                filename: "文章数据",
+                                columns: this.allColumns.filter((col, index) => index  >  0),
+                                data: this.exportData.map(item =>{
+                                    item.createdAt = moment(item.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss');
+
+                                    if (item.status === 0) {
+                                        item.status = "否";
+                                    } else if (item.status === 1) {
+                                        item.status = "是";
+                                    }
+
+                                    return item;
+                                }),
+                            });
+                        }
+                    });
+                } else if (name === "exportDataAll") {
+
+                    this.handleSearchExportAll();
+
+                    this.$Modal.confirm({
+                        title: "确认导出",
+                        content: "您确认要导出全部数据?",
+                        onOk: () => {
+
+                            if (this.exportData.length <= 0) {
+                                this.$Message.warning("没有数据需要导出");
+                                return;
+                            }
+
+                            this.$refs.exportTable.exportCsv({
+                                filename: "文章数据",
+                                columns: this.allColumns.filter((col, index) => index  >  0),
+                                data: this.exportData.map(item =>{
+                                    item.createdAt = moment(item.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss');
+
+                                    if (item.status === 0) {
+                                        item.status = "否";
+                                    } else if (item.status === 1) {
+                                        item.status = "是";
+                                    }
+
+                                    return item;
+                                }),
                             });
                         }
                     });

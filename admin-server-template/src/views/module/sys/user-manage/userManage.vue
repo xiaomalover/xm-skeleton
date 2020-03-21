@@ -70,6 +70,7 @@
                             <DropdownMenu slot="list">
                                 <DropdownItem name="refresh">刷新</DropdownItem>
                                 <DropdownItem name="exportData">导出所选数据</DropdownItem>
+                                <DropdownItem name="exportDataAll">导出全部数据</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </Row>
@@ -623,6 +624,7 @@
                 }
             },
             getUserList() {
+                this.selectCount = 0;
                 // 多条件搜索用户列表
                 this.loading = true;
                 getUserListData(this.searchForm).then(res => {
@@ -637,6 +639,18 @@
                 this.searchForm.pageNumber = 1;
                 this.searchForm.pageSize = 10;
                 this.getUserList();
+            },
+            handleSearchExportAll() {
+                let str = JSON.stringify(this.searchForm);
+                let params = JSON.parse(str);
+                params.pageNumber = 1;
+                params.pageSize = 1000000000;
+                // 多条件搜索配置列表
+                getUserListData(params).then(res => {
+                    if (res.success === true) {
+                        this.exportData = res.result.records;
+                    }
+                });
             },
             handleReset() {
                 this.$refs.searchForm.resetFields();
@@ -682,7 +696,74 @@
                         content: "您确认要导出所选 " + this.selectCount + " 条数据?",
                         onOk: () => {
                             this.$refs.exportTable.exportCsv({
-                                filename: "用户数据"
+                                filename: "管理员数据",
+                                columns: this.columns.filter((col, index) => index  >  1 && index < 10),
+                                data: this.exportData.map(item =>{
+                                    item.createdAt = moment(item.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss');
+
+                                    if (item.status === 0) {
+                                        item.status = "禁用";
+                                    } else if (item.status === 1) {
+                                        item.status = "启用";
+                                    }
+
+                                    if (item.type === 1) {
+                                        item.type = "管理员";
+                                    } else if (item.type === 0) {
+                                        item.type = "普通用户";
+                                    }
+
+                                    if (item.sex === 1) {
+                                        item.sex = "男";
+                                    } else if (item.sex === 0) {
+                                        item.sex = "女";
+                                    }
+
+                                    return item;
+                                }),
+                            });
+                        }
+                    });
+                } else if (name === "exportDataAll") {
+
+                    this.handleSearchExportAll();
+
+                    this.$Modal.confirm({
+                        title: "确认导出",
+                        content: "您确认要导出全部数据?",
+                        onOk: () => {
+
+                            if (this.exportData.length <= 0) {
+                                this.$Message.warning("没有数据需要导出");
+                                return;
+                            }
+
+                            this.$refs.exportTable.exportCsv({
+                                filename: "管理员数据",
+                                columns: this.columns.filter((col, index) => index  >  1 && index < 10),
+                                data: this.exportData.map(item =>{
+                                    item.createdAt = moment(item.createdAt * 1000).format('YYYY-MM-DD HH:mm:ss');
+
+                                    if (item.status === 0) {
+                                        item.status = "禁用";
+                                    } else if (item.status === 1) {
+                                        item.status = "启用";
+                                    }
+
+                                    if (item.type === 1) {
+                                        item.type = "管理员";
+                                    } else if (item.type === 0) {
+                                        item.type = "普通用户";
+                                    }
+
+                                    if (item.sex === 1) {
+                                        item.sex = "男";
+                                    } else if (item.sex === 0) {
+                                        item.sex = "女";
+                                    }
+
+                                    return item;
+                                }),
                             });
                         }
                     });
