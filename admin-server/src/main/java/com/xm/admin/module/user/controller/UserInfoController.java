@@ -1,20 +1,17 @@
 package com.xm.admin.module.user.controller;
 
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.module.user.entity.UserInfo;
 import com.xm.admin.module.user.mapper.UserInfoMapper;
 import com.xm.admin.module.user.service.IUserInfoService;
-import com.xm.common.constant.TokenConstant;
 import com.xm.common.enums.CommonStatus;
 import com.xm.common.utils.CommonPageUtil;
 import com.xm.common.utils.ResultUtil;
 import com.xm.common.vo.ExtraVo;
 import com.xm.common.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,9 +32,6 @@ public class UserInfoController {
     @Autowired
     private UserInfoMapper userInfoMapper;
 
-    @Autowired
-    RedisTemplate<String, String> redisTemplate;
-
     @GetMapping("/getByCondition")
     public Result getByCondition(
             @ModelAttribute UserInfo userInfo,
@@ -53,7 +47,6 @@ public class UserInfoController {
         UserInfo userInfo = userInfoService.getById(id);
         userInfo.setStatus(CommonStatus.STATUS_DISABLED.getStatus());
         if (userInfoService.updateById(userInfo)) {
-            logoutUser(Long.parseLong(id));
             return new ResultUtil<>().setSuccessMsg("禁用用户成功");
         } else {
             return new ResultUtil<>().setErrorMsg("禁用用户失败");
@@ -77,7 +70,6 @@ public class UserInfoController {
             UserInfo userInfo = userInfoService.getById(id);
             userInfo.setStatus(CommonStatus.STATUS_DELETED.getStatus());
             userInfoService.updateById(userInfo);
-            logoutUser(Long.parseLong(id));
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
     }
@@ -106,15 +98,9 @@ public class UserInfoController {
         }
     }
 
-    private void logoutUser(Long userId)
-    {
-        String userIdString = userId.toString();
-        String hashKey = TokenConstant.TOKEN_HASH_KEY_PREFIX + SecureUtil.md5(userIdString).substring(0, 2);
-
-        Object exist = redisTemplate.opsForHash().get(hashKey, userIdString);
-
-        if (ObjectUtil.isNotNull(exist)) {
-            redisTemplate.delete(TokenConstant.TOKEN_KEY_PREFIX + exist.toString());
-        }
+    @PostMapping("/updatePassword")
+    @SystemLog(description = "修改用户密码")
+    public Result<Object> updatePassword(@RequestParam String id, @RequestParam String password) {
+        return userInfoService.updatePassword(id, password);
     }
 }

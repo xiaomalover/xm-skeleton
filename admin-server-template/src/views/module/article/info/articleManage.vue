@@ -60,7 +60,7 @@
                             </Button>
                             <DropdownMenu slot="list" style="padding: 10px;">
                                 <Checkbox-group v-model="tableColumnsChecked" @on-change="changeTableColumns">
-                                    <Checkbox v-for="(item) in allColumns" :label="item.key">{{item.title}}</Checkbox>
+                                    <Checkbox v-for="(item) in allColumns" :label="item.key" :key="item.key">{{item.title}}</Checkbox>
                                 </Checkbox-group>
                             </DropdownMenu>
                         </Dropdown>

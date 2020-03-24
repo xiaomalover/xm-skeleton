@@ -66,6 +66,11 @@ export const deleteUser = (ids, params) => {
     return deleteRequest(`/user/delByIds/${ids}`, params)
 };
 
+// 修改密码
+export const updateAdminPassword = (params) => {
+    return postRequest('/user/admin/updatePassword', params)
+};
+
 // 获取一级部门
 export const initDepartment = (params) => {
     return getRequest('/department/getByParentId/0', params)
@@ -299,4 +304,9 @@ export const enableUserInfo = (id, params) => {
 // 禁用用户
 export const disableUserInfo = (id, params) => {
     return postRequest(`/userInfo/disable/${id}`, params)
+};
+
+// 修改用户密码
+export const updateUserPassword = (params) => {
+    return postRequest('/userInfo/updatePassword', params)
 };

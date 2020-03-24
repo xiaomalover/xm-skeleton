@@ -46,13 +46,26 @@
     export default {
         name: "change_pass",
         data() {
-            const valideRePassword = (rule, value, callback) => {
-                if (value !== this.editPasswordForm.newPass) {
-                    callback(new Error("两次输入密码不一致"));
+
+            const validatePassword = (rule, value, callback) => {
+                var reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]/;
+                if (!reg.test(value) || value.length < 6 || value.length > 16) {
+                    callback(new Error("密码必须6-16位大小写字母和数字组合"));
                 } else {
                     callback();
                 }
             };
+
+            const validateConfirmPassword = (rule, value, callback) => {
+                if (value == '') {
+                    callback(new Error('请输入确认密码'));
+                } else if (this.editPasswordForm.newPass != value) {
+                    callback(new Error('确认密码错误'));
+                } else {
+                    callback();
+                }
+            };
+
             return {
                 id: "", // 登录用户的userId
                 savePassLoading: false,
@@ -65,12 +78,10 @@
                     oldPass: [{required: true, message: "请输入原密码", trigger: "blur"}],
                     newPass: [
                         {required: true, message: "请输入新密码", trigger: "blur"},
-                        {min: 6, message: "请至少输入6个字符", trigger: "blur"},
-                        {max: 32, message: "最多输入32个字符", trigger: "blur"}
+                        {validator: validatePassword, trigger: "blur"}
                     ],
                     rePass: [
-                        {required: true, message: "请再次输入新密码", trigger: "blur"},
-                        {validator: valideRePassword, trigger: "blur"}
+                        {validator: validateConfirmPassword, trigger: "blur"}
                     ]
                 }
             };

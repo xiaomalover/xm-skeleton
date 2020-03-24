@@ -61,6 +61,21 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
     }
 
+    @Override
+    public Result<Object> updatePassword(String id, String password) {
+        UserInfo old = getById(id);
+
+        String newEncryptPass = encodePassword(password);
+        old.setPassword(newEncryptPass);
+        boolean sec = updateById(old);
+        if (!sec) {
+            return new ResultUtil<>().setErrorMsg("修改失败");
+        }
+
+        return new ResultUtil<>().setData(old);
+    }
+
+
     /**
      * 加密登录密码
      * @param password 登录密码名文

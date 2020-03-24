@@ -148,6 +148,24 @@
                 <Button type="primary" :loading="submitLoading" @click="submitUser">提交</Button>
             </div>
         </Modal>
+
+        <Modal :title="passwordModalTitle" v-model="passwordModalVisible" :mask-closable='false' :width="500"
+               :styles="{top: '30px'}">
+            <Form ref="passwordForm" :model="passwordForm" :label-width="70" :rules="passwordFormValidate">
+                <FormItem label="密码" prop="password" :error="errorPass">
+                    <Input type="password" v-model="passwordForm.password" autocomplete="off"/>
+                </FormItem>
+                <FormItem label="确认密码" prop="confirmPassword" :error="errorPass">
+                    <Input type="password" v-model="passwordForm.confirmPassword" autocomplete="off"/>
+                </FormItem>
+                <input type="hidden" v-model="passwordForm.id" />
+            </Form>
+            <div slot="footer">
+                <Button type="text" @click="cancelPassword">取消</Button>
+                <Button type="primary" :loading="submitLoading" @click="submitPassword">提交</Button>
+            </div>
+        </Modal>
+
     </div>
 </template>
 
@@ -161,7 +179,8 @@
         editUser,
         enableUser,
         disableUser,
-        deleteUser
+        deleteUser,
+        updateAdminPassword
     } from "@/api/index";
     import moment from 'moment';
 
@@ -169,12 +188,14 @@
         name: "user-manage",
         data() {
             const validatePassword = (rule, value, callback) => {
-                if (value.length < 6) {
-                    callback(new Error("密码长度不得小于6位"));
+                var reg = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9]/;
+                if (!reg.test(value) || value.length < 6 || value.length > 16) {
+                    callback(new Error("密码必须6-16位大小写字母和数字组合"));
                 } else {
                     callback();
                 }
             };
+
             const validateMobile = (rule, value, callback) => {
                 var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
                 if (!reg.test(value)) {
@@ -183,6 +204,17 @@
                     callback();
                 }
             };
+
+            const validateConfirmPassword = (rule, value, callback) => {
+                if (value == '') {
+                    callback(new Error('确认密码不能为空'));
+                } else if (this.passwordForm.password != value) {
+                    callback(new Error('确认密码错误'));
+                } else {
+                    callback();
+                }
+            };
+
             return {
                 accessToken: {},
                 loading: true,
@@ -213,7 +245,9 @@
                 selectDate: null,
                 modalType: 0,
                 userModalVisible: false,
+                passwordModalVisible: false,
                 modalTitle: "",
+                passwordModalTitle: "修改密码",
                 userForm: {
                     sex: 1,
                     type: 0,
@@ -223,6 +257,11 @@
                     mobile: "",
                     departmentId: "",
                     departmentTitle: ""
+                },
+                passwordForm: {
+                    password: "",
+                    confirmPassword: "",
+                    id: 0
                 },
                 userRoles: [],
                 roleList: [],
@@ -238,7 +277,20 @@
                     email: [
                         {required: true, message: "请输入邮箱地址"},
                         {type: "email", message: "邮箱格式不正确"}
+                    ],
+                    password: [
+                        {required: true, message: "密码不能为空"},
+                        {validator: validatePassword, trigger: "blur"},
                     ]
+                },
+                passwordFormValidate: {
+                    password: [
+                        {required: true, message: "密码不能为空", trigger: "blur"},
+                        {validator: validatePassword, trigger: "blur"}
+                    ],
+                    confirmPassword: [
+                        {validator: validateConfirmPassword, trigger: "blur"}
+                    ],
                 },
                 submitLoading: false,
                 columns: [
@@ -374,11 +426,11 @@
                     {
                         title: "操作",
                         key: "action",
-                        width: 200,
+                        width: 270,
                         align: "center",
                         fixed: "right",
                         render: (h, params) => {
-                            let editBtn; let disableBtn; let enableBtn; let deleteBtn;
+                            let editBtn; let disableBtn; let enableBtn; let deleteBtn; let updatePasswordBtn;
                             if (this.permTypes.includes("edit")) {
                                 editBtn = h(
                                     "Button",
@@ -459,17 +511,39 @@
                                 );
                             }
 
+                            if (this.permTypes.includes("updatePassword")) {
+                                updatePasswordBtn = h(
+                                    "Button",
+                                    {
+                                        props: {
+                                            type: "warning",
+                                            size: "small"
+                                        },
+                                        style: {
+                                            marginRight: "5px"
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.updatePassword(params.row);
+                                            }
+                                        }
+                                    },
+                                    "修改密码"
+                                );
+                            }
 
                             if (params.row.status === 1) {
                                 return h("div", [
                                     editBtn,
                                     disableBtn,
+                                    updatePasswordBtn,
                                     deleteBtn,
                                 ]);
                             } else {
                                 return h("div", [
                                     editBtn,
                                     enableBtn,
+                                    updatePasswordBtn,
                                     deleteBtn,
                                 ]);
                             }
@@ -774,6 +848,9 @@
             cancelUser() {
                 this.userModalVisible = false;
             },
+            cancelPassword() {
+                this.passwordModalVisible = false;
+            },
             submitUser() {
                 this.$refs.userForm.validate(valid => {
                     if (valid) {
@@ -816,6 +893,22 @@
                 });
             },
 
+            submitPassword() {
+                this.$refs.passwordForm.validate(valid => {
+                    if (valid) {
+                        // 编辑
+                        updateAdminPassword(this.passwordForm).then(res => {
+                            this.submitLoading = false;
+                            if (res.success === true) {
+                                this.$Message.success("操作成功");
+                                this.getUserList();
+                                this.passwordModalVisible = false;
+                            }
+                        });
+                    }
+                });
+            },
+
             add() {
                 this.modalType = 0;
                 this.modalTitle = "添加用户";
@@ -841,6 +934,11 @@
                 });
                 this.userForm.roles = selectRolesId;
                 this.userModalVisible = true;
+            },
+            updatePassword(v) {
+                this.$refs.passwordForm.resetFields();
+                this.passwordForm.id = v.id;
+                this.passwordModalVisible = true;
             },
             enable(v) {
                 this.$Modal.confirm({

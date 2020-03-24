@@ -32,4 +32,12 @@ public interface IUserInfoService extends IService<UserInfo> {
      * @return Result
      */
     Result<Object> addUser(UserInfo userInfo);
+
+    /**
+     * 修改用户密码
+     * @param id 用户ID
+     * @param password 密码
+     * @return Result
+     */
+    Result<Object> updatePassword(String id, String password);
 }

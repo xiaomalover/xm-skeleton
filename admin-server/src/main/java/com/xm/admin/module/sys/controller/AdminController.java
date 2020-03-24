@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.xm.admin.common.annotation.SystemLog;
 import com.xm.admin.common.constant.CommonConstant;
 import com.xm.admin.common.handler.PermissionEditor;
 import com.xm.admin.common.handler.RolesEditor;
@@ -365,6 +366,25 @@ public class AdminController {
             userRoleService.remove((new QueryWrapper<AdminRole>().eq("user_id", id)));
         }
         return new ResultUtil<>().setSuccessMsg("批量通过id删除数据成功");
+    }
+
+    @PostMapping("/admin/updatePassword")
+    @SystemLog(description = "修改管理员密码")
+    public Result<Object> updatePassword(@RequestParam String id, @RequestParam String password, @RequestParam String confirmPassword) {
+
+        Admin old = adminService.getById(id);
+
+        String newEncryptPass = new BCryptPasswordEncoder().encode(password);
+        old.setPassword(newEncryptPass);
+        boolean sec = adminService.updateById(old);
+        if (!sec) {
+            return new ResultUtil<>().setErrorMsg("修改失败");
+        }
+
+        //手动更新缓存
+        redisTemplate.delete("admin::" + old.getUsername());
+
+        return new ResultUtil<>().setData(old);
     }
 
     /**

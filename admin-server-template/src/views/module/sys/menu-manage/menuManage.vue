@@ -261,6 +261,7 @@
                     {title: "导入操作", value: "input"},
                     {title: "分配权限", value: "editPerm"},
                     {title: "设为默认", value: "setDefault"},
+                    {title: "修改密码", value: "updatePassword"},
                     {title: "其他操作", value: "other"}
                 ]
             };
