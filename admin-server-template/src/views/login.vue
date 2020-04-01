@@ -52,7 +52,7 @@
 
 <script>
     import Cookies from "js-cookie";
-    import {getCaptcha, getJWT, initCaptcha, login, userInfo,} from "@/api/index";
+    import {getCaptcha, getJWT, initCaptcha, login, userInfo, getUploadDomain,} from "@/api/index";
     import util from "@/libs/util.js";
 
     export default {
@@ -150,6 +150,15 @@
             }).then(res => {
               if (res.success === true) {
                 this.setStore("accessToken", res.result);
+
+                //设置图片主域名
+                getUploadDomain().then(res => {
+                  this.loading = false;
+                  if (res.success === true) {
+                    Cookies.set("imageDomain", res.result);
+                  }
+                });
+
                 // 获取用户信息
                 userInfo().then(res => {
                   if (res.success === true) {
