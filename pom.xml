@@ -29,7 +29,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <mybatis-plus.version>3.0.7.1</mybatis-plus.version>
         <beetl.version>2.9.8</beetl.version>
-        <mysql-connect.version>5.1.44</mysql-connect.version>
+        <mysql-connect.version>8.0.16</mysql-connect.version>
         <druid.version>1.1.10</druid.version>
         <spring-boot-starter-data-redis.version>2.2.5.RELEASE</spring-boot-starter-data-redis.version>
         <fastjson.version>1.2.54</fastjson.version>
